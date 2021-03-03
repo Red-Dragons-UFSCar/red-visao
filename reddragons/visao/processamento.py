@@ -1,10 +1,10 @@
 import cv2
 import numpy as np
 import threading
-import estruturas
-import captura
+from reddragons.visao import estruturas
+from reddragons.visao import captura
 import time
-from logger import logger
+from reddragons.visao.logger import logger
 import copy
 import math
 

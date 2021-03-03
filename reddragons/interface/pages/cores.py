@@ -6,9 +6,9 @@ from PyQt5.uic import loadUi
 import cv2
 import numpy as np
 
-from estruturas import *
-from logger import *
-import processamento
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
+from reddragons.visao import processamento
 
 class GUI_cores(QMainWindow):
     def __init__(self, visao):

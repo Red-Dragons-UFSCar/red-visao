@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication
-import processamento
+from reddragons.visao import processamento
 import sys
 from reddragons.interface import GUI_main
 

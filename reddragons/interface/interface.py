@@ -10,8 +10,8 @@ import cv2
 import numpy as np
 
 import enviarInfo
-from estruturas import *
-from logger import *
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
 import captura
 import processamento
 import serial

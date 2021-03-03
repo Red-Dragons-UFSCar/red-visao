@@ -11,7 +11,6 @@ from .perspectiva import GUI_perspectiva
 from .salvar import GUI_salvar
 from .visualizacao import GUI_visualizacao
 
-"""
 __all__ = [
     'GUI_camera',
     'GUI_carregar',
@@ -26,4 +25,3 @@ __all__ = [
     'GUI_salvar',
     'GUI_visualizacao',
 ]
-"""

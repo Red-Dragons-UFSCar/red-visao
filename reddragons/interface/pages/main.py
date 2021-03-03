@@ -3,21 +3,11 @@ from ..utils import ui_files
 from PyQt5.uic import loadUi
 import cv2
 
-from estruturas import *
-from logger import *
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
 
 #import GUIs
-from .camera import GUI_camera
-from .carregar import GUI_carregar
-from .centros import GUI_centro
-from .controle import GUI_controle
-from .cores import GUI_cores
-from .corte import GUI_corte
-from .cruzetas import GUI_cruzetas
-from .jogar import GUI_jogar
-from .perspectiva import GUI_perspectiva
-from .salvar import GUI_salvar
-from .visualizacao import GUI_visualizacao
+import reddragons.interface as ifc
 
 class GUI_main(QMainWindow):
     def __init__(self, visao):
@@ -45,31 +35,31 @@ class GUI_main(QMainWindow):
         self.visao.iniciar()
         
     def setCamera(self):
-        self.tela = GUI_camera(self.visao)
+        self.tela = ifc.GUI_camera(self.visao)
         
     def visualizacao(self):
-        self.tela = GUI_visualizacao(self.visao)
+        self.tela = ifc.GUI_visualizacao(self.visao)
         
     def perspectiva(self):
-        self.tela = GUI_perspectiva(self.visao)
+        self.tela = ifc.GUI_perspectiva(self.visao)
         
     def corte(self):
-        self.tela = GUI_corte(self.visao)
+        self.tela = ifc.GUI_corte(self.visao)
         
     def cruzetas(self):
-        self.tela = GUI_cruzetas(self.visao)
+        self.tela = ifc.GUI_cruzetas(self.visao)
         
     def cores(self):
-        self.tela = GUI_cores(self.visao)
+        self.tela = ifc.GUI_cores(self.visao)
         
     def centro(self):
-        self.tela = GUI_centro(self.visao)
+        self.tela = ifc.GUI_centro(self.visao)
 
     def controle(self):
-        self.tela = GUI_controle(self.visao)
+        self.tela = ifc.GUI_controle(self.visao)
 
     def jogar(self):
-        self.tela = GUI_jogar(self.visao)
+        self.tela = ifc.GUI_jogar(self.visao)
 
     def versao(self):
         logger().dado(cv2.getBuildInformation())
@@ -81,7 +71,7 @@ class GUI_main(QMainWindow):
         self.visao.mudarVerbose()
         
     def salvar(self):
-        self.tela = GUI_salvar(self.visao)
+        self.tela = ifc.GUI_salvar(self.visao)
     
     def carregar(self):
-        self.tela = GUI_carregar(self.visao)
+        self.tela = ifc.GUI_carregar(self.visao)

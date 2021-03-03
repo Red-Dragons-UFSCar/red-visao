@@ -1,5 +1,5 @@
 import numpy as np
-from logger import *
+from reddragons.visao.logger import *
 from inspect import currentframe, getframeinfo
 import serial
 

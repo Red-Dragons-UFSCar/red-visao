@@ -1,8 +1,8 @@
 import math
 import cv2
-import processamento
-from estruturas import *
-from logger import *
+import reddragons.visao.processamento as processamento
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow

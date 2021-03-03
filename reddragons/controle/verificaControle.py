@@ -13,7 +13,7 @@
 from math import *
 import numpy as np
 import math
-import calculaControle
+from reddragons.controle import calculaControle
 """
 Função:  atingiuAlvo
 Objetivo: Verificar se o robô esta dentro de uma circunferência de raio erro com o centro no alvo

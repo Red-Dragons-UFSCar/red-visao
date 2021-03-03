@@ -3,11 +3,11 @@ from PyQt5.QtWidgets import QMainWindow
 from ..utils import ui_files
 from PyQt5.uic import loadUi
 
-from utils import PointsParser, converte_coord
+from reddragons.visao.utils import PointsParser, converte_coord
 import cv2
 
-from estruturas import *
-from logger import *
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
 
 class GUI_perspectiva(QMainWindow):
     def __init__(self, visao):

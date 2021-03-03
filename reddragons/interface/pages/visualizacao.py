@@ -7,8 +7,8 @@ from PyQt5.uic import loadUi
 import cv2
 from enum import Enum
 
-from estruturas import *
-from logger import *
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
 import math
 
 class Estado(Enum):

@@ -2,10 +2,10 @@
 
 import numpy as np
 from math import *
-from controle import controle
-from verificaControle import atingiuAngulo
-from enviarInfo import *
-import enviarInfo
+from reddragons.controle import controle
+from reddragons.controle.verificaControle import atingiuAngulo
+from reddragons.controle.enviarInfo import *
+from reddragons.controle import enviarInfo
 
 """
 Função:  posicaoInicial

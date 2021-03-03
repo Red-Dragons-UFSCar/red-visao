@@ -16,8 +16,9 @@ import numpy as np
 import random
 #import cv2
 import time
-import enviarInfo
-import estrategias
+from reddragons.controle import enviarInfo
+from reddragons.controle import estrategias
+
 
 #Caso não exista os arquivos do V-rep, remover a importação do vrep, mas não será possível simular
 #import vrep

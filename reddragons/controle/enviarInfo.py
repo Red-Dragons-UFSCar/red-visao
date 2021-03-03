@@ -6,10 +6,10 @@ import numpy as np
 import pandas as pd
 #import vrep
 import serial 
-import estrategias
+from reddragons.controle import estrategias
 import os
-from estruturas import estruturaControle
-import AcoesControle
+from reddragons.visao.estruturas import estruturaControle
+from reddragons.controle import AcoesControle
 
 def InicializaControle(Dados):
     DadosControle = estruturaControle()

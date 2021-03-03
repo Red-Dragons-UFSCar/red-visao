@@ -1,4 +1,5 @@
-#
+import numpy as np
+import math
 
 #Calculo do angulo desejado
 def calculaAngulo(origem, destino):

@@ -3,10 +3,11 @@
 Repositório contendo o código de 2020 utilizado pela equipe Red Dragons
 
 ## Para executar o código
-- Utilizar o comando abaixo no terminal para instalar todas as bibliotecas necessarias
 
+- Na raiz do projeto, utilizar os comandos abaixo no terminal para instalar todas as bibliotecas necessarias
 >$ pip install -r *requirements.py*
-- Executar o aquivo *main.py*
+>$ pip install -e *./*
+- Executar o aquivo *bin/main.py*
 
 ## Para realizar mudanças
 - Crie um branch com o nome de sua mudança.

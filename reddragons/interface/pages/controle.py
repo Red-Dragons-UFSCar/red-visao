@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QMainWindow
 from ..utils import ui_files
 from PyQt5.uic import loadUi
 
-from estruturas import *
-from logger import *
+from reddragons.visao.estruturas import *
+from reddragons.visao.logger import *
 
 class GUI_controle(QMainWindow):
 

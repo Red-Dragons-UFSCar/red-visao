@@ -1,7 +1,10 @@
 import threading
 import cv2
-from logger import logger
+from reddragons.visao.logger import logger
 import time
+from pathlib import Path
+
+jogo_path = str(Path(__file__, '../../../data/jogo.avi').resolve())
 
 def testDevice(src):
     cap = cv2.VideoCapture(src) 
@@ -9,16 +12,14 @@ def testDevice(src):
         logger().erro('Não foi possível abrir o dispositivo: ' + str(src))
         return 0
     return 1
-   
-    
 
 class Imagem():
-    def __init__(self,src='videos/jogo.avi'): 
+    def __init__(self,src=jogo_path): 
         estado = testDevice(src)
         if estado:
             self.src = src
         else:
-            self.src = 'videos/jogo.avi'
+            self.src = jogo_path
         self.cap = cv2.VideoCapture(self.src)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH,640)
@@ -26,13 +27,13 @@ class Imagem():
         self.started = False
         self.read_lock = threading.Lock()
         
-    def alterarSrc(self, src="jogo.avi"):
+    def alterarSrc(self, src=jogo_path):
         self.stop()
         estado = testDevice(src)
         if estado:
             self.src = src
         else:
-            self.src = 'jogo.avi'
+            self.src = jogo_path
         self.cap = cv2.VideoCapture(self.src)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH,640)

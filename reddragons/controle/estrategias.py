@@ -13,11 +13,11 @@ Membros:       Alexandre Dias Negretti
 
 """
 
-from verificaControle import *
-import enviarInfo
-from calculaControle import *
-from AcoesControle import *
-from controle import *
+from reddragons.controle.verificaControle import *
+import reddragons.controle.enviarInfo as enviarInfo
+from reddragons.controle.calculaControle import *
+from reddragons.controle.AcoesControle import *
+from reddragons.controle.controle import *
 # KalmanFilterVelocity import *
 import numpy as np
 from math import *
