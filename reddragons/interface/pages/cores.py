@@ -6,8 +6,7 @@ from PyQt5.uic import loadUi
 import cv2
 import numpy as np
 
-from reddragons.visao.logger import *
-from reddragons.visao import processamento
+from reddragons.visao import utils as vutils
 
 class GUI_cores(QMainWindow):
     def __init__(self, visao):
@@ -53,7 +52,7 @@ class GUI_cores(QMainWindow):
         self.referencia = self.visao.read_Imagem().imagem_crop
         self.imagem_HSV = self.visao.read_Imagem().imagem_HSV
         self.dados = self.visao.read_Dados()
-        self.contornos, _ = processamento.getContornoCor(self.imagem_HSV, self.dados.cores[0], self.dados.filtros[0])
+        self.contornos, _ = vutils.getContornoCor(self.imagem_HSV, self.dados.cores[0], self.dados.filtros[0])
         self.desenhar()
         
     def salvar(self):
@@ -68,7 +67,7 @@ class GUI_cores(QMainWindow):
         
     def novaCor(self):
         i = self.QT_selecao.currentIndex()
-        self.contornos, _ = processamento.getContornoCor(self.imagem_HSV,  self.dados.cores[i], self.dados.filtros[i])
+        self.contornos, _ = vutils.getContornoCor(self.imagem_HSV,  self.dados.cores[i], self.dados.filtros[i])
         
         cores = self.dados.cores[i]
         filtros = self.dados.filtros[i]
@@ -99,7 +98,7 @@ class GUI_cores(QMainWindow):
         self.dados.cores[i] = [ [self.QT_HMin.value(), self.QT_SMin.value(), self.QT_VMin.value()], [self.QT_HMax.value(), self.QT_SMax.value(), self.QT_VMax.value()]]
         self.dados.filtros[i] = [ int(self.QT_qualKernel.currentIndex()), int(self.QT_tipoKernel.currentIndex()), self.QT_valorKernel.value()]
         
-        self.contornos, _ = processamento.getContornoCor(cv2.cvtColor(np.uint8(self.referencia), cv2.COLOR_RGB2HSV),  self.dados.cores[i], self.dados.filtros[i])
+        self.contornos, _ = vutils.getContornoCor(cv2.cvtColor(np.uint8(self.referencia), cv2.COLOR_RGB2HSV),  self.dados.cores[i], self.dados.filtros[i])
         
         
         self.centroids = np.empty([0,3])

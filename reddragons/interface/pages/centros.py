@@ -1,6 +1,6 @@
 import math
 import cv2
-import reddragons.visao.processamento as processamento
+from reddragons.visao import utils as vutils
 from reddragons.visao.logger import *
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
@@ -45,7 +45,7 @@ class GUI_centro(QMainWindow):
         self.visao.set_Dados(self.dados)
             
     def desenhar(self):
-        centros = processamento.calculaCentros(self.centroids, self.dados.angCorr)
+        centros = vutils.calculaCentros(self.centroids, self.dados.angCorr)
         
         img = self.referencia.copy()
         C = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
