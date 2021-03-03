@@ -1,9 +1,9 @@
+import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
 from PyQt5.uic import loadUi
 
-import cv2
+from ..utils import ui_files
 
 
 class GUI_cruzetas(QMainWindow):
@@ -13,11 +13,11 @@ class GUI_cruzetas(QMainWindow):
         self.show()
         self.visao = visao
         self.dados = self.visao.read_dados()
-        self.getReferencia()
-        self.QT_btReferencia.clicked.connect(self.getReferencia)
+        self.get_referencia()
+        self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
 
-    def getReferencia(self):
+    def get_referencia(self):
 
         self.referencia = self.visao.read_imagem().imagem_warp
         self.desenhar()
@@ -44,6 +44,6 @@ class GUI_cruzetas(QMainWindow):
         for ponto in self.dados.cruzetas:
             cv2.drawMarker(img, (ponto[0], ponto[1]), (255, 0, 0))
 
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_Imagem.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_Imagem.setPixmap(_q_pixmap)

@@ -1,9 +1,9 @@
+import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
 from PyQt5.uic import loadUi
-import cv2
-from reddragons.visao import Logger
+
+from ..utils import ui_files
 
 
 class GUI_corte(QMainWindow):
@@ -14,12 +14,12 @@ class GUI_corte(QMainWindow):
         self.visao = visao
         self.dados = self.visao.read_dados()
 
-        self.getReferencia()
+        self.get_referencia()
 
-        self.QT_btReferencia.clicked.connect(self.getReferencia)
+        self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
 
-    def getReferencia(self):
+    def get_referencia(self):
 
         self.referencia = self.visao.read_imagem().imagem_warp
         self.desenhar()
@@ -52,6 +52,6 @@ class GUI_corte(QMainWindow):
         img[self.dados.corte[2][1] : 480, 0 : self.dados.corte[2][0], :] = 0
         img[self.dados.corte[3][1] : 480, self.dados.corte[3][0] : 640, :] = 0
 
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_Imagem.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_Imagem.setPixmap(_q_pixmap)

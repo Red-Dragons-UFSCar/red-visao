@@ -1,8 +1,9 @@
+import os
+
 from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
 from PyQt5.uic import loadUi
 
-import os
+from ..utils import ui_files
 
 
 class GUI_camera(QMainWindow):
@@ -16,18 +17,18 @@ class GUI_camera(QMainWindow):
             if files.endswith(".avi"):
                 self.QT_listaVideos.addItem(str(files))
 
-        self.QT_camera.clicked.connect(self.setCamera)
-        self.QT_video.clicked.connect(self.setVideo)
-        self.QT_webcam.clicked.connect(self.setWebcam)
+        self.QT_camera.clicked.connect(self.set_camera)
+        self.QT_video.clicked.connect(self.set_video)
+        self.QT_webcam.clicked.connect(self.set_webcam)
 
-    def setCamera(self):
+    def set_camera(self):
 
         self.visao.alterar_src(2)
 
-    def setVideo(self):
+    def set_video(self):
 
         self.visao.alterar_src("videos/" + self.QT_listaVideos.currentText())
 
-    def setWebcam(self):
+    def set_webcam(self):
 
         self.visao.alterar_src(0)

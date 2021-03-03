@@ -1,12 +1,13 @@
 import math
+
 import cv2
-from reddragons.visao import utils as vutils
-from reddragons.visao import Logger
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
 from PyQt5.uic import loadUi
+from reddragons.visao import utils as vutils
+
+from ..utils import ui_files
 
 
 class GUI_centro(QMainWindow):
@@ -49,8 +50,8 @@ class GUI_centro(QMainWindow):
         centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
 
         img = self.referencia.copy()
-        C = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
-        for c, p in zip(C, centros):
+        cores = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
+        for c, p in zip(cores, centros):
             cv2.circle(img, (int(p[0]), int(p[1])), 25, c, 1)
             cv2.line(
                 img,
@@ -69,6 +70,6 @@ class GUI_centro(QMainWindow):
                 c,
                 1,
             )
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_Imagem.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_Imagem.setPixmap(_q_pixmap)

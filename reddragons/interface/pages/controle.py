@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
 from PyQt5.uic import loadUi
 
-from reddragons.visao import Logger
+from ..utils import ui_files
 
 
 class GUI_controle(QMainWindow):
@@ -35,45 +34,45 @@ class GUI_controle(QMainWindow):
 
     def mudanca(self):
 
-        DadosControle = self.visao.sincronizar_controle()
+        dados_controle = self.visao.sincronizar_controle()
 
-        DadosControle.Kp1 = self.lineKp1.text()
-        DadosControle.Kd1 = self.lineKd1.text()
-        DadosControle.Ki1 = self.lineKi1.text()
-        DadosControle.Kp2 = self.lineKp2.text()
-        DadosControle.Kd2 = self.lineKd2.text()
-        DadosControle.Ki2 = self.lineKi2.text()
-        DadosControle.Kp3 = self.lineKp3.text()
-        DadosControle.Kd3 = self.lineKd3.text()
-        DadosControle.Ki3 = self.lineKi3.text()
-        DadosControle.porta = self.porta_value.text()
-        DadosControle.trocouCampo = True if self.dir_radio.isChecked() else False
-        DadosControle.bolaNossa1 = 1 if self.bolaNossa.isChecked() else 0
-        DadosControle.duasFaces = True if self.duasFaces.isChecked() else False
-        DadosControle.flagAtivaKalman = True if self.kalman.isChecked() else False
-        DadosControle.simular = True if self.simular.isChecked() else False
-        DadosControle.irParaAlvoFixo = True if self.alvoFixo.isChecked() else False
+        dados_controle.Kp1 = self.lineKp1.text()
+        dados_controle.Kd1 = self.lineKd1.text()
+        dados_controle.Ki1 = self.lineKi1.text()
+        dados_controle.Kp2 = self.lineKp2.text()
+        dados_controle.Kd2 = self.lineKd2.text()
+        dados_controle.Ki2 = self.lineKi2.text()
+        dados_controle.Kp3 = self.lineKp3.text()
+        dados_controle.Kd3 = self.lineKd3.text()
+        dados_controle.Ki3 = self.lineKi3.text()
+        dados_controle.porta = self.porta_value.text()
+        dados_controle.trocouCampo = True if self.dir_radio.isChecked() else False
+        dados_controle.bolaNossa1 = 1 if self.bolaNossa.isChecked() else 0
+        dados_controle.duasFaces = True if self.duasFaces.isChecked() else False
+        dados_controle.flagAtivaKalman = True if self.kalman.isChecked() else False
+        dados_controle.simular = True if self.simular.isChecked() else False
+        dados_controle.irParaAlvoFixo = True if self.alvoFixo.isChecked() else False
 
-        self.visao.set_dadosControle(DadosControle)
+        self.visao.set_dados_controle(dados_controle)
 
     def inicializarValores(self):
 
-        DadosControle = self.visao.sincronizar_controle()
+        dados_controle = self.visao.sincronizar_controle()
 
-        self.lineKd1.setText(str(DadosControle.Kd1))
-        self.lineKp1.setText(str(DadosControle.Kd1))
-        self.lineKi1.setText(str(DadosControle.Ki1))
-        self.lineKd2.setText(str(DadosControle.Kd2))
-        self.lineKp2.setText(str(DadosControle.Kp2))
-        self.lineKi2.setText(str(DadosControle.Ki2))
-        self.lineKd3.setText(str(DadosControle.Kd3))
-        self.lineKp3.setText(str(DadosControle.Kp3))
-        self.lineKi3.setText(str(DadosControle.Ki3))
-        self.porta_value.setText(DadosControle.porta)
+        self.lineKd1.setText(str(dados_controle.Kd1))
+        self.lineKp1.setText(str(dados_controle.Kd1))
+        self.lineKi1.setText(str(dados_controle.Ki1))
+        self.lineKd2.setText(str(dados_controle.Kd2))
+        self.lineKp2.setText(str(dados_controle.Kp2))
+        self.lineKi2.setText(str(dados_controle.Ki2))
+        self.lineKd3.setText(str(dados_controle.Kd3))
+        self.lineKp3.setText(str(dados_controle.Kp3))
+        self.lineKi3.setText(str(dados_controle.Ki3))
+        self.porta_value.setText(dados_controle.porta)
 
-        self.esq_radio.setChecked(DadosControle.trocouCampo)
-        self.bolaNossa.setChecked(DadosControle.bolaNossa1)
-        self.duasFaces.setChecked(DadosControle.duasFaces)
-        self.kalman.setChecked(DadosControle.flagAtivaKalman)
-        self.simular.setChecked(DadosControle.simular)
-        self.alvoFixo.setChecked(DadosControle.irParaAlvoFixo)
+        self.esq_radio.setChecked(dados_controle.trocouCampo)
+        self.bolaNossa.setChecked(dados_controle.bolaNossa1)
+        self.duasFaces.setChecked(dados_controle.duasFaces)
+        self.kalman.setChecked(dados_controle.flagAtivaKalman)
+        self.simular.setChecked(dados_controle.simular)
+        self.alvoFixo.setChecked(dados_controle.irParaAlvoFixo)

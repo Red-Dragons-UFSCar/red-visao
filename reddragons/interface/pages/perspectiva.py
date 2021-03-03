@@ -1,12 +1,10 @@
+import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
 from PyQt5.uic import loadUi
-
 from reddragons.visao.utils import PointsParser, converte_coord
-import cv2
 
-from reddragons.visao import Logger
+from ..utils import ui_files
 
 
 class GUI_perspectiva(QMainWindow):
@@ -16,14 +14,14 @@ class GUI_perspectiva(QMainWindow):
         self.show()
         self.visao = visao
         self.dados = self.visao.read_dados()
-        self.inputCount = 0
+        self.input_count = 0
         self.inputs = []
-        self.getReferencia()
+        self.get_referencia()
 
-        self.QT_btReferencia.clicked.connect(self.getReferencia)
+        self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
 
-    def getReferencia(self):
+    def get_referencia(self):
 
         self.referencia = self.visao.read_imagem().imagem_original
         self.desenhar()
@@ -42,11 +40,11 @@ class GUI_perspectiva(QMainWindow):
         if (x < self.QT_Imagem.geometry().width()) and (
             y < self.QT_Imagem.geometry().height() and x >= 0 and y >= 0
         ):
-            if self.inputCount <= 8:
-                self.inputCount += 1
+            if self.input_count <= 8:
+                self.input_count += 1
                 self.inputs.append((x, y))
                 self.desenhar()
-                if self.inputCount == 8:
+                if self.input_count == 8:
                     parser = PointsParser(self.inputs)
                     pts = parser.run()
                     self.dados.warp_perspective = pts["externos"]
@@ -64,6 +62,6 @@ class GUI_perspectiva(QMainWindow):
         for ponto in self.inputs:
             cv2.circle(img, (ponto[0], ponto[1]), 6, (205, 0, 0), -1)
 
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_Imagem.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_Imagem.setPixmap(_q_pixmap)

@@ -1,12 +1,10 @@
-from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
-from PyQt5.uic import loadUi
 import cv2
-
+import reddragons.interface as ifc
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.uic import loadUi
 from reddragons.visao import Logger
 
-# import GUIs
-import reddragons.interface as ifc
+from ..utils import ui_files
 
 
 class GUI_main(QMainWindow):
@@ -26,14 +24,14 @@ class GUI_main(QMainWindow):
         self.QT_Centro.clicked.connect(self.centro)
         self.QT_FPS.clicked.connect(self.mudar_verbose)
         self.QT_Versao.clicked.connect(self.versao)
-        self.QT_camera.clicked.connect(self.setCamera)
+        self.QT_camera.clicked.connect(self.set_camera)
         self.QT_btcontrole.clicked.connect(self.controle)
         self.QT_jogo.clicked.connect(self.jogar)
         self.show()
 
         self.visao.iniciar()
 
-    def setCamera(self):
+    def set_camera(self):
         self.tela = ifc.GUI_camera(self.visao)
 
     def visualizacao(self):

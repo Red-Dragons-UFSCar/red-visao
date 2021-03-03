@@ -1,12 +1,11 @@
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QMainWindow
-from ..utils import ui_files
-from PyQt5.uic import loadUi
-
 import cv2
 import numpy as np
-
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.uic import loadUi
 from reddragons.visao import utils as vutils
+
+from ..utils import ui_files
 
 
 class GUI_cores(QMainWindow):
@@ -22,8 +21,8 @@ class GUI_cores(QMainWindow):
         self.QT_AreaMax.setValue(self.dados.area_maxima)
         self.QT_AreaMin.setValue(self.dados.area_minima)
 
-        self.getReferencia()
-        self.QT_btReferencia.clicked.connect(self.getReferencia)
+        self.get_referencia()
+        self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btSalvar.clicked.connect(self.salvar)
         self.QT_HMin.sliderMoved.connect(self.mudanca)
         self.QT_HMax.sliderMoved.connect(self.mudanca)
@@ -36,18 +35,18 @@ class GUI_cores(QMainWindow):
         self.QT_tipoKernel.currentIndexChanged.connect(self.mudanca)
         self.QT_AreaMax.sliderMoved.connect(self.mudanca)
         self.QT_AreaMin.sliderMoved.connect(self.mudanca)
-        self.QT_selecao.currentIndexChanged.connect(self.novaCor)
-        self.QT_fatorClique.sliderMoved.connect(self.fatorFiltro)
-        self.QT_fatorCor.sliderMoved.connect(self.fatorFiltro)
+        self.QT_selecao.currentIndexChanged.connect(self.nova_cor)
+        self.QT_fatorClique.sliderMoved.connect(self.fator_filtro)
+        self.QT_fatorCor.sliderMoved.connect(self.fator_filtro)
 
-        self.fatorFiltro()
+        self.fator_filtro()
 
         self.setMouseTracking(True)
 
         self.mask = None
-        self.novaCor()
+        self.nova_cor()
 
-    def getReferencia(self):
+    def get_referencia(self):
 
         self.referencia = self.visao.read_imagem().imagem_crop
         self.imagem_hsv = self.visao.read_imagem().imagem_hsv
@@ -74,7 +73,7 @@ class GUI_cores(QMainWindow):
 
         self.visao.set_dados(self.dados)
 
-    def novaCor(self):
+    def nova_cor(self):
         i = self.QT_selecao.currentIndex()
         self.contornos, _ = vutils.get_contorno_cor(
             self.imagem_hsv, self.dados.cores[i], self.dados.filtros[i]
@@ -98,7 +97,7 @@ class GUI_cores(QMainWindow):
 
         self.desenhar()
 
-    def fatorFiltro(self):
+    def fator_filtro(self):
         self.fator_clique = self.QT_fatorClique.value()
         self.fator_cor = self.QT_fatorCor.value()
 
@@ -123,13 +122,15 @@ class GUI_cores(QMainWindow):
 
         self.centroids = np.empty([0, 3])
         for c in self.contornos:
-            M = cv2.moments(c)
-            if (M["m00"] >= self.QT_AreaMin.value()) and (
-                M["m00"] <= self.QT_AreaMax.value()
+            moments = cv2.moments(c)
+            if (moments["m00"] >= self.QT_AreaMin.value()) and (
+                moments["m00"] <= self.QT_AreaMax.value()
             ):
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
-                self.centroids = np.append(self.centroids, [[cX, cY, M["m00"]]], axis=0)
+                c_x = int(moments["m10"] / moments["m00"])
+                c_y = int(moments["m01"] / moments["m00"])
+                self.centroids = np.append(
+                    self.centroids, [[c_x, c_y, moments["m00"]]], axis=0
+                )
 
         self.desenhar()
 
@@ -149,64 +150,64 @@ class GUI_cores(QMainWindow):
                 and x < 640 - self.fator_clique
                 and y < 480 - self.fator_clique
             ):
-                HMax = max(
+                h_max = max(
                     self.imagem_hsv[y, x - self.fator_clique][0],
                     self.imagem_hsv[y - self.fator_clique, x][0],
                     self.imagem_hsv[y, x][0],
                     self.imagem_hsv[y, x + self.fator_clique][0],
                     self.imagem_hsv[y + self.fator_clique, x][0],
                 )
-                HMin = min(
+                h_min = min(
                     self.imagem_hsv[y, x - self.fator_clique][0],
                     self.imagem_hsv[y - self.fator_clique, x][0],
                     self.imagem_hsv[y, x][0],
                     self.imagem_hsv[y, x + self.fator_clique][0],
                     self.imagem_hsv[y + self.fator_clique, x][0],
                 )
-                self.QT_HMin.setValue(max(0, HMin - self.fator_cor))
-                self.QT_HMax.setValue(min(179, HMax + self.fator_cor))
+                self.QT_HMin.setValue(max(0, h_min - self.fator_cor))
+                self.QT_HMax.setValue(min(179, h_max + self.fator_cor))
 
-                SMax = max(
+                s_max = max(
                     self.imagem_hsv[y, x - self.fator_clique][1],
                     self.imagem_hsv[y - self.fator_clique, x][1],
                     self.imagem_hsv[y, x][1],
                     self.imagem_hsv[y, x + self.fator_clique][1],
                     self.imagem_hsv[y + self.fator_clique, x][1],
                 )
-                SMin = min(
+                s_min = min(
                     self.imagem_hsv[y, x - self.fator_clique][1],
                     self.imagem_hsv[y - self.fator_clique, x][1],
                     self.imagem_hsv[y, x][1],
                     self.imagem_hsv[y, x + self.fator_clique][1],
                     self.imagem_hsv[y + self.fator_clique, x][1],
                 )
-                self.QT_SMin.setValue(max(0, SMin - self.fator_cor))
-                self.QT_SMax.setValue(min(255, SMax + self.fator_cor))
+                self.QT_SMin.setValue(max(0, s_min - self.fator_cor))
+                self.QT_SMax.setValue(min(255, s_max + self.fator_cor))
 
-                VMax = max(
+                v_max = max(
                     self.imagem_hsv[y, x - self.fator_clique][2],
                     self.imagem_hsv[y - self.fator_clique, x][2],
                     self.imagem_hsv[y, x][2],
                     self.imagem_hsv[y, x + self.fator_clique][2],
                     self.imagem_hsv[y + self.fator_clique, x][2],
                 )
-                VMin = min(
+                v_min = min(
                     self.imagem_hsv[y, x - self.fator_clique][2],
                     self.imagem_hsv[y - self.fator_clique, x][2],
                     self.imagem_hsv[y, x][2],
                     self.imagem_hsv[y, x + self.fator_clique][2],
                     self.imagem_hsv[y + self.fator_clique, x][2],
                 )
-                self.QT_VMin.setValue(max(0, VMin - self.fator_cor))
-                self.QT_VMax.setValue(min(255, VMax + self.fator_cor))
+                self.QT_VMin.setValue(max(0, v_min - self.fator_cor))
+                self.QT_VMax.setValue(min(255, v_max + self.fator_cor))
             else:
-                H, S, V = self.imagem_hsv[y, x]
-                self.QT_HMin.setValue(max(0, H - self.fator_cor))
-                self.QT_HMax.setValue(min(179, H + self.fator_cor))
-                self.QT_SMin.setValue(max(0, S - self.fator_cor))
-                self.QT_SMax.setValue(min(255, S + self.fator_cor))
-                self.QT_VMin.setValue(max(0, V - self.fator_cor))
-                self.QT_VMax.setValue(min(255, V + self.fator_cor))
+                h, s, v = self.imagem_hsv[y, x]
+                self.QT_HMin.setValue(max(0, h - self.fator_cor))
+                self.QT_HMax.setValue(min(179, h + self.fator_cor))
+                self.QT_SMin.setValue(max(0, s - self.fator_cor))
+                self.QT_SMax.setValue(min(255, s + self.fator_cor))
+                self.QT_VMin.setValue(max(0, v - self.fator_cor))
+                self.QT_VMax.setValue(min(255, v + self.fator_cor))
 
             self.mudanca()
 
@@ -216,9 +217,9 @@ class GUI_cores(QMainWindow):
 
         img = cv2.drawContours(img2, self.contornos, -1, (255, 0, 0), 1)
         # img = cv2.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)))
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_Imagem.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_Imagem.setPixmap(_q_pixmap)
 
         img = cv2.drawContours(
             np.zeros((img2.shape[0], img2.shape[1], 3), np.uint8),
@@ -228,14 +229,14 @@ class GUI_cores(QMainWindow):
             -1,
         )
         img = cv2.resize(img, (int(img.shape[1] / 2), int(img.shape[0] / 2)))
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_PB.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_PB.setPixmap(_q_pixmap)
 
         img = self.referencia.copy()
         img = cv2.resize(img, (int(img.shape[1] / 2), int(img.shape[0] / 2)))
         for c in self.centroids:
             cv2.circle(img, (int(c[0] / 2), int(c[1] / 2)), 5, (255, 0, 0), -1)
-        _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
-        _qPixmap = QPixmap.fromImage(_qImage)
-        self.QT_Contorno.setPixmap(_qPixmap)
+        _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
+        _q_pixmap = QPixmap.fromImage(_q_image)
+        self.QT_Contorno.setPixmap(_q_pixmap)
