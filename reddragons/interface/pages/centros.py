@@ -1,7 +1,7 @@
 import math
 import cv2
 from reddragons.visao import utils as vutils
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
@@ -36,8 +36,8 @@ class GUI_centro(QMainWindow):
         self.desenhar()
         
     def mudanca(self):
-        self.dados.angCorr = self.QT_angCorr.value()/180.0*math.pi
-        self.value_ang.setText("{0:.2f}º".format(self.dados.angCorr*180/math.pi))
+        self.dados.ang_corr = self.QT_angCorr.value()/180.0*math.pi
+        self.value_ang.setText("{0:.2f}º".format(self.dados.ang_corr*180/math.pi))
         self.getReferencia()
         
     def finalizar(self):
@@ -45,14 +45,14 @@ class GUI_centro(QMainWindow):
         self.visao.set_dados(self.dados)
             
     def desenhar(self):
-        centros = vutils.calculaCentros(self.centroids, self.dados.angCorr)
+        centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
         
         img = self.referencia.copy()
         C = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
         for c, p in zip(C, centros):
             cv2.circle(img, (int(p[0]), int(p[1])), 25, c, 1)
             cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(p[2])*50.0), int(p[1]+ math.sin(p[2])*50.0)), c, 3)
-            cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(self.dados.angCorr)*50.0), int(p[1]+ math.sin(self.dados.angCorr)*50.0)), c, 1)
+            cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(self.dados.ang_corr)*50.0), int(p[1]+ math.sin(self.dados.ang_corr)*50.0)), c, 1)
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_Imagem.setPixmap(_qPixmap)

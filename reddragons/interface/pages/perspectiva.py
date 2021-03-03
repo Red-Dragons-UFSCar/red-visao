@@ -6,7 +6,7 @@ from PyQt5.uic import loadUi
 from reddragons.visao.utils import PointsParser, converte_coord
 import cv2
 
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 
 class GUI_perspectiva(QMainWindow):
     def __init__(self, visao):
@@ -46,10 +46,10 @@ class GUI_perspectiva(QMainWindow):
                 if(self.inputCount == 8):
                     parser = PointsParser(self.inputs)
                     pts = parser.run()
-                    self.dados.warpPerspective = pts['externos']
+                    self.dados.warp_perspective = pts['externos']
                     self.finalizar()
                     self.dados.corte = [
-                        converte_coord(self.visao.read_dados().M_warpPerspective, p) for p in pts['internos']
+                        converte_coord(self.visao.read_dados().matriz_warp_perspective, p) for p in pts['internos']
                     ]
             
     def desenhar(self):

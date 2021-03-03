@@ -16,9 +16,7 @@ class SingletonMeta(type):
         return self._instance
 
 
-class logger(metaclass=SingletonMeta):
-    def limpar(self):
-        os.system("clear")
+class Logger(metaclass=SingletonMeta):
 
     def erro(self, err):
         self.escrever(Fore.RED, err, "ERRO")
@@ -52,43 +50,43 @@ class logger(metaclass=SingletonMeta):
     def tempo(
         self,
         i_frame,
-        tempoInicial,
-        tempoCamera,
-        tempoCopia,
-        tempoWarp,
-        tempoCorte,
-        tempoHSV,
-        tempoCentroids,
-        tempoCentros,
-        tempoFinal,
+        tempo_inicial,
+        tempo_camera,
+        tempo_copia,
+        tempo_warp,
+        tempo_corte,
+        tempo_hsv,
+        tempo_centroids,
+        tempo_centros,
+        tempo_final,
     ):
-        total = 100.0 / (tempoFinal - tempoInicial)
+        total = 100.0 / (tempo_final - tempo_inicial)
         print(
             Style.BRIGHT
             + "FRAME "
             + str(i_frame)
             + Style.NORMAL
             + "\nCâmera:  {0:.4f}s [{1:5.2f}%]\tCopia: {2:.4f}s [{3:5.2f}%]\t\tWarp: {4:.4f}s [{5:5.2f}%]\t\tCorte: {6:.4f}s [{7:5.2f}%]\nHSV:\t {8:.4f}s [{9:5.2f}%]\tCentroids: {10:.4f}s [{11:5.2f}%]\tCentros: {12:.4f}s [{13:5.2f}%]\n".format(
-                tempoCamera - tempoInicial,
-                (tempoCamera - tempoInicial) * total,
-                tempoCopia - tempoCamera,
-                (tempoCopia - tempoCamera) * total,
-                tempoWarp - tempoCopia,
-                (tempoWarp - tempoCopia) * total,
-                tempoCorte - tempoWarp,
-                (tempoCorte - tempoWarp) * total,
-                tempoHSV - tempoCorte,
-                (tempoHSV - tempoCorte) * total,
-                tempoCentroids - tempoHSV,
-                (tempoCentroids - tempoHSV) * total,
-                tempoCentros - tempoCentroids,
-                (tempoCentros - tempoCentroids) * total,
+                tempo_camera - tempo_inicial,
+                (tempo_camera - tempo_inicial) * total,
+                tempo_copia - tempo_camera,
+                (tempo_copia - tempo_camera) * total,
+                tempo_warp - tempo_copia,
+                (tempo_warp - tempo_copia) * total,
+                tempo_corte - tempo_warp,
+                (tempo_corte - tempo_warp) * total,
+                tempo_hsv - tempo_corte,
+                (tempo_hsv - tempo_corte) * total,
+                tempo_centroids - tempo_hsv,
+                (tempo_centroids - tempo_hsv) * total,
+                tempo_centros - tempo_centroids,
+                (tempo_centros - tempo_centroids) * total,
             )
             + Style.BRIGHT
             + "Total: {0:.4f}s  {1:.0f}ms\t\tFPS: {2:.4f}\n".format(
-                tempoFinal - tempoInicial,
-                1000.0 * (tempoFinal - tempoInicial),
-                1.0 / (tempoFinal - tempoInicial),
+                tempo_final - tempo_inicial,
+                1000.0 * (tempo_final - tempo_inicial),
+                1.0 / (tempo_final - tempo_inicial),
             )
             + Style.NORMAL
         )

@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QMainWindow
 from ..utils import ui_files
 from PyQt5.uic import loadUi
 import cv2
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 
 class GUI_corte(QMainWindow):
     def __init__(self, visao):

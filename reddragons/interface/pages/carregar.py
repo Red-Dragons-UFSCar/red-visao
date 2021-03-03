@@ -1,7 +1,7 @@
 import os
 import pickle
 
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 from PyQt5.QtWidgets import QMainWindow
 from ..utils import ui_files
 from PyQt5.uic import loadUi

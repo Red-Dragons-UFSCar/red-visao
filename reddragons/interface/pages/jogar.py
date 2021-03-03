@@ -6,7 +6,7 @@ from PyQt5.uic import loadUi
 
 import cv2
 
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 import math
 
 class GUI_jogar(QMainWindow):
@@ -37,7 +37,7 @@ class GUI_jogar(QMainWindow):
         for c, p,a in zip(C, Imagem.centros,DadosControle.angulo_d):
             cv2.circle(img, (int(p[0]), int(p[1])), 20, c, 1)
             cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(p[2])*25), int(p[1]+ math.sin(p[2])*25)), c, 3) #Angulo Robo
-            #cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.angCorr)*50), int(p[1]+ math.sin(Dados.angCorr)*50)), c, 1)
+            #cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.ang_corr)*50), int(p[1]+ math.sin(Dados.ang_corr)*50)), c, 1)
             cv2.line(img,(int(p[0]),int(p[1])),(int(p[0]+math.cos(a)*25),int(p[1]+math.sin(a)*25)),(255,255,0),1) #Angulo controle
 
         C = [(55, 55, 55), (10, 10, 10), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
@@ -71,7 +71,7 @@ class GUI_jogar(QMainWindow):
                 self.btJogar.setText('Terminar transmissao')
                 self.btJogar.setStyleSheet("background-color:red")
             except:
-                logger().erro('Porta não encontrada')
+                Logger().erro('Porta não encontrada')
                 self.jogando = False
                 self.btJogar.setText('Iniciar transmissao')
                 self.btJogar.setStyleSheet("background-color:green")

@@ -1,4 +1,5 @@
 import json
+
 import numpy as np
 
 
@@ -13,7 +14,7 @@ def parse_square(points):
     Returns
     -------
     list of tuple of int
-        pontos ordenados    
+        pontos ordenados
     """
     get_y = lambda x: x[1]
     get_x = lambda x: x[0]
@@ -29,9 +30,9 @@ def intersec(pts1, pts2):
     Parameters
     ----------
     pts1 : list of list of int
-        dois pontos contidos na primeira reta ex: ((x1,y1), (x2,y2)) 
+        dois pontos contidos na primeira reta ex: ((x1,y1), (x2,y2))
     pts2 : list of list of int
-        dois pontos contidos na segunda reta ex: ((x1,y1), (x2,y2)) 
+        dois pontos contidos na segunda reta ex: ((x1,y1), (x2,y2))
 
     Returns
     -------
@@ -54,6 +55,10 @@ def intersec(pts1, pts2):
 class PointsParser:
     def __init__(self, pontos):
         self._pontos = pontos
+        self.gol = []
+        self.campo = []
+        self.pontos_externos = []
+        self.pontos_internos = []
 
     def _divide(self):
         y_sorted = sorted(self._pontos, key=lambda x: x[1])
@@ -85,14 +90,19 @@ class PointsParser:
         self._get_pontos_externos()
         self._get_pontos_internos()
 
-        self.final = {
+        return {
             "campo": self.campo,
             "gol": self.gol,
             "internos": self.pontos_internos,
             "externos": self.pontos_externos,
         }
-        return self.final
 
     def save(self, filename):
-        with open(filename, "w") as f:
-            json.dump(self.final, f)
+        obj = {
+            "campo": self.campo,
+            "gol": self.gol,
+            "internos": self.pontos_internos,
+            "externos": self.pontos_externos,
+        }
+        with open(filename, "w") as fh:
+            json.dump(obj, fh)

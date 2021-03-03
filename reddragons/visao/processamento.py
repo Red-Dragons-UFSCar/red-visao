@@ -5,7 +5,7 @@ import time
 import cv2
 import numpy as np
 from reddragons.visao import captura, estruturas, utils
-from reddragons.visao.logger import logger
+from reddragons.visao.logger import Logger
 
 
 class Processamento:
@@ -16,10 +16,9 @@ class Processamento:
         self.started = False
         self.cam = captura.Imagem()
         self.read_lock = threading.Lock()
-        self.cam.iniciar()
-
-        self.recalcular()
         self.verbose = False
+        self.cam.iniciar()
+        self.recalcular()
 
     def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
@@ -55,41 +54,41 @@ class Processamento:
                 imagem.imagem_original = copy.deepcopy(self.img)
                 tempo_copia = time.time()
 
-                _img = utils.warpPerspective(imagem.imagem_original, dados)
+                _img = utils.warp_perspective(imagem.imagem_original, dados)
                 imagem.imagem_warp = copy.deepcopy(_img)
                 tempo_warp = time.time()
 
-                _img2 = utils.corteImagem(_img, dados)
+                _img2 = utils.corte_imagem(_img, dados)
                 imagem.imagem_crop = copy.deepcopy(_img2)
                 tempo_corte = time.time()
 
-                imagem.imagem_HSV = cv2.cvtColor(
+                imagem.imagem_hsv = cv2.cvtColor(
                     np.uint8(imagem.imagem_crop), cv2.COLOR_RGB2HSV
                 )
                 tempo_hsv = time.time()
 
-                D = []
+                centr_final = []
                 for cor, filtro in zip(self.dados.cores, self.dados.filtros):
-                    cortornos, _ = utils.getContornoCor(
-                        imagem.imagem_HSV, cor, filtro
+                    cortornos, _ = utils.get_contorno_cor(
+                        imagem.imagem_hsv, cor, filtro
                     )
                     centroids = np.empty((0, 3))
                     for c in cortornos:
-                        M = cv2.moments(c)
-                        if (M["m00"] >= self.dados.AreaMinimo) and (
-                            M["m00"] <= self.dados.AreaMaxima
+                        moments = cv2.moments(c)
+                        if (moments["m00"] >= self.dados.area_minima) and (
+                            moments["m00"] <= self.dados.area_maxima
                         ):
-                            cX = int(M["m10"] / M["m00"])
-                            cY = int(M["m01"] / M["m00"])
+                            c_x = int(moments["m10"] / moments["m00"])
+                            c_y = int(moments["m01"] / moments["m00"])
                             centroids = np.vstack(
-                                (centroids, np.asarray([cX, cY, M["m00"]]))
+                                (centroids, np.asarray([c_x, c_y, moments["m00"]]))
                             )
-                    D.append(np.array([centroids]))
-                imagem.centroids = D
+                    centr_final.append(np.array([centroids]))
+                imagem.centroids = centr_final
 
                 tempo_centroids = time.time()
 
-                centros = utils.calculaCentros(D, dados.angCorr)
+                centros = utils.calcula_centros(centr_final, dados.ang_corr)
 
                 if self.imagem.centros is not None:
                     if abs(centros[0][2] - self.imagem.centros[0][2]) < 0.30:
@@ -111,7 +110,7 @@ class Processamento:
                         )
 
                 imagem.centros = centros
-                imagem.adversarios = D[5]
+                imagem.adversarios = centr_final[5]
                 tempo_centros = time.time()
 
                 with self.read_lock:
@@ -120,7 +119,7 @@ class Processamento:
                 tempo_final = time.time()
 
                 if self.verbose:
-                    logger().tempo(
+                    Logger().tempo(
                         i_frame,
                         tempo_inicial,
                         tempo_camera,
@@ -133,15 +132,15 @@ class Processamento:
                         tempo_final,
                     )
             else:
-                logger().erro("Sem frame da captura")
+                Logger().erro("Sem frame da captura")
                 self.cam.stop()
                 self.cam = captura.Imagem()
                 self.cam.iniciar()
-                logger().flag("Câmera reiniciada")
+                Logger().flag("Câmera reiniciada")
 
     def recalcular(self):
         dados = self.dados
-        dados.M_warpPerspective = utils.matriz_warpPerspective(dados)
+        dados.matriz_warp_perspective = utils.matriz_warp_perspective(dados)
 
         with self.read_lock:
             self.dados = dados
@@ -198,7 +197,7 @@ class Processamento:
         imagem = self.imagem
 
         if imagem.centroids[0] == []:
-            logger().erro("Bola não detectada. Usando última posição")
+            Logger().erro("Bola não detectada. Usando última posição")
         else:
             try:
                 dados_controle.bola = (
@@ -206,38 +205,27 @@ class Processamento:
                     imagem.centroids[0][0][0][1],
                 )
             except ValueError:
-                logger().erro(str(imagem.centroids[0]))
+                Logger().erro(str(imagem.centroids[0]))
 
-        # logger().variavel('dados_controle.bola', dados_controle.bola)
+        # Logger().variavel('dados_controle.bola', dados_controle.bola)
 
         dados_controle.robot = imagem.centros
-        # logger().variavel('dados_controle.robot', dados_controle.robot)
-        err = self.checar_erro_centroide(imagem.centros)
+        # Logger().variavel('dados_controle.robot', dados_controle.robot)
+        err = utils.checar_erro_centroide(imagem.centros)
         for i in range(3):
             if err[i] != 0:
                 dados_controle.robot[i] = self.dados_controle.robot[i]
-                logger().erro(
+                Logger().erro(
                     "Robô #" + str(i) + " não detectado. Usando última posição"
                 )
-        # logger().variavel('dados_controle.robot', dados_controle.robot)
+        # Logger().variavel('dados_controle.robot', dados_controle.robot)
 
         dados_controle.adversarios = imagem.adversarios[0]
-        # logger().variavel('dados_controle.adversarios', dados_controle.adversarios.T)
+        # Logger().variavel('dados_controle.adversarios', dados_controle.adversarios.T)
 
         self.set_dados_controle(dados_controle)
 
         return dados_controle
-
-    def checar_erro_centroide(self, centros):
-        erros = [0, 0, 0]
-        i = 0
-
-        for c in centros:
-            if c[0] == 0 or c[1] == 0:
-                erros[i] += 1
-                logger().erro("Um centro não detectado")
-            i += 1
-        return erros
 
     def __exit__(self, exec_type, exc_value, traceback):
         self.cam.stop()

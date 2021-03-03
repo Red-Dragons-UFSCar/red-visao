@@ -1,41 +1,26 @@
 import threading
-import cv2
-from reddragons.visao.logger import logger
 import time
-from pathlib import Path
 
-jogo_path = str(Path(__file__, "../../../data/jogo.avi").resolve())
-
-
-def testDevice(src):
-    cap = cv2.VideoCapture(src)
-    if cap is None or not cap.isOpened():
-        logger().erro("Não foi possível abrir o dispositivo: " + str(src))
-        return 0
-    return 1
+import cv2
+from reddragons.visao import utils
+from reddragons.visao.logger import Logger
 
 
 class Imagem:
-    def __init__(self, src=jogo_path):
-        estado = testDevice(src)
-        if estado:
-            self.src = src
-        else:
-            self.src = jogo_path
-        self.cap = cv2.VideoCapture(self.src)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self.conseguiu, self.frame = self.cap.read()
+    def __init__(self, src=utils.VIDEO_PATH):
         self.started = False
+        self.thread = None
+        self.conseguiu, self.frame = False, None
+        self.alterar_src(src)
         self.read_lock = threading.Lock()
 
-    def alterar_src(self, src=jogo_path):
+    def alterar_src(self, src=utils.VIDEO_PATH):
         self.stop()
-        estado = testDevice(src)
+        estado = utils.test_device(src)
         if estado:
             self.src = src
         else:
-            self.src = jogo_path
+            self.src = utils.VIDEO_PATH
         self.cap = cv2.VideoCapture(self.src)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -46,7 +31,7 @@ class Imagem:
 
     def iniciar(self):
         if self.started:
-            logger().dado("Captura já iniciada")
+            Logger().dado("Captura já iniciada")
             return None
         self.started = True
         self.thread = threading.Thread(target=self.update, args=())
@@ -74,6 +59,8 @@ class Imagem:
         return conseguiu, frame
 
     def stop(self):
+        if not self.started:
+            return
         self.started = False
         self.thread.join()
 

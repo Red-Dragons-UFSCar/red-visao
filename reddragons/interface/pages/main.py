@@ -3,7 +3,7 @@ from ..utils import ui_files
 from PyQt5.uic import loadUi
 import cv2
 
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 
 #import GUIs
 import reddragons.interface as ifc
@@ -61,7 +61,7 @@ class GUI_main(QMainWindow):
         self.tela = ifc.GUI_jogar(self.visao)
 
     def versao(self):
-        logger().dado(cv2.getBuildInformation())
+        Logger().dado(cv2.getBuildInformation())
         
     def closeEvent(self, event):
         self.visao.stop()

@@ -7,7 +7,7 @@ from PyQt5.uic import loadUi
 import cv2
 from enum import Enum
 
-from reddragons.visao.logger import *
+from reddragons.visao import Logger
 import math
 
 class Estado(Enum):
@@ -81,7 +81,7 @@ class GUI_visualizacao(QMainWindow):
             for c, p in zip(C, Imagem.centros):
                 cv2.circle(img, (int(p[0]), int(p[1])), 25, c, 1)
                 cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(p[2])*50), int(p[1]+ math.sin(p[2])*50)), c, 3)
-                cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.angCorr)*50), int(p[1]+ math.sin(Dados.angCorr)*50)), c, 1)
+                cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.ang_corr)*50), int(p[1]+ math.sin(Dados.ang_corr)*50)), c, 1)
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
