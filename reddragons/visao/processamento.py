@@ -5,6 +5,7 @@ from reddragons.visao import estruturas
 from reddragons.visao import captura
 import time
 from reddragons.visao.logger import logger
+from reddragons.visao import utils
 import copy
 import math
 
@@ -60,11 +61,11 @@ class processamento():
                 Imagem.imagem_original = copy.deepcopy(self.img)
                 tempoCopia = time.time()
                 
-                _img = warpPerspective(Imagem.imagem_original, Dados)
+                _img = utils.warpPerspective(Imagem.imagem_original, Dados)
                 Imagem.imagem_warp = copy.deepcopy(_img)
                 tempoWarp = time.time()
                 
-                _img2 = corteImagem(_img, Dados)
+                _img2 = utils.corteImagem(_img, Dados)
                 Imagem.imagem_crop = copy.deepcopy(_img2)
                 tempoCorte = time.time()
             
@@ -73,7 +74,7 @@ class processamento():
                 
                 D = []
                 for cor, filtro in zip(self.Dados.cores, self.Dados.filtros):
-                    cortornos, hierarquia = getContornoCor(Imagem.imagem_HSV, cor, filtro)
+                    cortornos, hierarquia = utils.getContornoCor(Imagem.imagem_HSV, cor, filtro)
                     centroids = np.empty((0, 3))
                     for c in cortornos:
                         M = cv2.moments(c)
@@ -88,7 +89,7 @@ class processamento():
                 
                 tempoCentroids = time.time()
                 
-                centros = calculaCentros(D, Dados.angCorr)
+                centros = utils.calculaCentros(D, Dados.angCorr)
                 
                     
                 if self.Imagem.centros is not None:
@@ -124,7 +125,7 @@ class processamento():
     
     def recalcular(self):
         Dados = self.Dados
-        Dados.M_warpPerspective = matriz_warpPerspective(Dados)
+        Dados.M_warpPerspective = utils.matriz_warpPerspective(Dados)
         
         with self.read_lock:
             self.Dados = Dados
@@ -223,97 +224,5 @@ class processamento():
         global cam
         cam.stop()
         
-def corteImagem(fonte, dados):
-    tamanho = dados.size
-    
-    imagem = fonte
-    
-    supEsquerdo = dados.corte[0]
-    imagem[0:supEsquerdo[1], 0:supEsquerdo[0], :] = 0
-    imagem[0:dados.corte[1][1], dados.corte[1][0]:640, :] = 0
-    imagem[dados.corte[2][1]:480, 0:dados.corte[2][0], :] = 0
-    imagem[dados.corte[3][1]:480, dados.corte[3][0]:640, :] = 0
-    
-    return imagem
 
-def matriz_warpPerspective(dados):
-    size = dados.size
-    W = size[0]
-    H = size[1]
-    
-    src = np.float32(dados.warpPerspective)
-    dst = np.float32([[0,0], [W,0], [0,H], [W,H]])
-    M = cv2.getPerspectiveTransform(src, dst)
-    return M
-    
-def warpPerspective(imagem, dados):
-    size = dados.size
-    M = dados.M_warpPerspective
-    
-    destino = cv2.warpPerspective(imagem, M, (size[0],size[1]))
-    return destino
-    
-def getContornoCor(imagemHSV, cor, filtro):
-    if cor[0][0] > cor[1][0]:
-        aux = np.copy(cor[0])
-        aux[0] = 0
-        mascara1 = cv2.inRange(imagemHSV, aux, cor[1])
-        
-        aux = np.copy(cor[1])
-        aux[0] = 179
-        mascara2 = cv2.inRange(imagemHSV, cor[0], aux)
-        
-        mascara = cv2.bitwise_or(mascara1, mascara2)
-    else:
-        mascara = cv2.inRange(imagemHSV, cor[0], cor[1])
-        
-    matrizFiltro = None
-    if filtro[1] == 0:
-        matrizFiltro = np.ones((filtro[2], filtro[2]), np.uint8)
-        
-    if filtro[1] == 1:
-        matrizFiltro = np.zeros((filtro[2], filtro[2]), np.uint8)
-        meio = int((filtro[2]-1)/2)
-        for i in range(filtro[2]):
-            matrizFiltro[i, meio] = 1
-            matrizFiltro[meio, i] = 1
-    
-    if matrizFiltro is not None and filtro[0] == 1:
-        resultado = cv2.morphologyEx(mascara, cv2.MORPH_OPEN, matrizFiltro)
-    
-    elif matrizFiltro is not None and filtro[0] == 2:
-        resultado = cv2.morphologyEx(mascara, cv2.MORPH_CLOSE, matrizFiltro)
-        
-    else:
-        resultado = mascara
-        
-    contornos, hierarquia = cv2.findContours(resultado,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-    
-    return contornos, hierarquia
-    
-def centroRobo(princ, sec, angCorr = 90):
-    meioX = (princ[0] + sec[0])/2
-    meioY = (princ[1] + sec[1])/2
-    ang = math.atan2(princ[1] - sec[1], princ[0] - sec[0])
-    angulo = ang + angCorr
-    return meioX, meioY, angulo
-    
-def calculaCentros(D, angCorr = 90):
-    centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    for i_sec in range(2, 5):
-        menor = 10000.0
-        for principal in D[1][0]:
-            try:
-                for secundario in D[i_sec][0]:
-                    dist = math.hypot(principal[0] - secundario[0], principal[1] - secundario[1])
-                    if dist < menor:
-                        menor = dist
-                        mX, mY, ang = centroRobo(principal, secundario, angCorr)
-                        centros[i_sec - 2][0] = mX
-                        centros[i_sec - 2][1] = mY
-                        centros[i_sec - 2][2] = ang
-                        
-            except:
-                pass
-    return centros
     
