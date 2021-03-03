@@ -17,7 +17,7 @@ class GUI_cores(QMainWindow):
         self.centroids = np.empty([0,3])
         
         
-        self.dados = self.visao.read_Dados()
+        self.dados = self.visao.read_dados()
         
         self.QT_AreaMax.setValue(self.dados.AreaMaxima)
         self.QT_AreaMin.setValue(self.dados.AreaMinimo)
@@ -49,9 +49,9 @@ class GUI_cores(QMainWindow):
         
     def getReferencia(self):
         
-        self.referencia = self.visao.read_Imagem().imagem_crop
-        self.imagem_HSV = self.visao.read_Imagem().imagem_HSV
-        self.dados = self.visao.read_Dados()
+        self.referencia = self.visao.read_imagem().imagem_crop
+        self.imagem_HSV = self.visao.read_imagem().imagem_HSV
+        self.dados = self.visao.read_dados()
         self.contornos, _ = vutils.getContornoCor(self.imagem_HSV, self.dados.cores[0], self.dados.filtros[0])
         self.desenhar()
         
@@ -63,7 +63,7 @@ class GUI_cores(QMainWindow):
         self.dados.AreaMinimo = self.QT_AreaMin.value()
         self.dados.AreaMaxima = self.QT_AreaMax.value()
         
-        self.visao.set_Dados(self.dados)
+        self.visao.set_dados(self.dados)
         
     def novaCor(self):
         i = self.QT_selecao.currentIndex()

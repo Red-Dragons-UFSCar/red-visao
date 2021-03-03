@@ -21,4 +21,4 @@ class GUI_carregar(QMainWindow):
     def carregar(self):
         
         arquivo = open("modelos/" + self.QT_listaSalvos.currentText(), 'rb')
-        self.visao.set_Dados(pickle.load(arquivo))
+        self.visao.set_dados(pickle.load(arquivo))

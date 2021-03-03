@@ -36,8 +36,8 @@ class GUI_visualizacao(QMainWindow):
         estado = self.qt_tipoVisualizacao.currentIndex()
         
         
-        Imagem = self.visao.read_Imagem()
-        Dados = self.visao.read_Dados()
+        Imagem = self.visao.read_imagem()
+        Dados = self.visao.read_dados()
         
         if estado == Estado.ORIGINAL.value:
             img = Imagem.imagem_original

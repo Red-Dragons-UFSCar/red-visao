@@ -23,7 +23,7 @@ class GUI_main(QMainWindow):
         self.QT_Load.clicked.connect(self.carregar)
         self.QT_Save.clicked.connect(self.salvar)
         self.QT_Centro.clicked.connect(self.centro)
-        self.QT_FPS.clicked.connect(self.mudarVerbose)
+        self.QT_FPS.clicked.connect(self.mudar_verbose)
         self.QT_Versao.clicked.connect(self.versao)
         self.QT_camera.clicked.connect(self.setCamera)
         self.QT_btcontrole.clicked.connect(self.controle)
@@ -66,8 +66,8 @@ class GUI_main(QMainWindow):
     def closeEvent(self, event):
         self.visao.stop()
         
-    def mudarVerbose(self):
-        self.visao.mudarVerbose()
+    def mudar_verbose(self):
+        self.visao.mudar_verbose()
         
     def salvar(self):
         self.tela = ifc.GUI_salvar(self.visao)

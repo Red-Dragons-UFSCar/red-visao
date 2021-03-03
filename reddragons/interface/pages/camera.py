@@ -24,12 +24,12 @@ class GUI_camera(QMainWindow):
         
     def setCamera(self):
         
-        self.visao.alterarSrc(2)
+        self.visao.alterar_src(2)
         
     def setVideo(self):
         
-        self.visao.alterarSrc("videos/" + self.QT_listaVideos.currentText())
+        self.visao.alterar_src("videos/" + self.QT_listaVideos.currentText())
         
     def setWebcam(self):
         
-        self.visao.alterarSrc(0)
+        self.visao.alterar_src(0)

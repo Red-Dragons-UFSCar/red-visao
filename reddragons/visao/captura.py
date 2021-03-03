@@ -29,7 +29,7 @@ class Imagem:
         self.started = False
         self.read_lock = threading.Lock()
 
-    def alterarSrc(self, src=jogo_path):
+    def alterar_src(self, src=jogo_path):
         self.stop()
         estado = testDevice(src)
         if estado:

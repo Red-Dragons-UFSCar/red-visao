@@ -11,7 +11,7 @@ class GUI_corte(QMainWindow):
         loadUi(f'{ui_files}/corte.ui', self)
         self.show()    
         self.visao = visao
-        self.dados = self.visao.read_Dados()
+        self.dados = self.visao.read_dados()
         
         self.getReferencia()
         
@@ -20,12 +20,12 @@ class GUI_corte(QMainWindow):
         
     def getReferencia(self):
         
-        self.referencia = self.visao.read_Imagem().imagem_warp
+        self.referencia = self.visao.read_imagem().imagem_warp
         self.desenhar()
         
     def finalizar(self):
         
-        self.visao.set_Dados(self.dados)
+        self.visao.set_dados(self.dados)
         self.visao.recalcular()
         
     def mouseReleaseEvent(self, QMouseEvent):

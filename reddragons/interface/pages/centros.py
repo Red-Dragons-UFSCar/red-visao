@@ -14,7 +14,7 @@ class GUI_centro(QMainWindow):
         loadUi(f'{ui_files}/centros.ui', self)
         self.show()    
         self.visao = visao
-        self.dados = self.visao.read_Dados()
+        self.dados = self.visao.read_dados()
         
         self.getReferencia()
         
@@ -31,8 +31,8 @@ class GUI_centro(QMainWindow):
         
     def getReferencia(self):
         
-        self.referencia = self.visao.read_Imagem().imagem_crop
-        self.centroids = self.visao.read_Imagem().centroids
+        self.referencia = self.visao.read_imagem().imagem_crop
+        self.centroids = self.visao.read_imagem().centroids
         self.desenhar()
         
     def mudanca(self):
@@ -42,7 +42,7 @@ class GUI_centro(QMainWindow):
         
     def finalizar(self):
         
-        self.visao.set_Dados(self.dados)
+        self.visao.set_dados(self.dados)
             
     def desenhar(self):
         centros = vutils.calculaCentros(self.centroids, self.dados.angCorr)

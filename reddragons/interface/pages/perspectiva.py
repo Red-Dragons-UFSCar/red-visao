@@ -14,7 +14,7 @@ class GUI_perspectiva(QMainWindow):
         loadUi(f'{ui_files}/perspectiva.ui', self)
         self.show()    
         self.visao = visao
-        self.dados = self.visao.read_Dados()
+        self.dados = self.visao.read_dados()
         self.inputCount = 0
         self.inputs = []
         self.getReferencia()
@@ -24,12 +24,12 @@ class GUI_perspectiva(QMainWindow):
         
     def getReferencia(self):
         
-        self.referencia = self.visao.read_Imagem().imagem_original
+        self.referencia = self.visao.read_imagem().imagem_original
         self.desenhar()
         
     def finalizar(self):
         
-        self.visao.set_Dados(self.dados)
+        self.visao.set_dados(self.dados)
         self.visao.recalcular()
         
     def mouseReleaseEvent(self, QMouseEvent):
@@ -49,7 +49,7 @@ class GUI_perspectiva(QMainWindow):
                     self.dados.warpPerspective = pts['externos']
                     self.finalizar()
                     self.dados.corte = [
-                        converte_coord(self.visao.read_Dados().M_warpPerspective, p) for p in pts['internos']
+                        converte_coord(self.visao.read_dados().M_warpPerspective, p) for p in pts['internos']
                     ]
             
     def desenhar(self):

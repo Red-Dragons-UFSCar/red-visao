@@ -1,16 +1,16 @@
 from __future__ import annotations
-from typing import Optional
 
 import os
 from inspect import getframeinfo, stack
+from typing import Optional
 
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 
 class SingletonMeta(type):
-    _instance: Optional[Singleton] = None
+    _instance: Optional[SingletonMeta] = None
 
-    def __call__(self) -> Singleton:
+    def __call__(self) -> SingletonMeta:
         if self._instance is None:
             self._instance = super().__call__()
         return self._instance

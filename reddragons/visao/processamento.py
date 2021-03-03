@@ -8,11 +8,11 @@ from reddragons.visao import captura, estruturas, utils
 from reddragons.visao.logger import logger
 
 
-class processamento:
+class Processamento:
     def __init__(self):
-        self.Imagem = estruturas.Imagem()
-        self.Dados = estruturas.Dados()
-        self.DadosControle = estruturas.Controle()
+        self.imagem = estruturas.Imagem()
+        self.dados = estruturas.Dados()
+        self.dados_controle = estruturas.Controle()
         self.started = False
         self.cam = captura.Imagem()
         self.read_lock = threading.Lock()
@@ -21,13 +21,13 @@ class processamento:
         self.recalcular()
         self.verbose = False
 
-    def alterarSrc(self, src="videos/jogo.avi"):
+    def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
-        self.cam.alterarSrc(src)
+        self.cam.alterar_src(src)
         self.started = False
         self.iniciar()
 
-    def mudarVerbose(self):
+    def mudar_verbose(self):
         self.verbose = not self.verbose
 
     def iniciar(self):
@@ -41,44 +41,43 @@ class processamento:
     def processar(self):
         i_frame = 0
         while self.started:
-            tempoInicial = time.time()
-
+            tempo_inicial = time.time()
 
             self.conseguiu, self.img = self.cam.read()
 
             if self.conseguiu:
                 # self.img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                 i_frame += 1
-                tempoCamera = time.time()
+                tempo_camera = time.time()
 
-                Imagem = copy.deepcopy(self.Imagem)
-                Dados = copy.deepcopy(self.Dados)
-                Imagem.imagem_original = copy.deepcopy(self.img)
-                tempoCopia = time.time()
+                imagem = copy.deepcopy(self.imagem)
+                dados = copy.deepcopy(self.dados)
+                imagem.imagem_original = copy.deepcopy(self.img)
+                tempo_copia = time.time()
 
-                _img = utils.warpPerspective(Imagem.imagem_original, Dados)
-                Imagem.imagem_warp = copy.deepcopy(_img)
-                tempoWarp = time.time()
+                _img = utils.warpPerspective(imagem.imagem_original, dados)
+                imagem.imagem_warp = copy.deepcopy(_img)
+                tempo_warp = time.time()
 
-                _img2 = utils.corteImagem(_img, Dados)
-                Imagem.imagem_crop = copy.deepcopy(_img2)
-                tempoCorte = time.time()
+                _img2 = utils.corteImagem(_img, dados)
+                imagem.imagem_crop = copy.deepcopy(_img2)
+                tempo_corte = time.time()
 
-                Imagem.imagem_HSV = cv2.cvtColor(
-                    np.uint8(Imagem.imagem_crop), cv2.COLOR_RGB2HSV
+                imagem.imagem_HSV = cv2.cvtColor(
+                    np.uint8(imagem.imagem_crop), cv2.COLOR_RGB2HSV
                 )
-                tempoHSV = time.time()
+                tempo_hsv = time.time()
 
                 D = []
-                for cor, filtro in zip(self.Dados.cores, self.Dados.filtros):
-                    cortornos, hierarquia = utils.getContornoCor(
-                        Imagem.imagem_HSV, cor, filtro
+                for cor, filtro in zip(self.dados.cores, self.dados.filtros):
+                    cortornos, _ = utils.getContornoCor(
+                        imagem.imagem_HSV, cor, filtro
                     )
                     centroids = np.empty((0, 3))
                     for c in cortornos:
                         M = cv2.moments(c)
-                        if (M["m00"] >= self.Dados.AreaMinimo) and (
-                            M["m00"] <= self.Dados.AreaMaxima
+                        if (M["m00"] >= self.dados.AreaMinimo) and (
+                            M["m00"] <= self.dados.AreaMaxima
                         ):
                             cX = int(M["m10"] / M["m00"])
                             cY = int(M["m01"] / M["m00"])
@@ -86,55 +85,52 @@ class processamento:
                                 (centroids, np.asarray([cX, cY, M["m00"]]))
                             )
                     D.append(np.array([centroids]))
-                Imagem.centroids = D
+                imagem.centroids = D
 
-                tempoCentroids = time.time()
+                tempo_centroids = time.time()
 
-                centros = utils.calculaCentros(D, Dados.angCorr)
+                centros = utils.calculaCentros(D, dados.angCorr)
 
-                if self.Imagem.centros is not None:
-                    if abs(centros[0][2] - self.Imagem.centros[0][2]) < 0.30:
+                if self.imagem.centros is not None:
+                    if abs(centros[0][2] - self.imagem.centros[0][2]) < 0.30:
                         centros[0][2] = (
                             centros[0][2]
-                            - (centros[0][2] - self.Imagem.centros[0][2]) * 0.85
+                            - (centros[0][2] - self.imagem.centros[0][2]) * 0.85
                         )
 
-                    if abs(centros[1][2] - self.Imagem.centros[1][2]) < 0.30:
+                    if abs(centros[1][2] - self.imagem.centros[1][2]) < 0.30:
                         centros[1][2] = (
                             centros[1][2]
-                            - (centros[1][2] - self.Imagem.centros[1][2]) * 0.85
+                            - (centros[1][2] - self.imagem.centros[1][2]) * 0.85
                         )
 
-                    if abs(centros[2][2] - self.Imagem.centros[2][2]) < 0.30:
+                    if abs(centros[2][2] - self.imagem.centros[2][2]) < 0.30:
                         centros[2][2] = (
                             centros[2][2]
-                            - (centros[2][2] - self.Imagem.centros[2][2]) * 0.85
+                            - (centros[2][2] - self.imagem.centros[2][2]) * 0.85
                         )
 
-                Imagem.centros = centros
-
-                adversarios = [[0, 0], [0, 0], [0, 0]]
-                Imagem.adversarios = D[5]
-
-                tempoCentros = time.time()
+                imagem.centros = centros
+                imagem.adversarios = D[5]
+                tempo_centros = time.time()
 
                 with self.read_lock:
-                    self.Imagem = copy.deepcopy(Imagem)
+                    self.imagem = copy.deepcopy(imagem)
 
-                tempoFinal = time.time()
+                tempo_final = time.time()
 
                 if self.verbose:
                     logger().tempo(
                         i_frame,
-                        tempoInicial,
-                        tempoCamera,
-                        tempoCopia,
-                        tempoWarp,
-                        tempoCorte,
-                        tempoHSV,
-                        tempoCentroids,
-                        tempoCentros,
-                        tempoFinal,
+                        tempo_inicial,
+                        tempo_camera,
+                        tempo_copia,
+                        tempo_warp,
+                        tempo_corte,
+                        tempo_hsv,
+                        tempo_centroids,
+                        tempo_centros,
+                        tempo_final,
                     )
             else:
                 logger().erro("Sem frame da captura")
@@ -144,29 +140,29 @@ class processamento:
                 logger().flag("Câmera reiniciada")
 
     def recalcular(self):
-        Dados = self.Dados
-        Dados.M_warpPerspective = utils.matriz_warpPerspective(Dados)
+        dados = self.dados
+        dados.M_warpPerspective = utils.matriz_warpPerspective(dados)
 
         with self.read_lock:
-            self.Dados = Dados
+            self.dados = dados
 
-    def read_Imagem(self):
+    def read_imagem(self):
         with self.read_lock:
-            Imagem = self.Imagem
-        return Imagem
+            imagem = self.imagem
+        return imagem
 
-    def read_Dados(self):
+    def read_dados(self):
         with self.read_lock:
-            Dados = self.Dados
-        return Dados
+            dados = self.dados
+        return dados
 
-    def set_Dados(self, dados):
+    def set_dados(self, dados):
         with self.read_lock:
-            self.Dados = dados
+            self.dados = dados
 
     def get_referencia(self):
         with self.read_lock:
-            img = self.Imagem.imagem
+            img = self.imagem.imagem
         return img
 
     def stop(self):
@@ -174,65 +170,65 @@ class processamento:
         self.thread.join()
         self.cam.stop()
 
-    def read_DadosControle(self):
+    def read_dados_controle(self):
         with self.read_lock:
-            DadosControle = self.DadosControle
-        return DadosControle
+            dados_controle = self.dados_controle
+        return dados_controle
 
-    def set_DadosControle(self, DadosControle):
+    def set_dados_controle(self, dados_controle):
         with self.read_lock:
-            self.DadosControle = DadosControle
+            self.dados_controle = dados_controle
 
-    def sincronizar_Controle(self):
-        DadosControle = self.DadosControle
-        Dados = self.Dados
+    def sincronizar_controle(self):
+        dados_controle = self.dados_controle
+        dados = self.dados
 
-        DadosControle.distCruzX = abs(Dados.cruzetas[0][0] - Dados.cruzetas[1][0])
-        DadosControle.distCruzY = abs(Dados.cruzetas[0][1] - Dados.cruzetas[2][1])
-        DadosControle.constX = 70.0 / DadosControle.distCruzX
-        DadosControle.constY = 37.5 / DadosControle.distCruzY
+        dados_controle.distCruzX = abs(dados.cruzetas[0][0] - dados.cruzetas[1][0])
+        dados_controle.distCruzY = abs(dados.cruzetas[0][1] - dados.cruzetas[2][1])
+        dados_controle.constX = 70.0 / dados_controle.distCruzX
+        dados_controle.constY = 37.5 / dados_controle.distCruzY
 
-        DadosControle = self.sincronizar_Controle_dinamico(DadosControle)
-        self.set_DadosControle(DadosControle)
-        return DadosControle
+        dados_controle = self.sincronizar_controle_dinamico(dados_controle)
+        self.set_dados_controle(dados_controle)
+        return dados_controle
 
-    def sincronizar_Controle_dinamico(self, DadosControle=None):
-        if DadosControle is None:
-            DadosControle = copy.deepcopy(self.DadosControle)
-        Imagem = self.Imagem
+    def sincronizar_controle_dinamico(self, dados_controle=None):
+        if dados_controle is None:
+            dados_controle = copy.deepcopy(self.dados_controle)
+        imagem = self.imagem
 
-        if Imagem.centroids[0] == []:
+        if imagem.centroids[0] == []:
             logger().erro("Bola não detectada. Usando última posição")
         else:
             try:
-                DadosControle.bola = (
-                    Imagem.centroids[0][0][0][0],
-                    Imagem.centroids[0][0][0][1],
+                dados_controle.bola = (
+                    imagem.centroids[0][0][0][0],
+                    imagem.centroids[0][0][0][1],
                 )
-            except:
-                logger().erro(str(Imagem.centroids[0]))
+            except ValueError:
+                logger().erro(str(imagem.centroids[0]))
 
-        # logger().variavel('DadosControle.bola', DadosControle.bola)
+        # logger().variavel('dados_controle.bola', dados_controle.bola)
 
-        DadosControle.robot = Imagem.centros
-        # logger().variavel('DadosControle.robot', DadosControle.robot)
-        err = self.checarErroCentroide(Imagem.centros)
+        dados_controle.robot = imagem.centros
+        # logger().variavel('dados_controle.robot', dados_controle.robot)
+        err = self.checar_erro_centroide(imagem.centros)
         for i in range(3):
             if err[i] != 0:
-                DadosControle.robot[i] = self.DadosControle.robot[i]
+                dados_controle.robot[i] = self.dados_controle.robot[i]
                 logger().erro(
                     "Robô #" + str(i) + " não detectado. Usando última posição"
                 )
-        # logger().variavel('DadosControle.robot', DadosControle.robot)
+        # logger().variavel('dados_controle.robot', dados_controle.robot)
 
-        DadosControle.adversarios = Imagem.adversarios[0]
-        # logger().variavel('DadosControle.adversarios', DadosControle.adversarios.T)
+        dados_controle.adversarios = imagem.adversarios[0]
+        # logger().variavel('dados_controle.adversarios', dados_controle.adversarios.T)
 
-        self.set_DadosControle(DadosControle)
+        self.set_dados_controle(dados_controle)
 
-        return DadosControle
+        return dados_controle
 
-    def checarErroCentroide(self, centros):
+    def checar_erro_centroide(self, centros):
         erros = [0, 0, 0]
         i = 0
 

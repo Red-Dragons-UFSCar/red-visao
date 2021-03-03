@@ -28,9 +28,9 @@ class GUI_jogar(QMainWindow):
         
     def updateFrame(self):
         
-        Imagem = self.visao.read_Imagem()
-        Dados = self.visao.read_Dados()
-        DadosControle = self.visao.sincronizar_Controle_dinamico()
+        Imagem = self.visao.read_imagem()
+        Dados = self.visao.read_dados()
+        DadosControle = self.visao.sincronizar_controle_dinamico()
 
         img = Imagem.imagem_crop
         C = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
@@ -53,11 +53,11 @@ class GUI_jogar(QMainWindow):
         if self.jogando:
             #Descomentar quando o controle estiver funcional
             #DadosControle = enviarInfo.InicializaControle(DadosControle)
-            self.visao.set_DadosControle(DadosControle)
+            self.visao.set_dadosControle(DadosControle)
     
     def AtivaSerial(self):          
         
-        DadosControle = self.visao.read_DadosControle()
+        DadosControle = self.visao.read_dadosControle()
         if self.jogando:
                 self.jogando = False
                 self.btJogar.setText('Iniciar transmissao')
@@ -77,7 +77,7 @@ class GUI_jogar(QMainWindow):
                 self.btJogar.setStyleSheet("background-color:green")
                 DadosControle.ser = 0
 
-        self.visao.set_DadosControle(DadosControle)
+        self.visao.set_dadosControle(DadosControle)
         
     def closeEvent(self, event):
     	self.timer.stop()
@@ -85,10 +85,10 @@ class GUI_jogar(QMainWindow):
 
     def mudanca(self):
         
-        DadosControle = self.visao.sincronizar_Controle_dinamico()
+        DadosControle = self.visao.sincronizar_controle_dinamico()
  
         DadosControle.Pjogar = True if self.rJogar.isChecked() else False
         DadosControle.Pparar = True if self.rParar.isChecked() else False
         DadosControle.Pinicial = True if self.rPosInicial.isChecked() else False
             
-        self.visao.set_DadosControle(DadosControle)
+        self.visao.set_dadosControle(DadosControle)

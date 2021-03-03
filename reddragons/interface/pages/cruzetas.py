@@ -11,19 +11,19 @@ class GUI_cruzetas(QMainWindow):
         loadUi(f'{ui_files}/cruzetas.ui', self)
         self.show()
         self.visao = visao
-        self.dados = self.visao.read_Dados()
+        self.dados = self.visao.read_dados()
         self.getReferencia()
         self.QT_btReferencia.clicked.connect(self.getReferencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
         
     def getReferencia(self):
         
-        self.referencia = self.visao.read_Imagem().imagem_warp
+        self.referencia = self.visao.read_imagem().imagem_warp
         self.desenhar()
         
     def finalizar(self):
         
-        self.visao.set_Dados(self.dados)
+        self.visao.set_dados(self.dados)
     
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()

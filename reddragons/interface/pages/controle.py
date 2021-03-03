@@ -32,11 +32,11 @@ class GUI_controle(QMainWindow):
         self.alvoFixo.stateChanged.connect(self.mudanca)
 
 
-        self.visao.sincronizar_Controle()
+        self.visao.sincronizar_controle()
 
     def mudanca(self):
 
-        DadosControle = self.visao.sincronizar_Controle()
+        DadosControle = self.visao.sincronizar_controle()
 
         DadosControle.Kp1 = self.lineKp1.text()
         DadosControle.Kd1 = self.lineKd1.text()
@@ -55,11 +55,11 @@ class GUI_controle(QMainWindow):
         DadosControle.simular = True if self.simular.isChecked() else False 
         DadosControle.irParaAlvoFixo = True if self.alvoFixo.isChecked() else False 
 
-        self.visao.set_DadosControle(DadosControle)
+        self.visao.set_dadosControle(DadosControle)
 
     def inicializarValores(self):
 
-        DadosControle = self.visao.sincronizar_Controle()  
+        DadosControle = self.visao.sincronizar_controle()  
 
         self.lineKd1.setText(str(DadosControle.Kd1)) 
         self.lineKp1.setText(str(DadosControle.Kd1))
