@@ -12,9 +12,9 @@ cam = captura.Imagem()
 
 class processamento():
     def __init__(self, src="videos/jogo.avi"):
-        self.Imagem = estruturas.estruturaImagem()
-        self.Dados = estruturas.estruturaDados()
-        self.DadosControle = estruturas.estruturaControle()
+        self.Imagem = estruturas.Imagem()
+        self.Dados = estruturas.Dados()
+        self.DadosControle = estruturas.Controle()
         self.started = False
         self.read_lock = threading.Lock()
         global cam
@@ -223,32 +223,32 @@ class processamento():
         global cam
         cam.stop()
         
-def corteImagem(fonte, estruturaDados):
-    tamanho = estruturaDados.size
+def corteImagem(fonte, dados):
+    tamanho = dados.size
     
     imagem = fonte
     
-    supEsquerdo = estruturaDados.corte[0]
+    supEsquerdo = dados.corte[0]
     imagem[0:supEsquerdo[1], 0:supEsquerdo[0], :] = 0
-    imagem[0:estruturaDados.corte[1][1], estruturaDados.corte[1][0]:640, :] = 0
-    imagem[estruturaDados.corte[2][1]:480, 0:estruturaDados.corte[2][0], :] = 0
-    imagem[estruturaDados.corte[3][1]:480, estruturaDados.corte[3][0]:640, :] = 0
+    imagem[0:dados.corte[1][1], dados.corte[1][0]:640, :] = 0
+    imagem[dados.corte[2][1]:480, 0:dados.corte[2][0], :] = 0
+    imagem[dados.corte[3][1]:480, dados.corte[3][0]:640, :] = 0
     
     return imagem
 
-def matriz_warpPerspective(estruturaDados):
-    size = estruturaDados.size
+def matriz_warpPerspective(dados):
+    size = dados.size
     W = size[0]
     H = size[1]
     
-    src = np.float32(estruturaDados.warpPerspective)
+    src = np.float32(dados.warpPerspective)
     dst = np.float32([[0,0], [W,0], [0,H], [W,H]])
     M = cv2.getPerspectiveTransform(src, dst)
     return M
     
-def warpPerspective(imagem, estruturaDados):
-    size = estruturaDados.size
-    M = estruturaDados.M_warpPerspective
+def warpPerspective(imagem, dados):
+    size = dados.size
+    M = dados.M_warpPerspective
     
     destino = cv2.warpPerspective(imagem, M, (size[0],size[1]))
     return destino

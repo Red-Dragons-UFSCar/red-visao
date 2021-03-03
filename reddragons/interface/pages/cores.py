@@ -6,7 +6,6 @@ from PyQt5.uic import loadUi
 import cv2
 import numpy as np
 
-from reddragons.visao.estruturas import *
 from reddragons.visao.logger import *
 from reddragons.visao import processamento
 

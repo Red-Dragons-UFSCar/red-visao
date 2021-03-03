@@ -8,11 +8,11 @@ import pandas as pd
 import serial 
 from reddragons.controle import estrategias
 import os
-from reddragons.visao.estruturas import estruturaControle
+from reddragons.visao import estruturas
 from reddragons.controle import AcoesControle
 
 def InicializaControle(Dados):
-    DadosControle = estruturaControle()
+    DadosControle = estruturas.Controle()
     DadosControle = Dados
 
     if DadosControle.Pjogar:

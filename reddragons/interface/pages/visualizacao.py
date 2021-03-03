@@ -7,7 +7,6 @@ from PyQt5.uic import loadUi
 import cv2
 from enum import Enum
 
-from reddragons.visao.estruturas import *
 from reddragons.visao.logger import *
 import math
 

@@ -6,7 +6,6 @@ from PyQt5.uic import loadUi
 from reddragons.visao.utils import PointsParser, converte_coord
 import cv2
 
-from reddragons.visao.estruturas import *
 from reddragons.visao.logger import *
 
 class GUI_perspectiva(QMainWindow):

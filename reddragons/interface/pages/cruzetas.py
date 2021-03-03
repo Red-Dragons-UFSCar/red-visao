@@ -5,9 +5,6 @@ from PyQt5.uic import loadUi
 
 import cv2
 
-from reddragons.visao.estruturas import *
-from reddragons.visao.logger import *
-
 class GUI_cruzetas(QMainWindow):
     def    __init__(self, visao):
         super(GUI_cruzetas, self).__init__()

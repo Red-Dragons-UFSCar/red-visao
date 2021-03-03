@@ -1,4 +1,6 @@
 from . import captura
 from . import estruturas
-from . import logger
+from .logger import logger
 from . import processamento
+
+__all__ = ['captura', 'estruturas', 'logger', 'processamento']
