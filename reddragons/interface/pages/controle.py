@@ -4,11 +4,11 @@ from PyQt5.uic import loadUi
 
 from reddragons.visao import Logger
 
-class GUI_controle(QMainWindow):
 
+class GUI_controle(QMainWindow):
     def __init__(self, visao):
-        super(GUI_controle,self).__init__()
-        loadUi(f'{ui_files}/controle.ui',self)
+        super(GUI_controle, self).__init__()
+        loadUi(f"{ui_files}/controle.ui", self)
         self.show()
         self.visao = visao
         self.inicializarValores()
@@ -31,7 +31,6 @@ class GUI_controle(QMainWindow):
         self.simular.stateChanged.connect(self.mudanca)
         self.alvoFixo.stateChanged.connect(self.mudanca)
 
-
         self.visao.sincronizar_controle()
 
     def mudanca(self):
@@ -48,20 +47,20 @@ class GUI_controle(QMainWindow):
         DadosControle.Kd3 = self.lineKd3.text()
         DadosControle.Ki3 = self.lineKi3.text()
         DadosControle.porta = self.porta_value.text()
-        DadosControle.trocouCampo = True if self.dir_radio.isChecked() else False 
-        DadosControle.bolaNossa1 = 1 if self.bolaNossa.isChecked() else 0 
-        DadosControle.duasFaces = True if self.duasFaces.isChecked() else False 
-        DadosControle.flagAtivaKalman = True if self.kalman.isChecked() else False 
-        DadosControle.simular = True if self.simular.isChecked() else False 
-        DadosControle.irParaAlvoFixo = True if self.alvoFixo.isChecked() else False 
+        DadosControle.trocouCampo = True if self.dir_radio.isChecked() else False
+        DadosControle.bolaNossa1 = 1 if self.bolaNossa.isChecked() else 0
+        DadosControle.duasFaces = True if self.duasFaces.isChecked() else False
+        DadosControle.flagAtivaKalman = True if self.kalman.isChecked() else False
+        DadosControle.simular = True if self.simular.isChecked() else False
+        DadosControle.irParaAlvoFixo = True if self.alvoFixo.isChecked() else False
 
         self.visao.set_dadosControle(DadosControle)
 
     def inicializarValores(self):
 
-        DadosControle = self.visao.sincronizar_controle()  
+        DadosControle = self.visao.sincronizar_controle()
 
-        self.lineKd1.setText(str(DadosControle.Kd1)) 
+        self.lineKd1.setText(str(DadosControle.Kd1))
         self.lineKp1.setText(str(DadosControle.Kd1))
         self.lineKi1.setText(str(DadosControle.Ki1))
         self.lineKd2.setText(str(DadosControle.Kd2))
@@ -72,9 +71,9 @@ class GUI_controle(QMainWindow):
         self.lineKi3.setText(str(DadosControle.Ki3))
         self.porta_value.setText(DadosControle.porta)
 
-        self.esq_radio.setChecked(DadosControle.trocouCampo) 
+        self.esq_radio.setChecked(DadosControle.trocouCampo)
         self.bolaNossa.setChecked(DadosControle.bolaNossa1)
-        self.duasFaces.setChecked(DadosControle.duasFaces) 
-        self.kalman.setChecked(DadosControle.flagAtivaKalman)  
-        self.simular.setChecked(DadosControle.simular) 
+        self.duasFaces.setChecked(DadosControle.duasFaces)
+        self.kalman.setChecked(DadosControle.flagAtivaKalman)
+        self.simular.setChecked(DadosControle.simular)
         self.alvoFixo.setChecked(DadosControle.irParaAlvoFixo)

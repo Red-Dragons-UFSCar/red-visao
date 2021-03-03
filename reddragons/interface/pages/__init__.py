@@ -12,16 +12,16 @@ from .salvar import GUI_salvar
 from .visualizacao import GUI_visualizacao
 
 __all__ = [
-    'GUI_camera',
-    'GUI_carregar',
-    'GUI_centro',
-    'GUI_controle',
-    'GUI_cores',
-    'GUI_corte',
-    'GUI_cruzetas',
-    'GUI_jogar',
-    'GUI_main',
-    'GUI_perspectiva',
-    'GUI_salvar',
-    'GUI_visualizacao',
+    "GUI_camera",
+    "GUI_carregar",
+    "GUI_centro",
+    "GUI_controle",
+    "GUI_cores",
+    "GUI_corte",
+    "GUI_cruzetas",
+    "GUI_jogar",
+    "GUI_main",
+    "GUI_perspectiva",
+    "GUI_salvar",
+    "GUI_visualizacao",
 ]

@@ -10,6 +10,7 @@ from enum import Enum
 from reddragons.visao import Logger
 import math
 
+
 class Estado(Enum):
     ORIGINAL = 0
     PERSPECTIVA = 1
@@ -18,53 +19,53 @@ class Estado(Enum):
     CENTROIDS = 4
     ROBOS = 5
 
+
 class GUI_visualizacao(QMainWindow):
     def __init__(self, visao):
         super(GUI_visualizacao, self).__init__()
-        loadUi(f'{ui_files}/visualizacao.ui', self)
+        loadUi(f"{ui_files}/visualizacao.ui", self)
         self.show()
         self.visao = visao
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.updateFrame)
         self.timer.start(1)
-        
+
     def closeEvent(self, event):
-    	self.timer.stop()
-    	event.accept()
-        
+        self.timer.stop()
+        event.accept()
+
     def updateFrame(self):
         estado = self.qt_tipoVisualizacao.currentIndex()
-        
-        
+
         Imagem = self.visao.read_imagem()
         Dados = self.visao.read_dados()
-        
+
         if estado == Estado.ORIGINAL.value:
             img = Imagem.imagem_original
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
-            
+
         if estado == Estado.PERSPECTIVA.value:
             img = Imagem.imagem_warp
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
-            
+
         if estado == Estado.CORTE.value:
             img = Imagem.imagem_crop
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
-            
+
         if estado == Estado.CRUZ.value:
             img = Imagem.imagem_crop
             for ponto in Dados.cruzetas:
-                cv2.drawMarker(img, (ponto[0], ponto[1]), (255,0,0))
+                cv2.drawMarker(img, (ponto[0], ponto[1]), (255, 0, 0))
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
-            
+
         if estado == Estado.CENTROIDS.value:
             img = Imagem.imagem_crop
             C = [(55, 55, 55), (200, 200, 200), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
@@ -74,14 +75,29 @@ class GUI_visualizacao(QMainWindow):
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
-            
+
         if estado == Estado.ROBOS.value:
             img = Imagem.imagem_crop
             C = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
             for c, p in zip(C, Imagem.centros):
                 cv2.circle(img, (int(p[0]), int(p[1])), 25, c, 1)
-                cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(p[2])*50), int(p[1]+ math.sin(p[2])*50)), c, 3)
-                cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.ang_corr)*50), int(p[1]+ math.sin(Dados.ang_corr)*50)), c, 1)
+                cv2.line(
+                    img,
+                    (int(p[0]), int(p[1])),
+                    (int(p[0] + math.cos(p[2]) * 50), int(p[1] + math.sin(p[2]) * 50)),
+                    c,
+                    3,
+                )
+                cv2.line(
+                    img,
+                    (int(p[0]), int(p[1])),
+                    (
+                        int(p[0] + math.cos(Dados.ang_corr) * 50),
+                        int(p[1] + math.sin(Dados.ang_corr) * 50),
+                    ),
+                    c,
+                    1,
+                )
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)

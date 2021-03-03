@@ -9,10 +9,11 @@ import cv2
 from reddragons.visao import Logger
 import math
 
+
 class GUI_jogar(QMainWindow):
     def __init__(self, visao):
-        super(GUI_jogar,self).__init__()
-        loadUi(f'{ui_files}/jogar.ui',self)
+        super(GUI_jogar, self).__init__()
+        loadUi(f"{ui_files}/jogar.ui", self)
         self.show()
         self.visao = visao
         self.timer = QTimer(self)
@@ -25,20 +26,32 @@ class GUI_jogar(QMainWindow):
         self.rJogar.toggled.connect(self.mudanca)
         self.rParar.toggled.connect(self.mudanca)
         self.rPosInicial.toggled.connect(self.mudanca)
-        
+
     def updateFrame(self):
-        
+
         Imagem = self.visao.read_imagem()
         Dados = self.visao.read_dados()
         DadosControle = self.visao.sincronizar_controle_dinamico()
 
         img = Imagem.imagem_crop
         C = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
-        for c, p,a in zip(C, Imagem.centros,DadosControle.angulo_d):
+        for c, p, a in zip(C, Imagem.centros, DadosControle.angulo_d):
             cv2.circle(img, (int(p[0]), int(p[1])), 20, c, 1)
-            cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(p[2])*25), int(p[1]+ math.sin(p[2])*25)), c, 3) #Angulo Robo
-            #cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.ang_corr)*50), int(p[1]+ math.sin(Dados.ang_corr)*50)), c, 1)
-            cv2.line(img,(int(p[0]),int(p[1])),(int(p[0]+math.cos(a)*25),int(p[1]+math.sin(a)*25)),(255,255,0),1) #Angulo controle
+            cv2.line(
+                img,
+                (int(p[0]), int(p[1])),
+                (int(p[0] + math.cos(p[2]) * 25), int(p[1] + math.sin(p[2]) * 25)),
+                c,
+                3,
+            )  # Angulo Robo
+            # cv2.line(img, (int(p[0]), int(p[1])), (int(p[0] + math.cos(Dados.ang_corr)*50), int(p[1]+ math.sin(Dados.ang_corr)*50)), c, 1)
+            cv2.line(
+                img,
+                (int(p[0]), int(p[1])),
+                (int(p[0] + math.cos(a) * 25), int(p[1] + math.sin(a) * 25)),
+                (255, 255, 0),
+                1,
+            )  # Angulo controle
 
         C = [(55, 55, 55), (10, 10, 10), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
         for c, p in zip(C, Imagem.centroids):
@@ -48,47 +61,45 @@ class GUI_jogar(QMainWindow):
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_jogar.setPixmap(_qPixmap)
 
-
-
         if self.jogando:
-            #Descomentar quando o controle estiver funcional
-            #DadosControle = enviarInfo.InicializaControle(DadosControle)
+            # Descomentar quando o controle estiver funcional
+            # DadosControle = enviarInfo.InicializaControle(DadosControle)
             self.visao.set_dadosControle(DadosControle)
-    
-    def AtivaSerial(self):          
-        
+
+    def AtivaSerial(self):
+
         DadosControle = self.visao.read_dadosControle()
         if self.jogando:
-                self.jogando = False
-                self.btJogar.setText('Iniciar transmissao')
-                self.btJogar.setStyleSheet("background-color:green")
-                DadosControle.ser = 0
+            self.jogando = False
+            self.btJogar.setText("Iniciar transmissao")
+            self.btJogar.setStyleSheet("background-color:green")
+            DadosControle.ser = 0
         else:
             try:
-                #Descomentar quando em jogo
-                #DadosControle.ser = serial.Serial(DadosControle.porta,DadosControle.velocidade)
+                # Descomentar quando em jogo
+                # DadosControle.ser = serial.Serial(DadosControle.porta,DadosControle.velocidade)
                 self.jogando = True
-                self.btJogar.setText('Terminar transmissao')
+                self.btJogar.setText("Terminar transmissao")
                 self.btJogar.setStyleSheet("background-color:red")
             except:
-                Logger().erro('Porta não encontrada')
+                Logger().erro("Porta não encontrada")
                 self.jogando = False
-                self.btJogar.setText('Iniciar transmissao')
+                self.btJogar.setText("Iniciar transmissao")
                 self.btJogar.setStyleSheet("background-color:green")
                 DadosControle.ser = 0
 
         self.visao.set_dadosControle(DadosControle)
-        
+
     def closeEvent(self, event):
-    	self.timer.stop()
-    	event.accept()
+        self.timer.stop()
+        event.accept()
 
     def mudanca(self):
-        
+
         DadosControle = self.visao.sincronizar_controle_dinamico()
- 
+
         DadosControle.Pjogar = True if self.rJogar.isChecked() else False
         DadosControle.Pparar = True if self.rParar.isChecked() else False
         DadosControle.Pinicial = True if self.rPosInicial.isChecked() else False
-            
+
         self.visao.set_dadosControle(DadosControle)
