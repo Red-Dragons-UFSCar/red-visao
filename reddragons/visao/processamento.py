@@ -1,34 +1,29 @@
+import copy
+import threading
+import time
+
 import cv2
 import numpy as np
-import threading
-from reddragons.visao import estruturas
-from reddragons.visao import captura
-import time
+from reddragons.visao import captura, estruturas, utils
 from reddragons.visao.logger import logger
-from reddragons.visao import utils
-import copy
-import math
-
-cam = captura.Imagem()
 
 
 class processamento:
-    def __init__(self, src="videos/jogo.avi"):
+    def __init__(self):
         self.Imagem = estruturas.Imagem()
         self.Dados = estruturas.Dados()
         self.DadosControle = estruturas.Controle()
         self.started = False
+        self.cam = captura.Imagem()
         self.read_lock = threading.Lock()
-        global cam
-        cam.iniciar()
+        self.cam.iniciar()
 
         self.recalcular()
         self.verbose = False
 
     def alterarSrc(self, src="videos/jogo.avi"):
         self.stop()
-        global cam
-        cam.alterarSrc(src)
+        self.cam.alterarSrc(src)
         self.started = False
         self.iniciar()
 
@@ -48,8 +43,8 @@ class processamento:
         while self.started:
             tempoInicial = time.time()
 
-            global cam
-            self.conseguiu, self.img = cam.read()
+
+            self.conseguiu, self.img = self.cam.read()
 
             if self.conseguiu:
                 # self.img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
@@ -143,9 +138,9 @@ class processamento:
                     )
             else:
                 logger().erro("Sem frame da captura")
-                cam.stop()
-                cam = captura.Imagem()
-                cam.iniciar()
+                self.cam.stop()
+                self.cam = captura.Imagem()
+                self.cam.iniciar()
                 logger().flag("Câmera reiniciada")
 
     def recalcular(self):
@@ -177,8 +172,7 @@ class processamento:
     def stop(self):
         self.started = False
         self.thread.join()
-        global cam
-        cam.stop()
+        self.cam.stop()
 
     def read_DadosControle(self):
         with self.read_lock:
@@ -250,5 +244,4 @@ class processamento:
         return erros
 
     def __exit__(self, exec_type, exc_value, traceback):
-        global cam
-        cam.stop()
+        self.cam.stop()
