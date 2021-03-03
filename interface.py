@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 
 from enum import Enum
-
+from utils import PointsParser, converte_coord
 import cv2
 import numpy as np
 
@@ -97,7 +97,7 @@ class GUI_main(QMainWindow):
     
     def carregar(self):
         self.tela = GUI_carregar()
-        
+
 class GUI_visualizacao(QMainWindow):
     def __init__(self):
         super(GUI_visualizacao, self).__init__()
@@ -173,7 +173,8 @@ class GUI_perspectiva(QMainWindow):
         self.show()    
         global VISAO
         self.dados = VISAO.read_Dados()
-        
+        self.inputCount = 0
+        self.inputs = []
         self.getReferencia()
         
         self.QT_btReferencia.clicked.connect(self.getReferencia)
@@ -196,18 +197,23 @@ class GUI_perspectiva(QMainWindow):
         y = _y - self.QT_Imagem.pos().y()
         
         if (x < self.QT_Imagem.geometry().width()) and (y < self.QT_Imagem.geometry().height() and x >= 0 and y >= 0):
-            self.dados.warpPerspective[self.QT_posicao.currentIndex()] = [x, y]
-            self.desenhar()
+            if (self.inputCount <= 8):
+                self.inputCount+=1
+                self.inputs.append((x,y))
+                self.desenhar()
+                if(self.inputCount == 8):
+                    parser = PointsParser(self.inputs)
+                    pts = parser.run()
+                    self.dados.warpPerspective = pts['externos']
+                    self.finalizar()
+                    self.dados.corte = [
+                        converte_coord(VISAO.read_Dados().M_warpPerspective, p) for p in pts['internos']
+                    ]
             
     def desenhar(self):
         img = self.referencia.copy()
-            
-        pts = self.dados.warpPerspective
-        pts = np.asarray([pts[0], pts[1], pts[3], pts[2]])
-        pts = pts.reshape((-1,1,2))
-        cv2.polylines(img,[pts],True,(255,0,0),2)
         
-        for ponto in self.dados.warpPerspective:
+        for ponto in self.inputs:
             cv2.circle(img, (ponto[0], ponto[1]), 6, (205,0,0),-1)
             
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
