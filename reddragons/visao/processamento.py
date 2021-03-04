@@ -4,21 +4,28 @@ import time
 
 import cv2
 import numpy as np
-from reddragons.visao import captura, estruturas, utils
+from reddragons.visao import captura, estruturas, utils, services
 from reddragons.visao.logger import Logger
 
 
 class Processamento:
     def __init__(self):
-        self.imagem = estruturas.Imagem()
-        self.dados = estruturas.Dados()
-        self.dados_controle = estruturas.Controle()
+        self._init_data()
+        self._init_services()
         self.started = False
         self.cam = captura.Imagem()
         self.read_lock = threading.Lock()
         self.verbose = False
         self.cam.iniciar()
         self.recalcular()
+
+    def _init_data (self):
+        self.imagem = estruturas.Imagem()
+        self.dados = estruturas.Dados()
+        self.dados_controle = estruturas.Controle()
+
+    def _init_services(self):
+        self._perspectiva = services.Perspectiva(self.dados)
 
     def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
@@ -54,8 +61,7 @@ class Processamento:
                 imagem.imagem_original = copy.deepcopy(self.img)
                 tempo_copia = time.time()
 
-                _img = utils.warp_perspective(imagem.imagem_original, dados)
-                imagem.imagem_warp = copy.deepcopy(_img)
+                _img = self._perspectiva.processa(imagem.imagem_original, imagem)
                 tempo_warp = time.time()
 
                 _img2 = utils.corte_imagem(_img, dados)
