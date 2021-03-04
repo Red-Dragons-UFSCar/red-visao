@@ -1,13 +1,15 @@
 from typing import Optional
 from copy import deepcopy
-from reddragons.visao import estruturas
+
+from reddragons.visao import estruturas, utils
 
 
 class Corte:
     def __init__ (self, dados):
         self._dados = dados
 
-    def processa(self, fonte, dest: Optional[estruturas.Imagem] = None) -> int:
+    @utils.timing
+    def run(self, fonte, dest: Optional[estruturas.Imagem] = None) -> int:
         imagem = fonte
 
         sup_esquerdo = self._dados.corte[0]

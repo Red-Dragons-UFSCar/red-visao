@@ -29,6 +29,7 @@ class Processamento:
         self._corte = services.Corte(self.dados)
         self._converte_hsv = services.ConverteHSV()
         self._centroides = services.Centroides(self.dados)
+        self._centros = services.Centros(self.dados)
 
     def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
@@ -43,87 +44,54 @@ class Processamento:
         if self.started:
             return None
         self.started = True
-        self.thread = threading.Thread(target=self.processar, args=())
+        self.thread = threading.Thread(target=self.main, args=())
         self.thread.start()
         return self
 
     def processar(self):
+        err = False
+        tempo = {}
+        tempo['inicial'] = time.time()
+        self.conseguiu, self.img = self.cam.read()
+
+        if not self.conseguiu:
+            Logger().erro("Sem frame da captura")
+            self.cam.stop()
+            self.cam = captura.Imagem()
+            self.cam.iniciar()
+            Logger().flag("Câmera reiniciada")
+
+            return (True, None)
+
+        tempo['camera'] = time.time()
+
+        imagem = copy.deepcopy(self.imagem)
+        imagem.imagem_original = copy.deepcopy(self.img)
+        tempo['copia'] = time.time()
+
+        _, tempo['warp'] = self._perspectiva.run(imagem.imagem_original, imagem)
+        _, tempo['corte'] = self._corte.run(imagem.imagem_warp, imagem)
+        _, tempo['hsv'] = self._converte_hsv.run(imagem.imagem_crop, imagem)
+        _, tempo['centroids'] = self._centroides.run(imagem.imagem_hsv, imagem)
+        _, tempo['centros'] = self._centros.run(imagem.centroids, imagem)
+        imagem.adversarios = imagem.centroids[5]
+
+        with self.read_lock:
+            self.imagem = copy.deepcopy(imagem)
+        tempo['final'] = time.time()
+
+        return err, tempo
+
+    def main(self):
         i_frame = 0
         while self.started:
-            tempo_inicial = time.time()
             self.conseguiu, self.img = self.cam.read()
-
-            if not self.conseguiu:
-                Logger().erro("Sem frame da captura")
-                self.cam.stop()
-                self.cam = captura.Imagem()
-                self.cam.iniciar()
-                Logger().flag("Câmera reiniciada")
-                continue
-
-            i_frame += 1
-            tempo_camera = time.time()
-
-            imagem = copy.deepcopy(self.imagem)
-            dados = copy.deepcopy(self.dados)
-            imagem.imagem_original = copy.deepcopy(self.img)
-            tempo_copia = time.time()
-
-            _img = self._perspectiva.processa(imagem.imagem_original, imagem)
-            tempo_warp = time.time()
-
-            self._corte.processa(imagem.imagem_warp, imagem)
-            tempo_corte = time.time()
-
-            self._converte_hsv.processa(imagem.imagem_crop, imagem)
-            tempo_hsv = time.time()
-
-            centroids = self._centroides.processa(imagem.imagem_hsv, imagem)
-            tempo_centroids = time.time()
-
-            centros = utils.calcula_centros(centroids, dados.ang_corr)
-
-            if self.imagem.centros is not None:
-                if abs(centros[0][2] - self.imagem.centros[0][2]) < 0.30:
-                    centros[0][2] = (
-                        centros[0][2]
-                        - (centros[0][2] - self.imagem.centros[0][2]) * 0.85
-                    )
-
-                if abs(centros[1][2] - self.imagem.centros[1][2]) < 0.30:
-                    centros[1][2] = (
-                        centros[1][2]
-                        - (centros[1][2] - self.imagem.centros[1][2]) * 0.85
-                    )
-
-                if abs(centros[2][2] - self.imagem.centros[2][2]) < 0.30:
-                    centros[2][2] = (
-                        centros[2][2]
-                        - (centros[2][2] - self.imagem.centros[2][2]) * 0.85
-                    )
-
-            imagem.centros = centros
-            imagem.adversarios = centroids[5]
-            tempo_centros = time.time()
-
-            with self.read_lock:
-                self.imagem = copy.deepcopy(imagem)
-
-            tempo_final = time.time()
+            err, tempo = self.processar()
+            if err: continue
+            i_frame+=1
 
             if self.verbose:
-                Logger().tempo(
-                    i_frame,
-                    tempo_inicial,
-                    tempo_camera,
-                    tempo_copia,
-                    tempo_warp,
-                    tempo_corte,
-                    tempo_hsv,
-                    tempo_centroids,
-                    tempo_centros,
-                    tempo_final,
-                )                
+                Logger().tempo(i_frame, *tempo.values())    
 
     def recalcular(self):
         dados = self.dados

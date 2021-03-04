@@ -2,7 +2,7 @@ from copy import deepcopy
 
 import cv2
 import numpy as np
-from reddragons.visao import estruturas
+from reddragons.visao import estruturas, utils
 
 
 class Perspectiva():
@@ -18,8 +18,8 @@ class Perspectiva():
         self._dados.matriz_warp_perspective = cv2.getPerspectiveTransform(src, dst)
         return self._dados.matriz_warp_perspective
 
-    def processa(self, imagem, dest: estruturas.Imagem = None):
-
+    @utils.timing
+    def run(self, imagem, dest: estruturas.Imagem = None):
         img_processada = cv2.warpPerspective (
             imagem,
             self._dados.matriz_warp_perspective,

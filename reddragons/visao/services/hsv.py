@@ -1,10 +1,11 @@
 import cv2
 import numpy as np
-from reddragons.visao import estruturas
+from reddragons.visao import estruturas, utils
 from copy import deepcopy
 
 class ConverteHSV:
-    def processa (self, imagem, dest: estruturas.Imagem = None):
+    @utils.timing
+    def run (self, imagem, dest: estruturas.Imagem = None):
         img_proc = cv2.cvtColor(
             np.uint8(imagem), cv2.COLOR_RGB2HSV
         )

@@ -1,13 +1,15 @@
 import numpy as np
-from reddragons.visao import estruturas, utils
+from reddragons.visao import utils
+from reddragons.visao.estruturas import Dados, Imagem
 import cv2
 
 class Centroides:
 
-    def __init__(self, dados):
+    def __init__(self, dados: Dados):
         self._dados = dados
- 
-    def processa(self, imagem, dest: estruturas.Imagem = None):
+    
+    @utils.timing
+    def run(self, imagem, dest: Imagem = None):
         centr_final = []
         for cor, filtro in zip(self._dados.cores, self._dados.filtros):
             cortornos, _ = utils.get_contorno_cor(
@@ -25,6 +27,6 @@ class Centroides:
                         (centroids, np.asarray([c_x, c_y, moments["m00"]]))
                     )
             centr_final.append(np.array([centroids]))
-        if dest: 
+        if dest:
             dest.centroids = centr_final
         return centr_final

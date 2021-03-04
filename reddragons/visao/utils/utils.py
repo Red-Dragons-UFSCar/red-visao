@@ -4,9 +4,13 @@ from pathlib import Path
 import cv2
 import numpy as np
 from reddragons.visao.logger import Logger
+from functools import wraps
+import time
 
 __all__ = [
     'VIDEO_PATH',
+    'DotDict',
+    'timing',
     'converte_coord',
     'test_device',
     'get_contorno_cor',
@@ -14,10 +18,27 @@ __all__ = [
     'calcula_centros',
     'checar_erro_centroide',
 ]
-#constantes
+# constantes
 VIDEO_PATH = str(Path(__file__, "../../../../data/jogo.avi").resolve())
 
-#funcoes
+# classes
+class DotDict(dict):
+    """dot.notation access to dictionary attributes"""
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+# funcoes
+def timing (f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        inicio = time.time()
+        result = f(*args, **kwargs)
+        fim = time.time()
+        return result, fim
+    return wrap
+
+
 def converte_coord(matriz, coord):
     """encontra o valor da coordenada apos a transformacao de perspectiva
 
