@@ -15,8 +15,8 @@ class Perspectiva():
 
         src = np.float32(self._dados.warp_perspective)
         dst = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
-        self._dados.warp_perspective = cv2.getPerspectiveTransform(src, dst)
-        return self._dados.warp_perspective
+        self._dados.matriz_warp_perspective = cv2.getPerspectiveTransform(src, dst)
+        return self._dados.matriz_warp_perspective
 
     def processa(self, imagem, dest: estruturas.Imagem = None):
 
