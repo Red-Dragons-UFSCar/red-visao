@@ -26,7 +26,8 @@ class Processamento:
 
     def _init_services(self):
         self._perspectiva = services.Perspectiva(self.dados)
-
+        self._corte = services.Corte(self.dados)
+        
     def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
         self.cam.alterar_src(src)
@@ -64,8 +65,7 @@ class Processamento:
                 _img = self._perspectiva.processa(imagem.imagem_original, imagem)
                 tempo_warp = time.time()
 
-                _img2 = utils.corte_imagem(_img, dados)
-                imagem.imagem_crop = copy.deepcopy(_img2)
+                self._corte.processa(imagem.imagem_warp, imagem)
                 tempo_corte = time.time()
 
                 imagem.imagem_hsv = cv2.cvtColor(
