@@ -27,7 +27,8 @@ class Processamento:
     def _init_services(self):
         self._perspectiva = services.Perspectiva(self.dados)
         self._corte = services.Corte(self.dados)
-        
+        self._converte_hsv = services.ConverteHSV()
+
     def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
         self.cam.alterar_src(src)
@@ -68,9 +69,7 @@ class Processamento:
                 self._corte.processa(imagem.imagem_warp, imagem)
                 tempo_corte = time.time()
 
-                imagem.imagem_hsv = cv2.cvtColor(
-                    np.uint8(imagem.imagem_crop), cv2.COLOR_RGB2HSV
-                )
+                self._converte_hsv.processa(imagem.imagem_crop, imagem)
                 tempo_hsv = time.time()
 
                 centr_final = []
@@ -146,7 +145,7 @@ class Processamento:
 
     def recalcular(self):
         dados = self.dados
-        dados.matriz_warp_perspective = utils.matriz_warp_perspective(dados)
+        dados.matriz_warp_perspective = self._perspectiva.calcula()
 
         with self.read_lock:
             self.dados = dados

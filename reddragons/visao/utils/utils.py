@@ -9,9 +9,6 @@ __all__ = [
     'VIDEO_PATH',
     'converte_coord',
     'test_device',
-    'corte_imagem',
-    'matriz_warp_perspective',
-    'warp_perspective',
     'get_contorno_cor',
     'centro_robo',
     'calcula_centros',
@@ -40,37 +37,6 @@ def test_device(src):
         Logger().erro("Não foi possível abrir o dispositivo: " + str(src))
         return 0
     return 1
-
-def corte_imagem(fonte, dados):
-    imagem = fonte
-
-    sup_esquerdo = dados.corte[0]
-    imagem[0 : sup_esquerdo[1], 0 : sup_esquerdo[0], :] = 0
-    imagem[0 : dados.corte[1][1], dados.corte[1][0] : 640, :] = 0
-    imagem[dados.corte[2][1] : 480, 0 : dados.corte[2][0], :] = 0
-    imagem[dados.corte[3][1] : 480, dados.corte[3][0] : 640, :] = 0
-
-    return imagem
-
-
-def matriz_warp_perspective(dados):
-    size = dados.size
-    width = size[0]
-    height = size[1]
-
-    src = np.float32(dados.warp_perspective)
-    dst = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
-    matriz = cv2.getPerspectiveTransform(src, dst)
-    return matriz
-
-
-def warp_perspective(imagem, dados):
-    size = dados.size
-    matriz = dados.matriz_warp_perspective
-
-    destino = cv2.warpPerspective(imagem, matriz, (size[0], size[1]))
-    return destino
-
 
 def get_contorno_cor(imagem_hsv, cor, filtro):
     if cor[0][0] > cor[1][0]:
