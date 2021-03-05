@@ -1,6 +1,6 @@
 import numpy as np
 from reddragons.visao import utils
-from reddragons.visao.estruturas import Dados, Imagem
+from reddragons.estruturas import Dados, Imagem
 import cv2
 
 class Centroides:

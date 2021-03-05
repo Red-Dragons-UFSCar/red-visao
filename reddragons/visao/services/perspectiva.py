@@ -2,7 +2,8 @@ from copy import deepcopy
 
 import cv2
 import numpy as np
-from reddragons.visao import estruturas, utils
+from reddragons.visao import utils
+from reddragons import estruturas
 
 
 class Perspectiva():

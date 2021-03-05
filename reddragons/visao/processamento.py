@@ -2,7 +2,8 @@ import copy
 import threading
 import time
 
-from reddragons.visao import captura, estruturas, utils, services
+from reddragons.visao import captura, utils, services
+from reddragons import estruturas
 from reddragons.visao.logger import Logger
 
 

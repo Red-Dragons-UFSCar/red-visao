@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication
-from reddragons.visao import Processamento, VisaoController, Captura, estruturas
+from reddragons.visao import Processamento, VisaoController
+from reddragons import estruturas 
 import sys
 from reddragons.interface import GUI_main
            

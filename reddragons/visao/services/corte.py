@@ -1,7 +1,8 @@
 from typing import Optional
 from copy import deepcopy
 
-from reddragons.visao import estruturas, utils
+from reddragons.visao import utils
+from reddragons import estruturas
 
 
 class Corte:
