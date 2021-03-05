@@ -17,4 +17,4 @@ class GUI_salvar(QMainWindow):
     def salvar(self):
         arquivo = open("modelos/" + self.QT_nomeSalvar.text() + ".red", "wb")
 
-        pickle.dump(self.visao.read_dados(), arquivo)
+        pickle.dump(self.visao.dados, arquivo)

@@ -12,19 +12,19 @@ class GUI_cruzetas(QMainWindow):
         loadUi(f"{ui_files}/cruzetas.ui", self)
         self.show()
         self.visao = visao
-        self.dados = self.visao.read_dados()
+        self.dados = self.visao.dados
         self.get_referencia()
         self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem().imagem_warp
+        self.referencia = self.visao.read_imagem('imagem_warp')
         self.desenhar()
 
     def finalizar(self):
 
-        self.visao.set_dados(self.dados)
+        self.visao.dados = self.dados
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()
@@ -35,13 +35,13 @@ class GUI_cruzetas(QMainWindow):
         if (x < self.QT_Imagem.geometry().width()) and (
             y < self.QT_Imagem.geometry().height() and x >= 0 and y >= 0
         ):
-            self.dados.cruzetas[self.QT_posicao.currentIndex()] = [x, y]
+            self.dados['cruzetas'][self.QT_posicao.currentIndex()] = [x, y]
             self.desenhar()
 
     def desenhar(self):
         img = self.referencia.copy()
 
-        for ponto in self.dados.cruzetas:
+        for ponto in self.dados['cruzetas']:
             cv2.drawMarker(img, (ponto[0], ponto[1]), (255, 0, 0))
 
         _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)

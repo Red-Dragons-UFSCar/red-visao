@@ -12,7 +12,7 @@ class GUI_corte(QMainWindow):
         loadUi(f"{ui_files}/corte.ui", self)
         self.show()
         self.visao = visao
-        self.dados = self.visao.read_dados()
+        self.dados = self.visao.dados
 
         self.get_referencia()
 
@@ -21,12 +21,12 @@ class GUI_corte(QMainWindow):
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem().imagem_warp
+        self.referencia = self.visao.read_imagem('imagem_warp')
         self.desenhar()
 
     def finalizar(self):
 
-        self.visao.set_dados(self.dados)
+        self.visao.dados = self.dados
         self.visao.recalcular()
 
     def mouseReleaseEvent(self, QMouseEvent):
@@ -38,19 +38,19 @@ class GUI_corte(QMainWindow):
         if (x < self.QT_Imagem.geometry().width()) and (
             y < self.QT_Imagem.geometry().height() and x >= 0 and y >= 0
         ):
-            self.dados.corte[self.QT_posicao.currentIndex()] = [x, y]
+            self.dados['corte'][self.QT_posicao.currentIndex()] = [x, y]
             self.desenhar()
 
     def desenhar(self):
         img = self.referencia.copy()
 
-        for ponto in self.dados.corte:
+        for ponto in self.dados['corte']:
             cv2.drawMarker(img, (ponto[0], ponto[1]), (0, 255, 0))
 
-        img[0 : self.dados.corte[0][1], 0 : self.dados.corte[0][0], :] = 0
-        img[0 : self.dados.corte[1][1], self.dados.corte[1][0] : 640, :] = 0
-        img[self.dados.corte[2][1] : 480, 0 : self.dados.corte[2][0], :] = 0
-        img[self.dados.corte[3][1] : 480, self.dados.corte[3][0] : 640, :] = 0
+        img[0 : self.dados['corte'][0][1], 0 : self.dados['corte'][0][0], :] = 0
+        img[0 : self.dados['corte'][1][1], self.dados['corte'][1][0] : 640, :] = 0
+        img[self.dados['corte'][2][1] : 480, 0 : self.dados['corte'][2][0], :] = 0
+        img[self.dados['corte'][3][1] : 480, self.dados['corte'][3][0] : 640, :] = 0
 
         _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _q_pixmap = QPixmap.fromImage(_q_image)

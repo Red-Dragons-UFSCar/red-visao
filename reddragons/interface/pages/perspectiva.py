@@ -12,9 +12,9 @@ class GUI_perspectiva(QMainWindow):
         super(GUI_perspectiva, self).__init__()
         loadUi(f"{ui_files}/perspectiva.ui", self)
         self.show()
+
         self.visao = visao
-        self.dados = self.visao.read_dados()
-        self.input_count = 0
+        self._dados = {}
         self.inputs = []
         self.get_referencia()
 
@@ -22,14 +22,11 @@ class GUI_perspectiva(QMainWindow):
         self.QT_btFinalizar.clicked.connect(self.finalizar)
 
     def get_referencia(self):
-
-        self.referencia = self.visao.read_imagem().imagem_original
+        self.referencia = self.visao.read_imagem('imagem_original')
         self.desenhar()
 
     def finalizar(self):
-
-        self.visao.set_dados(self.dados)
-        self.visao.recalcular()
+        self.visao.dados = self._dados
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()
@@ -40,18 +37,17 @@ class GUI_perspectiva(QMainWindow):
         if (x < self.QT_Imagem.geometry().width()) and (
             y < self.QT_Imagem.geometry().height() and x >= 0 and y >= 0
         ):
-            if self.input_count <= 8:
-                self.input_count += 1
+            if len(self.inputs) <= 8:
                 self.inputs.append((x, y))
                 self.desenhar()
-                if self.input_count == 8:
+                if len(self.inputs) == 8:
                     parser = PointsParser(self.inputs)
                     pts = parser.run()
-                    self.dados.warp_perspective = pts["externos"]
+                    self._dados['warp_perspective'] = pts["externos"]
                     self.finalizar()
-                    self.dados.corte = [
+                    self._dados['corte'] = [
                         converte_coord(
-                            self.visao.read_dados().matriz_warp_perspective, p
+                            self.visao.dados['matriz_warp_perspective'], p
                         )
                         for p in pts["internos"]
                     ]

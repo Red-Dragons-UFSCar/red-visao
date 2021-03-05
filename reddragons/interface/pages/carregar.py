@@ -4,11 +4,13 @@ import pickle
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
+from reddragons.visao import VisaoController
+
 from ..utils import ui_files
 
 
 class GUI_carregar(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao: VisaoController):
         super(GUI_carregar, self).__init__()
         loadUi(f"{ui_files}/carregar.ui", self)
         self.show()
@@ -22,4 +24,4 @@ class GUI_carregar(QMainWindow):
     def carregar(self):
 
         arquivo = open("modelos/" + self.QT_listaSalvos.currentText(), "rb")
-        self.visao.set_dados(pickle.load(arquivo))
+        self.visao.dados = pickle.load(arquivo)
