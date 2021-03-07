@@ -1,6 +1,6 @@
 import math
 
-from reddragons.visao import utils
+from reddragons import utils
 from reddragons.estruturas import Dados, Imagem
 
 class Centros():

@@ -2,7 +2,7 @@ import threading
 import time
 
 import cv2
-from reddragons.visao import utils
+from reddragons import utils
 from reddragons.visao.logger import Logger
 
 

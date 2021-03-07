@@ -1,7 +1,7 @@
 from typing import Optional
 from copy import deepcopy
 
-from reddragons.visao import utils
+from reddragons import utils
 from reddragons import estruturas
 
 

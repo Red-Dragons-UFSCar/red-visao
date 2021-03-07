@@ -1,5 +1,5 @@
 import numpy as np
-from reddragons.visao import utils
+from reddragons import utils
 from reddragons.estruturas import Dados, Imagem
 import cv2
 

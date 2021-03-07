@@ -3,7 +3,7 @@ import numpy as np
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
-from reddragons.visao import utils as vutils
+import reddragons.utils as vutils
 
 from ..utils import ui_files
 

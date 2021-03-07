@@ -2,7 +2,7 @@ import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
-from reddragons.visao.utils import PointsParser, converte_coord
+from reddragons.utils import PointsParser, converte_coord
 
 from ..utils import ui_files
 

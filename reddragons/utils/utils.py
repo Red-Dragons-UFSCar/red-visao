@@ -4,7 +4,7 @@ import threading
 
 import cv2
 import numpy as np
-from reddragons.visao.logger import Logger
+from .logger import Logger
 from functools import wraps
 import time
 
@@ -22,7 +22,7 @@ __all__ = [
     'checar_erro_centroide',
 ]
 # constantes
-VIDEO_PATH = str(Path(__file__, "../../../../data/jogo.avi").resolve())
+VIDEO_PATH = str(Path(__file__, "../../../data/jogo.avi").resolve())
 
 # classes
 class DotDict(dict):

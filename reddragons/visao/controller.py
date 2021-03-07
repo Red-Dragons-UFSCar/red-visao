@@ -1,7 +1,7 @@
 from copy import deepcopy
 
-from reddragons.visao import Captura, Logger, Processamento, utils
-from reddragons import estruturas
+from reddragons import estruturas, utils
+from reddragons.visao import Captura, Logger, Processamento
 
 
 class VisaoController:
