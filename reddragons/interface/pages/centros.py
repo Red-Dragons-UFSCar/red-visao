@@ -16,7 +16,7 @@ class GUI_centro(QMainWindow):
         loadUi(f"{ui_files}/centros.ui", self)
         self.show()
         self.visao = visao
-        self.dados = visao.dados
+        self.dados = self.visao.read_dados()
 
         self.getReferencia()
 
@@ -32,20 +32,22 @@ class GUI_centro(QMainWindow):
         event.accept()
 
     def getReferencia(self):
-        self.referencia = self.visao.read_imagem('imagem_crop')
-        self.centroids = self.visao.read_imagem('centroids')
+
+        self.referencia = self.visao.read_imagem().imagem_crop
+        self.centroids = self.visao.read_imagem().centroids
         self.desenhar()
 
     def mudanca(self):
-        self.dados['ang_corr'] = self.QT_angCorr.value() / 180.0 * math.pi
-        self.value_ang.setText("{0:.2f}º".format(self.dados['ang_corr'] * 180 / math.pi))
+        self.dados.ang_corr = self.QT_angCorr.value() / 180.0 * math.pi
+        self.value_ang.setText("{0:.2f}º".format(self.dados.ang_corr * 180 / math.pi))
         self.getReferencia()
 
     def finalizar(self):
-        self.visao.dados = self.dados
+
+        self.visao.set_dados(self.dados)
 
     def desenhar(self):
-        centros = vutils.calcula_centros(self.centroids, self.dados['ang_corr'])
+        centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
 
         img = self.referencia.copy()
         cores = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
@@ -62,8 +64,8 @@ class GUI_centro(QMainWindow):
                 img,
                 (int(p[0]), int(p[1])),
                 (
-                    int(p[0] + math.cos(self.dados['ang_corr']) * 50.0),
-                    int(p[1] + math.sin(self.dados['ang_corr']) * 50.0),
+                    int(p[0] + math.cos(self.dados.ang_corr) * 50.0),
+                    int(p[1] + math.sin(self.dados.ang_corr) * 50.0),
                 ),
                 c,
                 1,

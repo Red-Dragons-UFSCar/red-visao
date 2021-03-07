@@ -29,11 +29,12 @@ class GUI_jogar(QMainWindow):
 
     def update_frame(self):
 
+        imagem = self.visao.read_imagem()
         dados_controle = self.visao.sincronizar_controle_dinamico()
 
-        img = self.visao.read_imagem('imagem_crop')
+        img = imagem.imagem_crop
         cores = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
-        for c, p, a in zip(cores, self.visao.read_imagem('centros'), dados_controle.angulo_d):
+        for c, p, a in zip(cores, imagem.centros, dados_controle.angulo_d):
             cv2.circle(img, (int(p[0]), int(p[1])), 20, c, 1)
             cv2.line(
                 img,
@@ -52,7 +53,7 @@ class GUI_jogar(QMainWindow):
             )  # Angulo controle
 
         cores = [(55, 55, 55), (10, 10, 10), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
-        for c, p in zip(cores, self.visao.read_imagem('centroids')):
+        for c, p in zip(cores, imagem.centroids):
             for _p in p[0]:
                 cv2.circle(img, (int(_p[0]), int(_p[1])), 4, c, -1)
         _q_image = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
@@ -100,4 +101,4 @@ class GUI_jogar(QMainWindow):
         dados_controle.Pparar = True if self.rParar.isChecked() else False
         dados_controle.Pinicial = True if self.rPosInicial.isChecked() else False
 
-        self.visao.controle = dados_controle
+        self.visao.set_dados_controle(dados_controle)

@@ -6,7 +6,7 @@ from reddragons import utils
 from reddragons.visao.logger import Logger
 
 
-class Captura(metaclass=utils._Singleton):
+class Imagem:
     def __init__(self, src=utils.VIDEO_PATH):
         self.started = False
         self.thread = None

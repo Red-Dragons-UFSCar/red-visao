@@ -16,10 +16,10 @@ class GUI_cores(QMainWindow):
         self.visao = visao
         self.centroids = np.empty([0, 3])
 
-        self.dados = self.visao.dados
+        self.dados = self.visao.read_dados()
 
-        self.QT_AreaMax.setValue(self.dados['area_maxima'])
-        self.QT_AreaMin.setValue(self.dados['area_minima'])
+        self.QT_AreaMax.setValue(self.dados.area_maxima)
+        self.QT_AreaMin.setValue(self.dados.area_minima)
 
         self.get_referencia()
         self.QT_btReferencia.clicked.connect(self.get_referencia)
@@ -48,39 +48,39 @@ class GUI_cores(QMainWindow):
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem('imagem_crop')
-        self.imagem_hsv = self.visao.read_imagem('imagem_hsv')
-        self.dados = self.visao.dados
+        self.referencia = self.visao.read_imagem().imagem_crop
+        self.imagem_hsv = self.visao.read_imagem().imagem_hsv
+        self.dados = self.visao.read_dados()
         self.contornos, _ = vutils.get_contorno_cor(
-            self.imagem_hsv, self.dados['cores'][0], self.dados['filtros'][0]
+            self.imagem_hsv, self.dados.cores[0], self.dados.filtros[0]
         )
         self.desenhar()
 
     def salvar(self):
         i = self.QT_selecao.currentIndex()
-        self.dados['cores'][i] = [
+        self.dados.cores[i] = [
             [self.QT_HMin.value(), self.QT_SMin.value(), self.QT_VMin.value()],
             [self.QT_HMax.value(), self.QT_SMax.value(), self.QT_VMax.value()],
         ]
-        self.dados['filtros'][i] = [
+        self.dados.filtros[i] = [
             int(self.QT_qualKernel.currentIndex()),
             int(self.QT_tipoKernel.currentIndex()),
             self.QT_valorKernel.value(),
         ]
 
-        self.dados['area_minima'] = self.QT_AreaMin.value()
-        self.dados['area_maxima'] = self.QT_AreaMax.value()
+        self.dados.area_minima = self.QT_AreaMin.value()
+        self.dados.area_maxima = self.QT_AreaMax.value()
 
-        self.visao.dados = self.dados
+        self.visao.set_dados(self.dados)
 
     def nova_cor(self):
         i = self.QT_selecao.currentIndex()
         self.contornos, _ = vutils.get_contorno_cor(
-            self.imagem_hsv, self.dados['cores'][i], self.dados['filtros'][i]
+            self.imagem_hsv, self.dados.cores[i], self.dados.filtros[i]
         )
 
-        cores = self.dados['cores'][i]
-        filtros = self.dados['filtros'][i]
+        cores = self.dados.cores[i]
+        filtros = self.dados.filtros[i]
 
         self.QT_HMin.setValue(cores[0][0])
         self.QT_HMax.setValue(cores[1][0])
@@ -104,11 +104,11 @@ class GUI_cores(QMainWindow):
     def mudanca(self):
         i = self.QT_selecao.currentIndex()
 
-        self.dados['cores'][i] = [
+        self.dados.cores[i] = [
             [self.QT_HMin.value(), self.QT_SMin.value(), self.QT_VMin.value()],
             [self.QT_HMax.value(), self.QT_SMax.value(), self.QT_VMax.value()],
         ]
-        self.dados['filtros'][i] = [
+        self.dados.filtros[i] = [
             int(self.QT_qualKernel.currentIndex()),
             int(self.QT_tipoKernel.currentIndex()),
             self.QT_valorKernel.value(),
@@ -116,8 +116,8 @@ class GUI_cores(QMainWindow):
 
         self.contornos, _ = vutils.get_contorno_cor(
             cv2.cvtColor(np.uint8(self.referencia), cv2.COLOR_RGB2HSV),
-            self.dados['cores'][i],
-            self.dados['filtros'][i],
+            self.dados.cores[i],
+            self.dados.filtros[i],
         )
 
         self.centroids = np.empty([0, 3])

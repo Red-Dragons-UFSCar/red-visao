@@ -1,6 +1,5 @@
 import math
 from pathlib import Path
-import threading
 
 import cv2
 import numpy as np
@@ -12,12 +11,10 @@ __all__ = [
     'VIDEO_PATH',
     'DotDict',
     'timing',
-    'update_instance',
     'converte_coord',
     'test_device',
     'get_contorno_cor',
     'centro_robo',
-    'read_lock',
     'calcula_centros',
     'checar_erro_centroide',
 ]
@@ -40,34 +37,6 @@ def timing (f):
         fim = time.time()
         return result, fim
     return wrap
-
-def read_lock(f):
-    locker = threading.Lock()
-    @wraps(f)
-    def wrapped(*args, **kwargs):
-        with locker:
-            res = f(*args, **kwargs)
-            return res
-    return wrapped
-
-def update_instance (obj, attrs):
-    """atualiza uma instancia a partir de um
-    dict ou outra instancia
-
-    Args:
-        obj (instance): instancia alvo
-        attrs (dict): atributos a serem atualizados
-    """
-    if not isinstance(attrs, (dict, type(obj))):
-        return False
-    if isinstance(attrs, type(obj)):
-        attrs = vars(attrs)
-
-    for key, value in attrs.items():
-        if not hasattr (obj, key):
-            continue
-        setattr (obj, key, value)
-    return True
 
 
 def converte_coord(matriz, coord):

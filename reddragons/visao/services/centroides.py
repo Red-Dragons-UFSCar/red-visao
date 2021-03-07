@@ -7,7 +7,7 @@ class Centroides:
 
     def __init__(self, dados: Dados):
         self._dados = dados
-
+    
     @utils.timing
     def run(self, imagem, dest: Imagem = None):
         centr_final = []
