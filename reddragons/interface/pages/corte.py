@@ -7,12 +7,13 @@ from ..utils import ui_files
 
 
 class GUI_corte(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_corte, self).__init__()
         loadUi(f"{ui_files}/corte.ui", self)
         self.show()
+        self.model = model
         self.visao = visao
-        self.dados = self.visao.read_dados()
+        self.dados = self.model.dados
 
         self.get_referencia()
 
@@ -21,12 +22,12 @@ class GUI_corte(QMainWindow):
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem().imagem_warp
+        self.referencia = self.model.imagem.imagem_warp
         self.desenhar()
 
     def finalizar(self):
 
-        self.visao.set_dados(self.dados)
+        self.model.dados = self.dados
         self.visao.recalcular()
 
     def mouseReleaseEvent(self, QMouseEvent):

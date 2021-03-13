@@ -1,7 +1,8 @@
 import numpy as np
+from reddragons.utils import _Estrutura
 
 
-class Controle:
+class Controle (_Estrutura):
     def __init__(self):
         self.distCruzX = 1
         self.distCruzY = 1
@@ -47,3 +48,10 @@ class Controle:
         self.Pjogar = True
         self.Pinicial = False
         self.Pparar = False
+
+if __name__ == '__main__':
+    instance = Controle()
+    print(instance)
+    instance_copy = instance.copy()
+    print(instance_copy)
+

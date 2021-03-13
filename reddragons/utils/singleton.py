@@ -7,15 +7,3 @@ class _Singleton (type):
         return cls._instances[cls]
 
 
-if __name__ == '__main__':
-    class Teste (metaclass=_Singleton):
-        def __init__ (self, a, b):
-            self._a = a
-            self._b = b
-        def run(self):
-            return self._a+self._b
-
-    foo = Teste(1,2)
-    print(foo)
-    bar = Teste(3,4)
-    print(bar)

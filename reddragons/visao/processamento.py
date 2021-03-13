@@ -3,13 +3,12 @@ import threading
 import time
 
 from reddragons.visao import captura, services
-from reddragons import estruturas, utils
-from reddragons.visao.logger import Logger
-
+from reddragons import utils
+from reddragons.utils.logger import Logger
 
 class Processamento:
-    def __init__(self):
-        self._init_data()
+    def __init__(self, model):
+        self._model = model
         self._init_services()
         self.started = False
         self.cam = captura.Imagem()
@@ -18,17 +17,12 @@ class Processamento:
         self.cam.iniciar()
         self.recalcular()
 
-    def _init_data (self):
-        self.imagem = estruturas.Imagem()
-        self.dados = estruturas.Dados()
-        self.dados_controle = estruturas.Controle()
-
     def _init_services(self):
-        self._perspectiva = services.Perspectiva(self.dados)
-        self._corte = services.Corte(self.dados)
+        self._perspectiva = services.Perspectiva(self._model.dados)
+        self._corte = services.Corte(self._model.dados)
         self._converte_hsv = services.ConverteHSV()
-        self._centroides = services.Centroides(self.dados)
-        self._centros = services.Centros(self.dados)
+        self._centroides = services.Centroides(self._model.dados)
+        self._centros = services.Centros(self._model.dados)
 
     def alterar_src(self, src="videos/jogo.avi"):
         self.stop()
@@ -64,7 +58,7 @@ class Processamento:
 
         tempo['camera'] = time.time()
 
-        imagem = copy.deepcopy(self.imagem)
+        imagem = self._model.imagem.copy()
         imagem.imagem_original = copy.deepcopy(self.img)
         tempo['copia'] = time.time()
 
@@ -76,7 +70,7 @@ class Processamento:
         imagem.adversarios = imagem.centroids[5]
 
         with self.read_lock:
-            self.imagem = copy.deepcopy(imagem)
+            self._model.imagem = copy.deepcopy(imagem)
         tempo['final'] = time.time()
 
         return err, tempo
@@ -93,47 +87,19 @@ class Processamento:
                 Logger().tempo(i_frame, *tempo.values())    
 
     def recalcular(self):
-        dados = self.dados
+        dados = self._model.dados
         dados.matriz_warp_perspective = self._perspectiva.calcula()
 
         with self.read_lock:
             self.dados = dados
-
-    def read_imagem(self):
-        with self.read_lock:
-            imagem = self.imagem
-        return imagem
-
-    def read_dados(self):
-        with self.read_lock:
-            dados = self.dados
-        return dados
-
-    def set_dados(self, dados):
-        with self.read_lock:
-            self.dados = dados
-
-    def get_referencia(self):
-        with self.read_lock:
-            img = self.imagem.imagem
-        return img
 
     def stop(self):
         self.started = False
         self.thread.join()
         self.cam.stop()
 
-    def read_dados_controle(self):
-        with self.read_lock:
-            dados_controle = self.dados_controle
-        return dados_controle
-
-    def set_dados_controle(self, dados_controle):
-        with self.read_lock:
-            self.dados_controle = dados_controle
-
     def sincronizar_controle(self):
-        dados_controle = self.dados_controle
+        dados_controle = self._model.controle
         dados = self.dados
 
         dados_controle.distCruzX = abs(dados.cruzetas[0][0] - dados.cruzetas[1][0])
@@ -142,13 +108,13 @@ class Processamento:
         dados_controle.constY = 37.5 / dados_controle.distCruzY
 
         dados_controle = self.sincronizar_controle_dinamico(dados_controle)
-        self.set_dados_controle(dados_controle)
+        self._model.controle = dados_controle
         return dados_controle
 
     def sincronizar_controle_dinamico(self, dados_controle=None):
         if dados_controle is None:
-            dados_controle = copy.deepcopy(self.dados_controle)
-        imagem = self.imagem
+            dados_controle = copy.deepcopy(self._model.controle)
+        imagem = self._model.imagem
 
         if imagem.centroids[0] == []:
             Logger().erro("Bola não detectada. Usando última posição")
@@ -168,7 +134,7 @@ class Processamento:
         err = utils.checar_erro_centroide(imagem.centros)
         for i in range(3):
             if err[i] != 0:
-                dados_controle.robot[i] = self.dados_controle.robot[i]
+                dados_controle.robot[i] = self._model.controle.robot[i]
                 Logger().erro(
                     "Robô #" + str(i) + " não detectado. Usando última posição"
                 )
@@ -177,7 +143,7 @@ class Processamento:
         dados_controle.adversarios = imagem.adversarios[0]
         # Logger().variavel('dados_controle.adversarios', dados_controle.adversarios.T)
 
-        self.set_dados_controle(dados_controle)
+        self._model.controle(dados_controle)
 
         return dados_controle
 

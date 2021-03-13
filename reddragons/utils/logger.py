@@ -7,6 +7,10 @@ from .singleton import _Singleton
 from colorama import Fore, Style
 
 class Logger(metaclass=_Singleton):
+    _fps_mean = 0
+    _total_frames = 0
+    def _update_mean (self, new_value):
+        self._fps_mean += (new_value - self._fps_mean)/self._total_frames
 
     def erro(self, err):
         self.escrever(Fore.RED, err, "ERRO")
@@ -51,6 +55,8 @@ class Logger(metaclass=_Singleton):
         tempo_final,
     ):
         total = 100.0 / (tempo_final - tempo_inicial)
+        self._total_frames += 1
+        self._update_mean(1.0 / (tempo_final - tempo_inicial))
         print(
             Style.BRIGHT
             + "FRAME "

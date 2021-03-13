@@ -5,17 +5,18 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
-from reddragons.visao import Logger
+from reddragons.utils import Logger
 
 from ..utils import ui_files
 
 
 class GUI_jogar(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_jogar, self).__init__()
         loadUi(f"{ui_files}/jogar.ui", self)
         self.show()
         self.visao = visao
+        self.model = model
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(1)
@@ -29,7 +30,7 @@ class GUI_jogar(QMainWindow):
 
     def update_frame(self):
 
-        imagem = self.visao.read_imagem()
+        imagem = self.model.imagem
         dados_controle = self.visao.sincronizar_controle_dinamico()
 
         img = imagem.imagem_crop
@@ -63,11 +64,11 @@ class GUI_jogar(QMainWindow):
         if self.jogando:
             # Descomentar quando o controle estiver funcional
             # dados_controle = enviarInfo.InicializaControle(dados_controle)
-            self.visao.set_dados_controle(dados_controle)
+            self.model.controle = dados_controle
 
     def ativa_serial(self):
 
-        dados_controle = self.visao.read_dados_controle()
+        dados_controle = self.model.controle
         if self.jogando:
             self.jogando = False
             self.btJogar.setText("Iniciar transmissao")
@@ -87,7 +88,7 @@ class GUI_jogar(QMainWindow):
                 self.btJogar.setStyleSheet("background-color:green")
                 dados_controle.ser = 0
 
-        self.visao.set_dados_controle(dados_controle)
+        self.model.controle = dados_controle
 
     def closeEvent(self, event):
         self.timer.stop()
@@ -101,4 +102,4 @@ class GUI_jogar(QMainWindow):
         dados_controle.Pparar = True if self.rParar.isChecked() else False
         dados_controle.Pinicial = True if self.rPosInicial.isChecked() else False
 
-        self.visao.set_dados_controle(dados_controle)
+        self.model.controle = dados_controle

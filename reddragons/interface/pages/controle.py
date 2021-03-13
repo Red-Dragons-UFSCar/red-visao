@@ -5,11 +5,12 @@ from ..utils import ui_files
 
 
 class GUI_controle(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_controle, self).__init__()
         loadUi(f"{ui_files}/controle.ui", self)
         self.show()
         self.visao = visao
+        self.model = model
         self.inicializarValores()
 
         self.lineKd1.textChanged.connect(self.mudanca)
@@ -53,7 +54,7 @@ class GUI_controle(QMainWindow):
         dados_controle.simular = True if self.simular.isChecked() else False
         dados_controle.irParaAlvoFixo = True if self.alvoFixo.isChecked() else False
 
-        self.visao.set_dados_controle(dados_controle)
+        self.model.controle = dados_controle
 
     def inicializarValores(self):
 

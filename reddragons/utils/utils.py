@@ -1,43 +1,46 @@
 import math
+import time
+from functools import wraps
 from pathlib import Path
+from threading import Lock
 
 import cv2
 import numpy as np
+
 from .logger import Logger
-from functools import wraps
-import time
 
 __all__ = [
     'VIDEO_PATH',
-    'DotDict',
     'timing',
     'converte_coord',
+    'read_lock',
     'test_device',
     'get_contorno_cor',
     'centro_robo',
     'calcula_centros',
     'checar_erro_centroide',
 ]
+
 # constantes
 VIDEO_PATH = str(Path(__file__, "../../../data/jogo.avi").resolve())
-
-# classes
-class DotDict(dict):
-    """dot.notation access to dictionary attributes"""
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
+LOCKER = Lock()
 
 # funcoes
 def timing (f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        inicio = time.time()
         result = f(*args, **kwargs)
         fim = time.time()
         return result, fim
     return wrap
 
+def read_lock (f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        with LOCKER:
+            res = f(*args,**kwargs)
+        return res
+    return wrap
 
 def converte_coord(matriz, coord):
     """encontra o valor da coordenada apos a transformacao de perspectiva

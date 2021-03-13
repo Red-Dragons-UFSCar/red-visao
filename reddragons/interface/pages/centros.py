@@ -11,12 +11,13 @@ from ..utils import ui_files
 
 
 class GUI_centro(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_centro, self).__init__()
         loadUi(f"{ui_files}/centros.ui", self)
         self.show()
         self.visao = visao
-        self.dados = self.visao.read_dados()
+        self.model = model
+        self.dados = self.model.dados.copy()
 
         self.getReferencia()
 
@@ -32,9 +33,8 @@ class GUI_centro(QMainWindow):
         event.accept()
 
     def getReferencia(self):
-
-        self.referencia = self.visao.read_imagem().imagem_crop
-        self.centroids = self.visao.read_imagem().centroids
+        self.referencia = self.model.imagem.imagem_crop
+        self.centroids = self.model.imagem.centroids
         self.desenhar()
 
     def mudanca(self):
@@ -43,8 +43,7 @@ class GUI_centro(QMainWindow):
         self.getReferencia()
 
     def finalizar(self):
-
-        self.visao.set_dados(self.dados)
+        self.model.dados = self.dados
 
     def desenhar(self):
         centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)

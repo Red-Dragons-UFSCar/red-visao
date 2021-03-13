@@ -3,7 +3,7 @@ import time
 
 import cv2
 from reddragons import utils
-from reddragons.visao.logger import Logger
+from reddragons.utils.logger import Logger
 
 
 class Imagem:

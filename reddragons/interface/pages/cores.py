@@ -9,14 +9,15 @@ from ..utils import ui_files
 
 
 class GUI_cores(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_cores, self).__init__()
         loadUi(f"{ui_files}/cores.ui", self)
         self.show()
         self.visao = visao
+        self.model = model
         self.centroids = np.empty([0, 3])
 
-        self.dados = self.visao.read_dados()
+        self.dados = self.model.dados
 
         self.QT_AreaMax.setValue(self.dados.area_maxima)
         self.QT_AreaMin.setValue(self.dados.area_minima)
@@ -48,9 +49,9 @@ class GUI_cores(QMainWindow):
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem().imagem_crop
-        self.imagem_hsv = self.visao.read_imagem().imagem_hsv
-        self.dados = self.visao.read_dados()
+        self.referencia = self.model.imagem.imagem_crop
+        self.imagem_hsv = self.model.imagem.imagem_hsv
+        self.dados = self.model.dados
         self.contornos, _ = vutils.get_contorno_cor(
             self.imagem_hsv, self.dados.cores[0], self.dados.filtros[0]
         )
@@ -71,7 +72,7 @@ class GUI_cores(QMainWindow):
         self.dados.area_minima = self.QT_AreaMin.value()
         self.dados.area_maxima = self.QT_AreaMax.value()
 
-        self.visao.set_dados(self.dados)
+        self.model.dados = self.dados
 
     def nova_cor(self):
         i = self.QT_selecao.currentIndex()

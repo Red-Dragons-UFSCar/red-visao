@@ -7,11 +7,12 @@ from ..utils import ui_files
 
 
 class GUI_camera(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_camera, self).__init__()
         loadUi(f"{ui_files}/camera.ui", self)
         self.show()
         self.visao = visao
+        self.model = model
         self.QT_listaVideos.clear()
         for files in os.listdir("videos"):
             if files.endswith(".avi"):

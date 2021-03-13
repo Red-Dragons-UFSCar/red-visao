@@ -1,7 +1,7 @@
 import numpy as np
+from reddragons.utils import _Estrutura
 
-
-class Dados:
+class Dados(_Estrutura):
     def __init__(self):
         self.size = np.asarray([640, 480, 3])
         self.warp_perspective = np.asarray([[10, 10], [630, 10], [10, 470], [630, 470]])

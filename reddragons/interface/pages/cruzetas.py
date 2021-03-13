@@ -7,24 +7,25 @@ from ..utils import ui_files
 
 
 class GUI_cruzetas(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_cruzetas, self).__init__()
         loadUi(f"{ui_files}/cruzetas.ui", self)
         self.show()
         self.visao = visao
-        self.dados = self.visao.read_dados()
+        self.model = model
+        self.dados = self.model.dados
         self.get_referencia()
         self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem().imagem_warp
+        self.referencia = self.model.imagem.imagem_warp
         self.desenhar()
 
     def finalizar(self):
 
-        self.visao.set_dados(self.dados)
+        self.model.dados = self.dados
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()

@@ -8,12 +8,13 @@ from ..utils import ui_files
 
 
 class GUI_perspectiva(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_perspectiva, self).__init__()
         loadUi(f"{ui_files}/perspectiva.ui", self)
         self.show()
         self.visao = visao
-        self.dados = self.visao.read_dados()
+        self.model = model
+        self.dados = self.model.dados
         self.input_count = 0
         self.inputs = []
         self.get_referencia()
@@ -23,12 +24,12 @@ class GUI_perspectiva(QMainWindow):
 
     def get_referencia(self):
 
-        self.referencia = self.visao.read_imagem().imagem_original
+        self.referencia = self.model.imagem.imagem_original
         self.desenhar()
 
     def finalizar(self):
 
-        self.visao.set_dados(self.dados)
+        self.model.dados = self.dados
         self.visao.recalcular()
 
     def mouseReleaseEvent(self, QMouseEvent):
@@ -51,7 +52,7 @@ class GUI_perspectiva(QMainWindow):
                     self.finalizar()
                     self.dados.corte = [
                         converte_coord(
-                            self.visao.read_dados().matriz_warp_perspective, p
+                            self.model.dados.matriz_warp_perspective, p
                         )
                         for p in pts["internos"]
                     ]

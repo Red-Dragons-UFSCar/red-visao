@@ -20,10 +20,11 @@ class Estado(Enum):
 
 
 class GUI_visualizacao(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_visualizacao, self).__init__()
         loadUi(f"{ui_files}/visualizacao.ui", self)
         self.show()
+        self.model = model
         self.visao = visao
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
@@ -36,8 +37,8 @@ class GUI_visualizacao(QMainWindow):
     def update_frame(self):
         estado = self.qt_tipoVisualizacao.currentIndex()
 
-        imagem = self.visao.read_imagem()
-        dados = self.visao.read_dados()
+        imagem = self.model.imagem
+        dados = self.model.dados
 
         if estado == Estado.ORIGINAL.value:
             img = imagem.imagem_original
