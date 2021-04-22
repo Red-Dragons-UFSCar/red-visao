@@ -1,7 +1,7 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.uic import loadUi
 
 from enum import Enum
@@ -34,10 +34,31 @@ VISAO = processamento.processamento()
 
 class GUI_main(QMainWindow):
     def __init__(self):
-    
         super(GUI_main, self).__init__()
         loadUi('interface/main.ui', self)
         
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
+        
+        global VISAO
+        VISAO.iniciar()
+
+
+        self.stackedWidget.addWidget(GUI_home())
+        self.stackedWidget.addWidget(GUI_camera())
+        self.stackedWidget.addWidget(GUI_carregar())
+        self.stackedWidget.addWidget(GUI_salvar())
+        self.stackedWidget.addWidget(GUI_visualizacao())
+        self.stackedWidget.addWidget(GUI_perspectiva())
+        self.stackedWidget.addWidget(GUI_corte())
+        self.stackedWidget.addWidget(GUI_cruzetas())
+        self.stackedWidget.addWidget(GUI_cores())
+        self.stackedWidget.addWidget(GUI_centro())
+        self.stackedWidget.addWidget(GUI_jogar())
+        self.stackedWidget.addWidget(GUI_controle())
+        
+        self.btn_close.clicked.connect(self.close)
+        self.QT_btHome.clicked.connect(self.home)
         self.QT_btVisualizacao.clicked.connect(self.visualizacao)
         self.QT_btPerspectiva.clicked.connect(self.perspectiva)
         self.QT_btCorte.clicked.connect(self.corte)
@@ -46,58 +67,90 @@ class GUI_main(QMainWindow):
         self.QT_Load.clicked.connect(self.carregar)
         self.QT_Save.clicked.connect(self.salvar)
         self.QT_Centro.clicked.connect(self.centro)
-        self.QT_FPS.clicked.connect(self.mudarVerbose)
-        self.QT_Versao.clicked.connect(self.versao)
         self.QT_camera.clicked.connect(self.setCamera)
         self.QT_btcontrole.clicked.connect(self.controle)
         self.QT_jogo.clicked.connect(self.jogar)
+        
+        
+        self.clicked = False
+
+      
+        
         self.show()
+
+       
+
         
-        global VISAO
-        VISAO.iniciar()
-        
+    def mousePressEvent(self, ev):
+        self.old_pos = ev.screenPos()
+    
+    def mouseMoveEvent(self, ev):
+        if self.clicked:
+            dx = self.old_pos.x() - ev.screenPos().x()
+            dy = self.old_pos.y() - ev.screenPos().y()
+            self.move(self.pos().x() - dx, self.pos().y() - dy)
+        self.old_pos = ev.screenPos()
+        self.clicked = True
+        return QWidget.mouseMoveEvent(self, ev)
+
+    def home(self):
+        self.label_aba.setText("Home")
+        self.stackedWidget.setCurrentIndex(0)
+    
     def setCamera(self):
-        self.tela = GUI_camera()
-        
-    def visualizacao(self):
-        self.tela = GUI_visualizacao()
-        
-    def perspectiva(self):
-        self.tela = GUI_perspectiva()
-        
-    def corte(self):
-        self.tela = GUI_corte()
-        
-    def cruzetas(self):
-        self.tela = GUI_cruzetas()
-        
-    def cores(self):
-        self.tela = GUI_cores()
-        
-    def centro(self):
-        self.tela = GUI_centro()
-
-    def controle(self):
-        self.tela = GUI_controle()
-
-    def jogar(self):
-        self.tela = GUI_jogar()
-
-    def versao(self):
-        logger().dado(cv2.getBuildInformation())
-        
-    def closeEvent(self, event):
-        VISAO.stop()
-        
-    def mudarVerbose(self):
-        VISAO.mudarVerbose()
-        
-    def salvar(self):
-        self.tela = GUI_salvar()
+        self.label_aba.setText("Camera")
+        self.stackedWidget.setCurrentIndex(1)
     
     def carregar(self):
-        self.tela = GUI_carregar()
+        self.label_aba.setText("Carregar")
+        self.stackedWidget.setCurrentIndex(2)
+    
+    def salvar(self):
+        self.label_aba.setText("Salvar")
+        self.stackedWidget.setCurrentIndex(3)
+    
+    def visualizacao(self):
+        self.label_aba.setText("Visualização")
+        self.stackedWidget.setCurrentIndex(4)
+    
+    def perspectiva(self):
+        self.label_aba.setText("Perspectiva")
+        self.stackedWidget.setCurrentIndex(5)
+    
+    def corte(self):
+        self.label_aba.setText("Corte")
+        self.stackedWidget.setCurrentIndex(6)
+    
+    def cruzetas(self):
+        self.label_aba.setText("Cruzetas")
+        self.stackedWidget.setCurrentIndex(7)
+    
+    def cores(self):
+        self.label_aba.setText("Cores")
+        self.stackedWidget.setCurrentIndex(8)
+    
+    def centro(self):
+        self.label_aba.setText("Centro")
+        self.stackedWidget.setCurrentIndex(9)
+    
+    def jogar(self):
+        self.label_aba.setText("Jogar")
+        self.stackedWidget.setCurrentIndex(10)
+    
+    def controle(self):
+        self.label_aba.setText("Conf. Controle")
+        self.stackedWidget.setCurrentIndex(11)
+
+
+
+class GUI_home(QMainWindow):
+    def __init__(self):
+        super(GUI_home, self).__init__()
+        loadUi('interface/home.ui', self)
+        self.show()
         
+
+
 class GUI_visualizacao(QMainWindow):
     def __init__(self):
         super(GUI_visualizacao, self).__init__()
@@ -165,12 +218,13 @@ class GUI_visualizacao(QMainWindow):
             _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
             _qPixmap = QPixmap.fromImage(_qImage)
             self.QT_visualizacao.setPixmap(_qPixmap)
-        
+
+
 class GUI_perspectiva(QMainWindow):
     def __init__(self):
         super(GUI_perspectiva, self).__init__()
         loadUi('interface/perspectiva.ui', self)
-        self.show()    
+        #self.show()    
         global VISAO
         self.dados = VISAO.read_Dados()
         
@@ -213,6 +267,35 @@ class GUI_perspectiva(QMainWindow):
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_Imagem.setPixmap(_qPixmap)
+
+
+class GUI_camera(QMainWindow):
+    def __init__(self):
+        super(GUI_camera, self).__init__()
+        loadUi('interface/camera.ui', self)
+        self.show()    
+        
+        self.QT_listaVideos.clear()
+        for files in os.listdir("videos"):
+            if files.endswith(".avi"):
+                self.QT_listaVideos.addItem(str(files))
+        
+        self.QT_camera.clicked.connect(self.setCamera)
+        self.QT_video.clicked.connect(self.setVideo)
+        self.QT_webcam.clicked.connect(self.setWebcam)
+        
+    def setCamera(self):
+        global VISAO
+        VISAO.alterarSrc(2)
+        
+    def setVideo(self):
+        global VISAO
+        VISAO.alterarSrc("videos/" + self.QT_listaVideos.currentText())
+        
+    def setWebcam(self):
+        global VISAO
+        VISAO.alterarSrc(0)
+
 
 class GUI_corte(QMainWindow):
     def __init__(self):
@@ -261,6 +344,7 @@ class GUI_corte(QMainWindow):
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_Imagem.setPixmap(_qPixmap) 
+    
 
 class GUI_cruzetas(QMainWindow):
     def    __init__(self):
@@ -301,6 +385,7 @@ class GUI_cruzetas(QMainWindow):
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_Imagem.setPixmap(_qPixmap) 
+
 
 class GUI_cores(QMainWindow):
     def    __init__(self):
@@ -500,7 +585,8 @@ class GUI_cores(QMainWindow):
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_Contorno.setPixmap(_qPixmap) 
-        
+
+
 class GUI_centro(QMainWindow):
     def __init__(self):
         super(GUI_centro, self).__init__()
@@ -549,7 +635,9 @@ class GUI_centro(QMainWindow):
         _qImage = QImage(img, img.shape[1], img.shape[0], QImage.Format_RGB888)
         _qPixmap = QPixmap.fromImage(_qImage)
         self.QT_Imagem.setPixmap(_qPixmap)
-    
+
+
+
 class GUI_carregar(QMainWindow):
     def __init__(self):
         super(GUI_carregar, self).__init__()
@@ -566,8 +654,7 @@ class GUI_carregar(QMainWindow):
         global VISAO
         arquivo = open("modelos/" + self.QT_listaSalvos.currentText(), 'rb')
         VISAO.set_Dados(pickle.load(arquivo))
-    
-    
+
 class GUI_salvar(QMainWindow):
     def __init__(self):
         super(GUI_salvar, self).__init__()
@@ -579,34 +666,6 @@ class GUI_salvar(QMainWindow):
         arquivo = open('modelos/' + self.QT_nomeSalvar.text() + '.red', 'wb')
         global VISAO
         pickle.dump(VISAO.read_Dados(), arquivo)
-            
-class GUI_camera(QMainWindow):
-    def __init__(self):
-        super(GUI_camera, self).__init__()
-        loadUi('interface/camera.ui', self)
-        self.show()    
-        
-        self.QT_listaVideos.clear()
-        for files in os.listdir("videos"):
-            if files.endswith(".avi"):
-                self.QT_listaVideos.addItem(str(files))
-        
-        self.QT_camera.clicked.connect(self.setCamera)
-        self.QT_video.clicked.connect(self.setVideo)
-        self.QT_webcam.clicked.connect(self.setWebcam)
-        
-    def setCamera(self):
-        global VISAO
-        VISAO.alterarSrc(2)
-        
-    def setVideo(self):
-        global VISAO
-        VISAO.alterarSrc("videos/" + self.QT_listaVideos.currentText())
-        
-    def setWebcam(self):
-        global VISAO
-        VISAO.alterarSrc(0)
-
 
 class GUI_controle(QMainWindow):
     def __init__(self):
@@ -681,7 +740,7 @@ class GUI_controle(QMainWindow):
             self.kalman.setChecked(DadosControle.flagAtivaKalman)  
             self.simular.setChecked(DadosControle.simular) 
             self.alvoFixo.setChecked(DadosControle.irParaAlvoFixo)
-    
+
 class GUI_jogar(QMainWindow):
     def __init__(self):
         super(GUI_jogar,self).__init__()
@@ -765,18 +824,10 @@ class GUI_jogar(QMainWindow):
         DadosControle.Pinicial = True if self.rPosInicial.isChecked() else False
             
         VISAO.set_DadosControle(DadosControle)
-           
 
 
 
 
-
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = GUI_main()
-    window.show()
-    sys.exit(app.exec_())
-    
-
+app = QApplication(sys.argv)
+window = GUI_main()
+app.exec_()
