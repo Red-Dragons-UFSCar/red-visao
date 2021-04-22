@@ -1,173 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>655</width>
-    <height>575</height>
+    <width>1001</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Modo de Visualização</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>651</width>
-      <height>46</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Visualização</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Maximum</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QComboBox" name="qt_tipoVisualizacao">
-       <item>
-        <property name="text">
-         <string>Original</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Perspectiva</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Crop</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Cruzetas</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Centroides</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Robôs</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Visão</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Jogo (Dinâmico)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Jogo (Estático)</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>Selecionar</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="QT_visualizacao">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>50</y>
-      <width>640</width>
-      <height>480</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
+  <property name="styleSheet">
+   <string notr="true">QFrame {
+background: #2B2B37;
+}
+
+
+QComboBox#qt_tipoVisualizacao:hover{
+	background-color: rgb(164, 0, 0);
+}
+
+QLabel#label_line{
+	background-color: rgb(238, 238, 236);
+}</string>
+  </property>
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>655</width>
-     <height>28</height>
+     <x>580</x>
+     <y>560</y>
+     <width>171</width>
+     <height>25</height>
     </rect>
    </property>
+   <property name="text">
+    <string>Selecionar</string>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QComboBox" name="qt_tipoVisualizacao">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>560</y>
+     <width>241</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Original</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Perspectiva</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Crop</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cruzetas</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Centroides</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Robôs</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Visão</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Jogo (Dinâmico)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Jogo (Estático)</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="QT_visualizacao">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>50</y>
+     <width>640</width>
+     <height>480</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
- <designerdata>
-  <property name="gridDeltaX">
-   <number>5</number>
-  </property>
-  <property name="gridDeltaY">
-   <number>5</number>
-  </property>
-  <property name="gridSnapX">
-   <bool>true</bool>
-  </property>
-  <property name="gridSnapY">
-   <bool>true</bool>
-  </property>
-  <property name="gridVisible">
-   <bool>true</bool>
-  </property>
- </designerdata>
 </ui>

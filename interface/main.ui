@@ -2,157 +2,833 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
+  <property name="enabled">
+   <bool>true</bool>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>717</width>
-    <height>181</height>
+    <width>1100</width>
+    <height>800</height>
    </rect>
   </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
-   <string>Janela Principal</string>
+   <string>MainWindow</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+background: #2B2B37;
+border-radius: 50px;
+}
+
+QFrame{
+background: #F94F4F;
+border: 1px solid #000000;
+border-top-left-radius: 50px;
+border-bottom-left-radius: 50px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+}
+
+QFrame#frame_title{
+background-color: rgb(25, 25, 32);
+border: 1px solid #000000;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 30px;
+border-bottom-right-radius: 0px;
+}
+
+QStackedWidget{
+background: #2B2B37;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 50px;
+border-bottom-right-radius: 50px;
+border:0px
+}
+
+QPushButton {
+background: #F94F4F;
+border: 0px;
+font: 75 12pt &quot;FreeMono&quot;;
+color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+	background-color: rgb(164, 0, 0);
+}
+
+
+
+QLabel#label_logo{
+font-size: 50px;
+border: 0px;
+color: #FFFFFF;
+background: #F94F4F;
+}
+
+QComboBox {
+border: 0px;
+font: 75 12pt &quot;FreeMono&quot;;
+color: rgb(255, 255, 255);
+}
+
+
+QComboBox:hover{
+	background-color: rgb(164, 0, 0);
+}
+
+QPushButton#btn_close{
+background-color: rgb(25, 25, 32);
+}
+
+QLabel#label_aba {
+background-color: rgb(25, 25, 32);
+font: 75 20pt &quot;Nimbus Sans&quot;;
+color: #FFFFFF;
+}
+
+
+
+QLabel, QCheckBox, QRadioButton {
+background: #2B2B37;
+font: 75 12pt &quot;Nimbus Sans&quot;;
+color: #FFFFFF;
+border: 0px
+}
+
+QLineEdit{
+color: rgb(238, 238, 236);
+text-align: center;
+}
+
+Line{
+background: #F94F4F;
+}
+
+</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>5</y>
-      <width>716</width>
-      <height>126</height>
+      <y>0</y>
+      <width>103</width>
+      <height>800</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
+    <property name="font">
+     <font>
+      <family>Z003</family>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_logo">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>91</width>
+       <height>51</height>
+      </rect>
      </property>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="QT_btCorte">
-       <property name="text">
-        <string>Corte</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="QT_btCruzetas">
-       <property name="text">
-        <string>Cruzetas</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QPushButton" name="QT_btVisualizacao">
-       <property name="text">
-        <string>Visualização</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="QT_btCores">
-       <property name="text">
-        <string>Cores</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QPushButton" name="QT_Centro">
-       <property name="text">
-        <string>Centros e Ângulos</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="QT_btPerspectiva">
-       <property name="text">
-        <string>Perspectiva</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="QT_camera">
-       <property name="text">
-        <string>Entrada de Vídeo</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="QT_Load">
-       <property name="text">
-        <string>Carregar Padrão</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="QT_Save">
-       <property name="text">
-        <string>Salvar Padrão</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QPushButton" name="QT_FPS">
-       <property name="text">
-        <string>FPS</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="QT_jogo">
-       <property name="text">
-        <string>Modo de Jogo</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="QT_btcontrole">
-       <property name="text">
-        <string>Config. Controle</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="QPushButton" name="QT_Versao">
-       <property name="text">
-        <string>Versão do QT</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <property name="font">
+      <font>
+       <family>Nimbus Sans</family>
+       <pointsize>-1</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::AutoText</enum>
+     </property>
+     <property name="pixmap">
+      <pixmap>red.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btHome">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>110</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/home-white-36dp.svg</normaloff>imagem/home-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_camera">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>160</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/videocam-white-36dp.svg</normaloff>imagem/videocam-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_Load">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>210</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/cloud_download-white-36dp.svg</normaloff>imagem/cloud_download-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_Save">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>260</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/cloud_upload-white-36dp.svg</normaloff>imagem/cloud_upload-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btVisualizacao">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>310</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/preview-white-36dp.svg</normaloff>imagem/preview-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btPerspectiva">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>360</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/transform-white-36dp.svg</normaloff>imagem/transform-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btCorte">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>410</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/content_cut-white-36dp.svg</normaloff>imagem/content_cut-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btCruzetas">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>460</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/design_services-white-36dp.svg</normaloff>imagem/design_services-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_jogo">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>610</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/videogame_asset-white-36dp.svg</normaloff>imagem/videogame_asset-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btCores">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>510</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/color_lens-white-36dp.svg</normaloff>imagem/color_lens-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_Centro">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>560</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/center_focus_strong-white-36dp.svg</normaloff>imagem/center_focus_strong-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="QT_btcontrole">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>660</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>FreeMono</family>
+       <pointsize>12</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>imagem/settings-white-36dp.svg</normaloff>imagem/settings-white-36dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
    </widget>
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>103</x>
+      <y>35</y>
+      <width>1001</width>
+      <height>764</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_close">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>8</y>
+      <width>41</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>imagem/close-white-36dp.svg</normaloff>imagem/close-white-36dp.svg</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_aba">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>5</y>
+      <width>381</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Home</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_title">
+    <property name="geometry">
+     <rect>
+      <x>103</x>
+      <y>0</y>
+      <width>994</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <zorder>frame_title</zorder>
+   <zorder>frame</zorder>
+   <zorder>stackedWidget</zorder>
+   <zorder>btn_close</zorder>
+   <zorder>label_aba</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>717</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
- <designerdata>
-  <property name="gridDeltaX">
-   <number>5</number>
-  </property>
-  <property name="gridDeltaY">
-   <number>5</number>
-  </property>
-  <property name="gridSnapX">
-   <bool>true</bool>
-  </property>
-  <property name="gridSnapY">
-   <bool>true</bool>
-  </property>
-  <property name="gridVisible">
-   <bool>true</bool>
-  </property>
- </designerdata>
 </ui>

@@ -1,81 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>357</width>
-    <height>132</height>
+    <width>1001</width>
+    <height>710</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Salvar modelo</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>5</y>
-      <width>356</width>
-      <height>76</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
-     </property>
-     <item row="0" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLineEdit" name="QT_nomeSalvar"/>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="QT_salvar">
-       <property name="text">
-        <string>Salvar</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
+  <property name="styleSheet">
+   <string notr="true">QLabel#label_line{
+	background-color: rgb(238, 238, 236);
+}</string>
+  </property>
+  <widget class="QPushButton" name="QT_salvar">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>357</width>
-     <height>28</height>
+     <x>300</x>
+     <y>310</y>
+     <width>354</width>
+     <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Salvar</string>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QLineEdit" name="QT_nomeSalvar">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>240</y>
+     <width>351</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>233</x>
+     <y>267</y>
+     <width>500</width>
+     <height>3</height>
+    </rect>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
- <designerdata>
-  <property name="gridDeltaX">
-   <number>5</number>
-  </property>
-  <property name="gridDeltaY">
-   <number>5</number>
-  </property>
-  <property name="gridSnapX">
-   <bool>true</bool>
-  </property>
-  <property name="gridSnapY">
-   <bool>true</bool>
-  </property>
-  <property name="gridVisible">
-   <bool>true</bool>
-  </property>
- </designerdata>
 </ui>

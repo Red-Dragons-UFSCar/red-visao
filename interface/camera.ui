@@ -1,95 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>361</width>
-    <height>163</height>
+    <width>1001</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Camera</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>5</y>
-      <width>356</width>
-      <height>126</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
-     </property>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="QT_camera">
-       <property name="text">
-        <string>Câmera (1)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="QT_webcam">
-       <property name="text">
-        <string>Webcam</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="QT_video">
-         <property name="text">
-          <string>Vídeo do Computador</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="QT_listaVideos"/>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QComboBox" name="QT_listaVideos">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>361</width>
-     <height>28</height>
+     <x>496</x>
+     <y>249</y>
+     <width>201</width>
+     <height>25</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Serif</family>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QPushButton" name="QT_video">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>249</y>
+     <width>211</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Vídeo do Computador</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="QT_webcam">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>279</y>
+     <width>418</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Webcam</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="QT_camera">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>310</y>
+     <width>418</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Câmera (1)</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>498</x>
+     <y>276</y>
+     <width>197</width>
+     <height>0</height>
+    </rect>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
+   <property name="midLineWidth">
+    <number>0</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
- <designerdata>
-  <property name="gridDeltaX">
-   <number>5</number>
-  </property>
-  <property name="gridDeltaY">
-   <number>5</number>
-  </property>
-  <property name="gridSnapX">
-   <bool>true</bool>
-  </property>
-  <property name="gridSnapY">
-   <bool>true</bool>
-  </property>
-  <property name="gridVisible">
-   <bool>true</bool>
-  </property>
- </designerdata>
 </ui>
