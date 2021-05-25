@@ -143,7 +143,7 @@ class Processamento:
         dados_controle.adversarios = imagem.adversarios[0]
         # Logger().variavel('dados_controle.adversarios', dados_controle.adversarios.T)
 
-        self._model.controle(dados_controle)
+        self._model.controle = dados_controle
 
         return dados_controle
 
