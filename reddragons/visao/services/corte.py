@@ -11,7 +11,7 @@ class Corte:
 
     @utils.timing
     def run(self, fonte, dest: Optional[estruturas.Imagem] = None) -> int:
-        imagem = fonte
+        imagem = deepcopy(fonte)
 
         sup_esquerdo = self._dados.corte[0]
         imagem[0 : sup_esquerdo[1], 0 : sup_esquerdo[0], :] = 0
