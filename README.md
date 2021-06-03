@@ -14,6 +14,20 @@ pip install -e ./
 python ./bin/main.py
 ```
 
+## Execução com Docker
+
+- Na raiz do projeto, utilize o seguinte comando para criar a imagem:
+```shell
+docker build -t red ./
+```
+- Executar a imagem:
+```shell
+docker run -ti --rm \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --device /dev/video0 \
+    red
+```
 ## Para realizar mudanças
 - Crie um branch com o nome de sua mudança.
 - Faça as alterações.
