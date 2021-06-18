@@ -9,7 +9,7 @@ if __name__ == '__main__':
     model = ModelService()
     visao = Processamento(model)
     app = QApplication(sys.argv)
-    window = GUI_video(visao)
+    window = GUI_video(visao, model)
     window.show()
     print (Logger()._fps_mean)
     sys.exit(app.exec_())

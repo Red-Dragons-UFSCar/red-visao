@@ -7,7 +7,8 @@ fiquem a vontade para mexer nesse arquivo e testar o quanto quiserem já que ele
 o nosso programa nesse momento
 """
 
-from PyQt5.QtGui import QImage, QPixmap
+from .main import GUI_main
+
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from typing import Union
@@ -25,11 +26,12 @@ def entrada_valida (entrada: Union[int,str]) -> bool:
     pass
 
 class GUI_video(QMainWindow):
-    def __init__(self, visao):
+    def __init__(self, visao, model):
         super(GUI_video, self).__init__()
         loadUi(f"{ui_files}/mainwindow.ui", self)
         self.show()
         self.visao = visao
+        self.model = model
         self.btnChooseCamera.clicked.connect(self._camera_handler) #botao camera
         self.btnChooseArquivo.clicked.connect(self._arquivo_handler) #botao video
         
@@ -42,8 +44,8 @@ class GUI_video(QMainWindow):
         escolha = input ("Escolha uma opção de camera (0/1): ")
         escolha = int(escolha)
         print (f"O usuário escolheu a entrada {escolha}")
-        self._config_visao(escolha)
-        return escolha
+        self._next_handler()
+        #return escolha
 
     def _arquivo_handler(self) -> str:
         """aqui a gente pega o caminho para algum arquivo de video
@@ -57,7 +59,9 @@ class GUI_video(QMainWindow):
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
         """
-        pass
+        self._next = GUI_main(self.visao, self.model)
+        self._next.show()
+        self.close()
 
     def _config_visao (self, entrada) -> bool:
         """chama a funçao alterar_src ou cria um objeto de camera, 
