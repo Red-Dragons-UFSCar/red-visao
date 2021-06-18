@@ -10,6 +10,7 @@ from .main import GUI_main
 from .perspectiva import GUI_perspectiva
 from .salvar import GUI_salvar
 from .visualizacao import GUI_visualizacao
+from .mainwindow import GUI_video
 
 __all__ = [
     "GUI_camera",
@@ -24,4 +25,5 @@ __all__ = [
     "GUI_perspectiva",
     "GUI_salvar",
     "GUI_visualizacao",
+    "GUI_video"
 ]
