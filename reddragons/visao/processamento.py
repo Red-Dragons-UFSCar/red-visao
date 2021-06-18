@@ -8,13 +8,14 @@ from reddragons.utils.logger import Logger
 
 class Processamento:
     def __init__(self, model):
-        self._model = model
-        self._init_services()
         self.started = False
-        self.cam = captura.Imagem()
-        self.read_lock = threading.Lock()
         self.verbose = False
-        self.cam.iniciar()
+        self.cam = None
+
+        self._model = model
+        self.read_lock = threading.Lock()
+
+        self._init_services()
         self.recalcular()
 
     def _init_services(self):
@@ -24,16 +25,25 @@ class Processamento:
         self._centroides = services.Centroides(self._model.dados)
         self._centros = services.Centros(self._model.dados)
 
-    def alterar_src(self, src="videos/jogo.avi"):
-        self.stop()
-        self.cam.alterar_src(src)
-        self.started = False
-        self.iniciar()
+    def alterar_src(self, src):
+        recomeca = self.started
+        if recomeca:
+            self.stop()
+
+        if self.cam is None:
+            self.cam = captura.Imagem(src)
+        else:
+            self.cam.alterar_src(src)
+
+        if recomeca:
+            self.iniciar()
 
     def mudar_verbose(self):
         self.verbose = not self.verbose
 
     def iniciar(self):
+        if self.cam is None:
+            raise Exception ("Tentativa de iniciar processamento sem fonte de video")
         if self.started:
             return None
         self.started = True

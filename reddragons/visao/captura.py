@@ -7,20 +7,19 @@ from reddragons.utils.logger import Logger
 
 
 class Imagem:
-    def __init__(self, src=utils.VIDEO_PATH):
+    def __init__(self, src):
         self.started = False
         self.thread = None
         self.conseguiu, self.frame = False, None
         self.alterar_src(src)
         self.read_lock = threading.Lock()
 
-    def alterar_src(self, src=utils.VIDEO_PATH):
+    def alterar_src(self, src):
         self.stop()
-        estado = utils.test_device(src)
-        if estado:
-            self.src = src
-        else:
-            self.src = utils.VIDEO_PATH
+        if not utils.test_device(src):
+            raise Exception (f'Entrada {src} é inválida')
+
+        self.src = src
         self.cap = cv2.VideoCapture(self.src)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
