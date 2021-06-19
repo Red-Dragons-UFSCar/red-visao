@@ -6,7 +6,7 @@ o nosso programa nesse momento
 
 from .main import GUI_main
 
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
 from ..utils import ui_files
 from reddragons.utils import test_device
@@ -27,18 +27,20 @@ class GUI_video(QMainWindow):
 
         escolha = input ("Escolha uma opção de camera (0/1): ")
         escolha = int(escolha)
-        print (f"O usuário escolheu a entrada {escolha}")
         
-        if self._config_visao(escolha):
-            self._next_handler()
-        else:
-            print("Erro ao selecionar entrada, por favor tente novamente")
+        self._config_visao(escolha)
 
     def _arquivo_handler(self):
         """aqui a gente pega o caminho para algum arquivo de video
         """
-        #TODO: implementação v0 igual a camera_handler
-        pass
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.ExistingFile)
+        file_dialog.setNameFilter("Videos (*.avi);;All files (*.*)")
+        file_dialog.setViewMode(QFileDialog.Detail)
+        if file_dialog.exec():
+            file_name = file_dialog.selectedFiles()[0]
+        
+        self._config_visao(file_name)        
 
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
@@ -57,7 +59,9 @@ class GUI_video(QMainWindow):
         """
 
         if not test_device(entrada): # se a entrada nao for valida ja para aqui
+            print("Erro ao selecionar entrada, por favor tente novamente")
             return False
         self.visao.alterar_src(entrada) # se for atribui a entrada para a visao aqui 
+        self._next_handler()
         return True # e depois retorna True
             
