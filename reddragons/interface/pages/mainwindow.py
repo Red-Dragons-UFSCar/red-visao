@@ -19,8 +19,12 @@ class GUI_video(QMainWindow):
         self.visao = visao
         self.model = model
         self.btnChooseCamera.clicked.connect(self._camera_handler) #botao camera
-        self.btnChooseArquivo.clicked.connect(self._arquivo_handler) #botao video
-        
+        #self.btnChooseArquivo.clicked.connect(self._arquivo_handler) #botao video
+        self.btnChooseArquivo.clicked.connect(self._mudar_janela_arquivo)
+
+    def _mudar_janela_arquivo(self):
+        self.stack.setCurrentIndex(1)
+
     def _camera_handler(self):
         """aqui a gente da um jeito de fazer o usuario escolher uma camera
         """
