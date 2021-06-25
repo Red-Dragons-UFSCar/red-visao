@@ -26,7 +26,7 @@ class GUI_video(QMainWindow):
         self.stack.setCurrentIndex(1)
 
     def _camera_handler(self):
-        """aqui a gente da um jeito de fazer o usuario escolher uma camera
+        """Aqui a gente da um jeito de fazer o usuario escolher uma camera
         """
 
         escolha = input ("Escolha uma opção de camera (0/1): ")
