@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
 
 from ..utils import ui_files
@@ -18,5 +18,18 @@ class GUI_diretorio(QMainWindow):
         print("VOCE CLICOU NO BOTAO DE DIRETORIO")
     
     def _ok (self):
+        self._diretorio = self.CaminhoVideo.text()
         self.callback(self._diretorio)
         self.close()
+
+    def _escolher(self):
+        """aqui a gente pega o caminho para algum arquivo de video
+        """
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.ExistingFile)
+        file_dialog.setNameFilter("Videos (*.avi);;All files (*.*)")
+        file_dialog.setViewMode(QFileDialog.Detail)
+        if file_dialog.exec():
+            file_name = file_dialog.selectedFiles()[0]
+        
+        self.CaminhoVideo.setText(file_name)

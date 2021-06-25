@@ -148,7 +148,7 @@ background-color: rgb(23, 25, 33);</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../../Icon/btnEscolherDiretorio.png</normaloff>../../Icon/btnEscolherDiretorio.png</iconset>
+         <normaloff>../icon/btnEscolherDiretorio.png</normaloff>../icon/btnEscolherDiretorio.png</iconset>
        </property>
        <property name="iconSize">
         <size>

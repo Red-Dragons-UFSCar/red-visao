@@ -20,13 +20,12 @@ class GUI_video(QMainWindow):
         self.visao = visao
         self.model = model
         self.btnChooseCamera.clicked.connect(self._camera_handler) #botao camera
-        #self.btnChooseArquivo.clicked.connect(self._arquivo_handler) #botao video
-        self.btnChooseArquivo.clicked.connect(self.ola)
+        self.btnChooseArquivo.clicked.connect(self._janela_diretorio)
 
     def callback_diretorio (self, diretorio: str):
-        print(diretorio)
+        self._config_visao(diretorio)
 
-    def ola(self):
+    def _janela_diretorio(self):
         self._janela_diretorio = GUI_diretorio(self.callback_diretorio)
         self._janela_diretorio.show()
 
@@ -40,24 +39,7 @@ class GUI_video(QMainWindow):
         escolha = input ("Escolha uma opção de camera (0/1): ")
         escolha = int(escolha)
         
-        self._config_visao(escolha)
-
-    def _abrir_diretorio (self):
-        self._next = GUI_main(self.visao, self.model)
-        self._next.show()
-        self.close()
-
-    def _arquivo_handler(self):
-        """aqui a gente pega o caminho para algum arquivo de video
-        """
-        file_dialog = QFileDialog()
-        file_dialog.setFileMode(QFileDialog.ExistingFile)
-        file_dialog.setNameFilter("Videos (*.avi);;All files (*.*)")
-        file_dialog.setViewMode(QFileDialog.Detail)
-        if file_dialog.exec():
-            file_name = file_dialog.selectedFiles()[0]
-        
-        self._config_visao(file_name)        
+        self._config_visao(escolha)      
 
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
