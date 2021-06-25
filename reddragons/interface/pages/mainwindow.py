@@ -7,7 +7,7 @@ o nosso programa nesse momento
 from .main import GUI_main
 from .diretorio import GUI_diretorio
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from ..utils import ui_files
 from reddragons.utils import test_device
