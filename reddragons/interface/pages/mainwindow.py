@@ -5,6 +5,7 @@ o nosso programa nesse momento
 """
 
 from .main import GUI_main
+from .diretorio import GUI_diretorio
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
@@ -20,7 +21,14 @@ class GUI_video(QMainWindow):
         self.model = model
         self.btnChooseCamera.clicked.connect(self._camera_handler) #botao camera
         #self.btnChooseArquivo.clicked.connect(self._arquivo_handler) #botao video
-        self.btnChooseArquivo.clicked.connect(self._mudar_janela_arquivo)
+        self.btnChooseArquivo.clicked.connect(self.ola)
+
+    def callback_diretorio (self, diretorio: str):
+        print(diretorio)
+
+    def ola(self):
+        self._janela_diretorio = GUI_diretorio(self.callback_diretorio)
+        self._janela_diretorio.show()
 
     def _mudar_janela_arquivo(self):
         self.stack.setCurrentIndex(1)
@@ -33,6 +41,11 @@ class GUI_video(QMainWindow):
         escolha = int(escolha)
         
         self._config_visao(escolha)
+
+    def _abrir_diretorio (self):
+        self._next = GUI_main(self.visao, self.model)
+        self._next.show()
+        self.close()
 
     def _arquivo_handler(self):
         """aqui a gente pega o caminho para algum arquivo de video
