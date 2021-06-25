@@ -20,7 +20,7 @@ class GUI_diretorio(QMainWindow):
         self.close()
 
     def _escolher(self):
-        """aqui a gente pega o caminho para algum arquivo de video
+        """abre o QFileDialog para a escolha do arquivo
         """
         file_dialog = QFileDialog()
         file_dialog.setFileMode(QFileDialog.ExistingFile)
