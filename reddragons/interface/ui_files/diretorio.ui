@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Diretorio</class>
+ <widget class="QMainWindow" name="Diretorio">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Diretorio</string>
+  </property>
+  <widget class="QWidget" name="Diretorio_2">
+   <property name="minimumSize">
+    <size>
+     <width>800</width>
+     <height>450</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>800</width>
+     <height>450</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="FundoDiretorio">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>800</width>
+        <height>450</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>800</width>
+        <height>450</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(39, 45, 60);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QWidget" name="DetalheVermelho" native="true">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>70</y>
+         <width>5</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>5</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>5</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 0, 0);</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnDiretorioEscolher">
+       <property name="geometry">
+        <rect>
+         <x>730</x>
+         <y>70</y>
+         <width>41</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>41</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>41</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:0px;
+background-color: rgb(23, 25, 33);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../Icon/btnEscolherDiretorio.png</normaloff>../../Icon/btnEscolherDiretorio.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>27</width>
+         <height>27</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnDiretorioOk">
+       <property name="geometry">
+        <rect>
+         <x>720</x>
+         <y>390</y>
+         <width>51</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>51</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>51</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Microsoft YaHei</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+
+QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
+}
+QPushButton:hover{
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
+}
+
+</string>
+       </property>
+       <property name="text">
+        <string>Ok</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="CaminhoVideo">
+       <property name="geometry">
+        <rect>
+         <x>45</x>
+         <y>70</y>
+         <width>686</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>681</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>686</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:0px;
+background-color: rgb(23, 25, 33);
+color: rgb(255, 255, 255);
+
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Insira o diretório do video</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>40</y>
+         <width>551</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Microsoft YaHei</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>DIRETÓRIO DO VIDEO:</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
