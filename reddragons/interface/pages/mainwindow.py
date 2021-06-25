@@ -23,13 +23,20 @@ class GUI_video(QMainWindow):
         self.btnChooseArquivo.clicked.connect(self._janela_diretorio)
 
     def callback_diretorio (self, diretorio: str):
+        """funcao chamada depois do ok da janela do diretorio
+
+        Args:
+            diretorio (str): diretorio escolhido
+        """
         self._config_visao(diretorio)
 
     def _janela_diretorio(self):
+        """abre a janela de escolha do diretorio
+        """
         self._janela_diretorio = GUI_diretorio(self.callback_diretorio)
         self._janela_diretorio.show()
 
-    def _mudar_janela_arquivo(self):
+    def _mudar_janela_arquivo(self): # essa aq era usada antes mas nao foi apagada
         self.stack.setCurrentIndex(1)
 
     def _camera_handler(self):
