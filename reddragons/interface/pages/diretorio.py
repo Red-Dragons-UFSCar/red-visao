@@ -10,13 +10,10 @@ class GUI_diretorio(QMainWindow):
         loadUi(f"{ui_files}/diretorio.ui", self)
         self.show()
         self.callback = callback
-        self._diretorio = "FUNCIONA"
+        self._diretorio = ""
         self.btnDiretorioEscolher.clicked.connect(self._escolher)
         self.btnDiretorioOk.clicked.connect(self._ok)
 
-    def _escolher (self):
-        print("VOCE CLICOU NO BOTAO DE DIRETORIO")
-    
     def _ok (self):
         self._diretorio = self.CaminhoVideo.text()
         self.callback(self._diretorio)
