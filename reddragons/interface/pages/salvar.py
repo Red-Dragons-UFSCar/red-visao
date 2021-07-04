@@ -12,9 +12,13 @@ class GUI_salvar(QMainWindow):
         filename = QFileDialog.getSaveFileName(self, 'Dialog Title', filter='*.red')
         
         try:
-            filename = f"{filename[0]}.{filename[1].split('.')[1]}"
+            if filename[0].endswith('.red'):
+                filename = filename[0]
+            else:
+                filename = f"{filename[0]}.red"
             with open(filename, "wb") as f:
                 pickle.dump(self.model.dados, f)
+
         except (IndexError, EnvironmentError) as err:
             print(f"Falha ao salvar arquivo: {err}")
         self.close()
