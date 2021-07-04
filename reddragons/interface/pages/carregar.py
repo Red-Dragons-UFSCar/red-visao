@@ -15,5 +15,9 @@ class GUI_carregar(QMainWindow):
 
     def carregar(self):
         filename = QFileDialog.getOpenFileName(self, "Open File", filter = "*.red")
-        with open(filename[0], "rb") as f:
-            self.model.dados = pickle.load(f)
+        try:
+            with open(filename[0], "rb") as f:
+                self.model.dados = pickle.load(f)
+        except EnvironmentError as err:
+            print(f"Falha ao carregar arquivo: {err}")
+
