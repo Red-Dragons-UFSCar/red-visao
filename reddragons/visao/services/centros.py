@@ -1,16 +1,18 @@
 import math
 
 from reddragons import utils
+from reddragons import estruturas
 from reddragons.estruturas import Dados, Imagem
 
 class Centros():
 
-    def __init__ (self, dados: Dados):
-        self._dados = dados
+    def __init__ (self, model: estruturas.ModelService):
+        self._model = model
         self._centros = []
 
     @utils.timing
     def run (self, centroids, dest: Imagem = None, corr: bool = True):
+
         self._centros = self._calcula_centros (centroids)
         if dest:
             if corr and dest.centros:
@@ -22,7 +24,7 @@ class Centros():
         meio_x = (princ[0] + sec[0]) / 2
         meio_y = (princ[1] + sec[1]) / 2
         ang = math.atan2(princ[1] - sec[1], princ[0] - sec[0])
-        angulo = ang + self._dados.ang_corr
+        angulo = ang + self._model.dados.ang_corr
         return meio_x, meio_y, angulo
 
     def _calcula_centros(self, centroids):

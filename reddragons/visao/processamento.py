@@ -19,11 +19,11 @@ class Processamento:
         self.recalcular()
 
     def _init_services(self):
-        self._perspectiva = services.Perspectiva(self._model.dados)
-        self._corte = services.Corte(self._model.dados)
+        self._perspectiva = services.Perspectiva(self._model)
+        self._corte = services.Corte(self._model)
         self._converte_hsv = services.ConverteHSV()
-        self._centroides = services.Centroides(self._model.dados)
-        self._centros = services.Centros(self._model.dados)
+        self._centroides = services.Centroides(self._model)
+        self._centros = services.Centros(self._model)
 
     def alterar_src(self, src):
         recomeca = self.started
