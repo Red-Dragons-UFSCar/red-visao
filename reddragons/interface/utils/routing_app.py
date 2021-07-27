@@ -18,7 +18,7 @@ class RoutingApp (QMainWindow):
         return index
 
     def fit(self, widget):
-        fmg = widget.geometry()
+        fmg = widget.frameGeometry()
         size = (fmg.width(), fmg.height())
         print(size)
         self.resize(*size)
@@ -26,9 +26,9 @@ class RoutingApp (QMainWindow):
     def push_page (self, page):
         try:
             idx, widget = self.pages[page]
-        except:
+        except Exception as e:
             print('falha ao encontrar pagina')
-            raise
+            raise e
         self.stack.setCurrentIndex(idx)
         self.fit(widget)
         self.hist.append(idx)
