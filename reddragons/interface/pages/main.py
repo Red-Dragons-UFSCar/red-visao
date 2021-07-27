@@ -17,7 +17,6 @@ class GUI_main(QMainWindow):
 
         self.QT_btVisualizacao.clicked.connect(self.visualizacao)
         self.QT_btPerspectiva.clicked.connect(self.perspectiva)
-        self.QT_btCorte.clicked.connect(self.corte)
         self.QT_btCruzetas.clicked.connect(self.cruzetas)
         self.QT_btCores.clicked.connect(self.cores)
         self.QT_Load.clicked.connect(self.carregar)
@@ -25,24 +24,17 @@ class GUI_main(QMainWindow):
         self.QT_Centro.clicked.connect(self.centro)
         self.QT_FPS.clicked.connect(self.mudar_verbose)
         self.QT_Versao.clicked.connect(self.versao)
-        self.QT_camera.clicked.connect(self.set_camera)
         self.QT_btcontrole.clicked.connect(self.controle)
         self.QT_jogo.clicked.connect(self.jogar)
         self.show()
 
         self.visao.iniciar()
 
-    def set_camera(self):
-        self.tela = ifc.GUI_camera(self.visao, self.model)
-
     def visualizacao(self):
         self.tela = ifc.GUI_visualizacao(self.visao, self.model)
 
     def perspectiva(self):
         self.tela = ifc.GUI_perspectiva(self.visao, self.model)
-
-    def corte(self):
-        self.tela = ifc.GUI_corte(self.visao, self.model)
 
     def cruzetas(self):
         self.tela = ifc.GUI_cruzetas(self.visao, self.model)
