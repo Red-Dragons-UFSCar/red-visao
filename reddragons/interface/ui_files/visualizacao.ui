@@ -123,6 +123,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="btnVoltar">
+       <property name="text">
+        <string>Voltar</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QLabel" name="QT_visualizacao">
@@ -145,7 +152,7 @@
      <x>0</x>
      <y>0</y>
      <width>655</width>
-     <height>28</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>

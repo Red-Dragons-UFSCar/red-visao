@@ -20,15 +20,17 @@ class Estado(Enum):
 
 
 class GUI_visualizacao(QMainWindow):
-    def __init__(self, visao, model):
+    def __init__(self, app):
         super(GUI_visualizacao, self).__init__()
         loadUi(f"{ui_files}/visualizacao.ui", self)
         self.show()
-        self.model = model
-        self.visao = visao
+        self.app = app
+        self.model = app.model
+        self.visao = app.visao
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(1)
+        self.btnVoltar.clicked.connect(self.app.back)
 
     def closeEvent(self, event):
         self.timer.stop()

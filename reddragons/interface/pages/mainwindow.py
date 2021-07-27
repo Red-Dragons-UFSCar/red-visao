@@ -56,7 +56,7 @@ class GUI_video(QMainWindow):
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
         """
-        self.app.register('main', GUI_main(self.visao, self.model))
+        self.app.register('main', GUI_main(self.app))
         self.app.push_page('main')
 
     def _config_visao (self, entrada) -> bool:

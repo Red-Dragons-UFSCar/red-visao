@@ -12,12 +12,10 @@ from .mainwindow import GUI_video
 from .top import VisaoTop
 
 routes = [
-    ("camera", GUI_camera),
     ("carregar", GUI_carregar),
     ("centro", GUI_centro),
     ("controle", GUI_controle),
     ("cores", GUI_cores),
-    ("corte", GUI_corte),
     ("cruzetas", GUI_cruzetas),
     ("jogar", GUI_jogar),
     ("main", GUI_main),

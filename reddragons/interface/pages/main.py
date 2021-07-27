@@ -8,12 +8,13 @@ from ..utils import ui_files
 
 
 class GUI_main(QMainWindow):
-    def __init__(self, visao, model):
+    def __init__(self, app):
 
         super(GUI_main, self).__init__()
         loadUi(f"{ui_files}/main.ui", self)
-        self.visao = visao
-        self.model = model
+        self.app = app
+        self.visao = app.visao
+        self.model = app.model
 
         self.QT_btVisualizacao.clicked.connect(self.visualizacao)
         self.QT_btPerspectiva.clicked.connect(self.perspectiva)
@@ -26,12 +27,20 @@ class GUI_main(QMainWindow):
         self.QT_Versao.clicked.connect(self.versao)
         self.QT_btcontrole.clicked.connect(self.controle)
         self.QT_jogo.clicked.connect(self.jogar)
+        self.QT_voltar.clicked.connect(self.voltar)
         self.show()
 
         self.visao.iniciar()
 
+    def voltar (self):
+        self.app.back()
+
     def visualizacao(self):
-        self.tela = ifc.GUI_visualizacao(self.visao, self.model)
+        try:
+            self.app.push_page('tela')
+        except:
+            self.app.register('tela', ifc.GUI_visualizacao(self.app))
+            self.app.push_page('tela')
 
     def perspectiva(self):
         self.tela = ifc.GUI_perspectiva(self.visao, self.model)
