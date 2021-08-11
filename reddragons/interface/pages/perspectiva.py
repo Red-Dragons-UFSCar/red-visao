@@ -31,6 +31,7 @@ class GUI_perspectiva(QMainWindow):
 
         self.model.dados = self.dados
         self.visao.recalcular()
+        self.close()
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()
