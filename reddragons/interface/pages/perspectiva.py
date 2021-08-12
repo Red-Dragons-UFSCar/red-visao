@@ -10,12 +10,13 @@ from ..utils import ui_files
 
 
 class GUI_perspectiva(QMainWindow):
-    def __init__(self, visao, model):
+    def __init__(self, app):
         super(GUI_perspectiva, self).__init__()
         loadUi(f"{ui_files}/perspectiva.ui", self)
         self.show()
-        self.visao = visao
-        self.model = model
+        self.app = app
+        self.visao = app.visao
+        self.model = app.model
         self.dados = self.model.dados
         self.inputs = []
         self.get_referencia()
@@ -29,9 +30,7 @@ class GUI_perspectiva(QMainWindow):
         self.desenhar()
 
     def _next (self):
-        self._next = GUI_cruzetas(self.visao, self.model)
-        self._next.show()
-        self.close()
+        self.app.push_widget(GUI_cruzetas(self.app))
 
     def finalizar(self):
 

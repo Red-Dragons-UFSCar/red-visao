@@ -4,7 +4,7 @@ fiquem a vontade para mexer nesse arquivo e testar o quanto quiserem já que ele
 o nosso programa nesse momento
 """
 
-from .main import GUI_main
+from .padrao import GUI_padrao
 from .diretorio import GUI_diretorio
 
 from PyQt5.QtWidgets import QMainWindow
@@ -34,12 +34,7 @@ class GUI_video(QMainWindow):
     def _janela_diretorio(self):
         """abre a janela de escolha do diretorio
         """
-        try:
-            self.app.push_page('diretorio')
-        except Exception as e:
-            print(e)
-            self.app.register ('diretorio', GUI_diretorio(self.callback_diretorio))
-            self.app.push_page('diretorio')
+        self.app.push_widget(GUI_diretorio(self.callback_diretorio))
 
     def _mudar_janela_arquivo(self): # essa aq era usada antes mas nao foi apagada
         self.stack.setCurrentIndex(1)
@@ -56,8 +51,8 @@ class GUI_video(QMainWindow):
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
         """
-        self.app.register('main', GUI_main(self.app))
-        self.app.push_page('main')
+        self.app.visao.iniciar()
+        self.app.push_widget(GUI_padrao(self.app))
 
     def _config_visao (self, entrada) -> bool:
         """chama a funçao alterar_src ou cria um objeto de camera, 

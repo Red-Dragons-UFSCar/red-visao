@@ -5,3 +5,8 @@ class VisaoTop(RoutingApp):
         super(VisaoTop, self).__init__()
         self.visao = visao
         self.model = model
+    def closeEvent(self, event) -> None:
+        try:
+            self.visao.stop()
+        except:
+            return

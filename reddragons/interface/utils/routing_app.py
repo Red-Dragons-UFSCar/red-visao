@@ -5,41 +5,19 @@ class RoutingApp (QMainWindow):
         super(RoutingApp, self).__init__()
         self.stack = QStackedWidget(self)
         self.setCentralWidget(self.stack)
-        self.hist = []
-        self.pages = {}
         self.show()
-
-    def register (self, name, widget):
-        index = len(self.pages)
-        self.pages.update({
-            name: (index, widget)
-        })
-        self.stack.addWidget(widget)
-        return index
 
     def fit(self, widget):
         fmg = widget.frameGeometry()
         size = (fmg.width(), fmg.height())
-        print(size)
-        self.resize(*size)
+        self.setFixedSize(*size)
 
-    def push_page (self, page):
-        try:
-            idx, widget = self.pages[page]
-        except Exception as e:
-            print('falha ao encontrar pagina')
-            raise e
-        self.stack.setCurrentIndex(idx)
+    def push_widget (self, widget):
+        now = self.stack.currentWidget()
+        if now is not None:
+            self.stack.removeWidget(now)
+            now.destroy()
         self.fit(widget)
-        self.hist.append(idx)
+        idx = self.stack.addWidget(widget)
+        self.stack.setCurrentIndex(idx)
     
-    def back (self):
-        if len(self.hist) < 2:
-            return -1
-        self.hist.pop()
-
-        idx = self.hist[-1]
-        widget = dict(self.pages.values())[idx]
-        self.stack.setCurrentIndex(idx)
-        self.fit(widget)
-        return idx

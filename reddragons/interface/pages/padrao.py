@@ -6,11 +6,12 @@ from ..utils import ui_files
 
 
 class GUI_padrao(QMainWindow):
-    def __init__(self, visao, model):
+    def __init__(self, app):
         super(GUI_padrao, self).__init__()
         loadUi(f"{ui_files}/padrao.ui", self)
-        self.model = model
-        self.visao = visao
+        self.app = app
+        self.model = app.model
+        self.visao = app.visao
         self.show()
         self.btnSim.clicked.connect(self._carrega)
         self.btnNao.clicked.connect(self._next)
@@ -25,6 +26,5 @@ class GUI_padrao(QMainWindow):
             print(f"Falha ao carregar arquivo: {err}")
 
     def _next (self):
-        self._next = GUI_perspectiva(self.visao, self.model)
-        self._next.show()
-        self.close()
+        self.app.push_widget(GUI_perspectiva(self.app))
+        

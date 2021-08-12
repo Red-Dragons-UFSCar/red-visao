@@ -13,12 +13,13 @@ def identificaCruzetas (pts):
      return [superior_esq, superior_dir, inferior_esq]
 
 class GUI_cruzetas(QMainWindow):
-    def __init__(self, visao, model):
+    def __init__(self, app):
         super(GUI_cruzetas, self).__init__()
         loadUi(f"{ui_files}/perspectiva.ui", self)
         self.show()
-        self.visao = visao
-        self.model = model
+        self.app = app
+        self.visao = app.visao
+        self.model = app.model
         self.dados = self.model.dados
         self.selecoes = list(self.dados.cruzetas)
         self.get_referencia()
@@ -39,9 +40,7 @@ class GUI_cruzetas(QMainWindow):
         self._next()
 
     def _next (self):
-        self._next = GUI_main(self.visao, self.model)
-        self._next.show()
-        self.close()
+        self.app.push_widget(GUI_main(self.app))
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()

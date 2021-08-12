@@ -36,11 +36,7 @@ class GUI_main(QMainWindow):
         self.app.back()
 
     def visualizacao(self):
-        try:
-            self.app.push_page('tela')
-        except:
-            self.app.register('tela', ifc.GUI_visualizacao(self.app))
-            self.app.push_page('tela')
+        self.app.push_widget(ifc.GUI_visualizacao(self.app))
 
     def perspectiva(self):
         self.tela = ifc.GUI_perspectiva(self.visao, self.model)

@@ -10,8 +10,7 @@ def init_app ():
     visao = Processamento(model)
 
     app = VisaoTop(visao, model)
-    app.register('video', GUI_video(app))
-    app.push_page('video')
+    app.push_widget(GUI_video(app))
     return app
 
 if __name__ == '__main__':
