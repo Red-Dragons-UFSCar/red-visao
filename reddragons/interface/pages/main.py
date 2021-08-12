@@ -39,10 +39,10 @@ class GUI_main(QMainWindow):
         self.app.push_widget(ifc.GUI_visualizacao(self.app))
 
     def perspectiva(self):
-        self.tela = ifc.GUI_perspectiva(self.visao, self.model)
+        self.tela = ifc.GUI_perspectiva(self.app)
 
     def cruzetas(self):
-        self.tela = ifc.GUI_cruzetas(self.visao, self.model)
+        self.tela = ifc.GUI_cruzetas(self.app)
 
     def cores(self):
         self.tela = ifc.GUI_cores(self.visao, self.model)
