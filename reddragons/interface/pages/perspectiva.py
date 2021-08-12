@@ -2,6 +2,7 @@ import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
+from PyQt5.QtCore import Qt
 from reddragons.utils import PointsParser, converte_coord
 
 from ..utils import ui_files
@@ -15,7 +16,6 @@ class GUI_perspectiva(QMainWindow):
         self.visao = visao
         self.model = model
         self.dados = self.model.dados
-        self.input_count = 0
         self.inputs = []
         self.get_referencia()
 
@@ -33,6 +33,16 @@ class GUI_perspectiva(QMainWindow):
         self.visao.recalcular()
         self.close()
 
+    def _undo (self):
+        if len(self.inputs) == 0:
+            return
+        self.inputs.pop()
+        self.desenhar()
+
+    def keyPressEvent(self, event):
+        if event.key() == (Qt.Key_Control and Qt.Key_Z):
+            self._undo()
+
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()
         _y = QMouseEvent.y()
@@ -42,15 +52,13 @@ class GUI_perspectiva(QMainWindow):
         if (x < self.QT_Imagem.geometry().width()) and (
             y < self.QT_Imagem.geometry().height() and x >= 0 and y >= 0
         ):
-            if self.input_count <= 8:
-                self.input_count += 1
+            if len(self.inputs) <= 8:
                 self.inputs.append((x, y))
                 self.desenhar()
-                if self.input_count == 8:
+                if len(self.inputs) == 8:
                     parser = PointsParser(self.inputs)
                     pts = parser.run()
                     self.dados.warp_perspective = pts["externos"]
-                    self.finalizar()
                     self.dados.corte = [
                         converte_coord(
                             self.model.dados.matriz_warp_perspective, p
