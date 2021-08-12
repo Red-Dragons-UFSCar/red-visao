@@ -3,6 +3,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import Qt
+from .cruzetas import GUI_cruzetas
 from reddragons.utils import PointsParser, converte_coord
 
 from ..utils import ui_files
@@ -27,11 +28,16 @@ class GUI_perspectiva(QMainWindow):
         self.referencia = self.model.imagem.imagem_original
         self.desenhar()
 
+    def _next (self):
+        self._next = GUI_cruzetas(self.visao, self.model)
+        self._next.show()
+        self.close()
+
     def finalizar(self):
 
         self.model.dados = self.dados
         self.visao.recalcular()
-        self.close()
+        self._next()
 
     def _undo (self):
         if len(self.inputs) == 0:

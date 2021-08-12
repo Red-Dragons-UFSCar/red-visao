@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
-from .main import GUI_main
+from .perspectiva import GUI_perspectiva
 from PyQt5.uic import loadUi
 import pickle
 from ..utils import ui_files
@@ -25,6 +25,6 @@ class GUI_padrao(QMainWindow):
             print(f"Falha ao carregar arquivo: {err}")
 
     def _next (self):
-        self._next = GUI_main(self.visao, self.model)
+        self._next = GUI_perspectiva(self.visao, self.model)
         self._next.show()
         self.close()

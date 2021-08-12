@@ -3,6 +3,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 import numpy as np
+from .main import GUI_main
 from ..utils import ui_files
 
 def identificaCruzetas (pts):
@@ -35,6 +36,12 @@ class GUI_cruzetas(QMainWindow):
             self.finalizar()
         self.dados.cruzetas = np.asarray(identificaCruzetas(self.selecoes))
         self.model.dados = self.dados
+        self._next()
+
+    def _next (self):
+        self._next = GUI_main(self.visao, self.model)
+        self._next.show()
+        self.close()
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()
