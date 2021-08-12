@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from .perspectiva import GUI_perspectiva
+from .main import GUI_main
 from PyQt5.uic import loadUi
 import pickle
 from ..utils import ui_files
@@ -21,7 +22,7 @@ class GUI_padrao(QMainWindow):
         try:
             with open(filename[0], "rb") as f:
                 self.model.dados = pickle.load(f)
-            self._next()
+            self.app.push_widget(GUI_main(self.app))
         except EnvironmentError as err:
             print(f"Falha ao carregar arquivo: {err}")
 
