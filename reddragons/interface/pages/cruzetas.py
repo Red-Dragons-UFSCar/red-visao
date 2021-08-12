@@ -14,7 +14,7 @@ def identificaCruzetas (pts):
 class GUI_cruzetas(QMainWindow):
     def __init__(self, visao, model):
         super(GUI_cruzetas, self).__init__()
-        loadUi(f"{ui_files}/cruzetas.ui", self)
+        loadUi(f"{ui_files}/perspectiva.ui", self)
         self.show()
         self.visao = visao
         self.model = model
