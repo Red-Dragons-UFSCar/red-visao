@@ -4,7 +4,7 @@ fiquem a vontade para mexer nesse arquivo e testar o quanto quiserem já que ele
 o nosso programa nesse momento
 """
 
-from .main import GUI_main
+from .padrao import GUI_padrao
 from .diretorio import GUI_diretorio
 
 from PyQt5.QtWidgets import QMainWindow
@@ -51,7 +51,8 @@ class GUI_video(QMainWindow):
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
         """
-        self._next = GUI_main(self.visao, self.model)
+        self.visao.iniciar()
+        self._next = GUI_padrao(self.visao, self.model)
         self._next.show()
         self.close()
 
