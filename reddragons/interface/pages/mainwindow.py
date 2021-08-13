@@ -29,7 +29,9 @@ class GUI_video(QMainWindow):
         Args:
             diretorio (str): diretorio escolhido
         """
-        self._config_visao(diretorio)
+        res = self._config_visao(diretorio)
+        if not res:
+            self.app.push_widget(self)
 
     def _janela_diretorio(self):
         """abre a janela de escolha do diretorio

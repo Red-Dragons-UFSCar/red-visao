@@ -28,5 +28,4 @@ class GUI_diretorio(QMainWindow):
         file_dialog.setViewMode(QFileDialog.Detail)
         if file_dialog.exec():
             file_name = file_dialog.selectedFiles()[0]
-        
-        self.CaminhoVideo.setText(file_name)
+            self.CaminhoVideo.setText(file_name)
