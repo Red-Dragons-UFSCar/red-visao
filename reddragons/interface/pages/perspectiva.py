@@ -33,9 +33,18 @@ class GUI_perspectiva(QMainWindow):
         self.app.push_widget(GUI_cruzetas(self.app))
 
     def finalizar(self):
-
+        if len(self.inputs) == 8:
+            parser = PointsParser(self.inputs)
+            pts = parser.run()
+            self.dados.warp_perspective = pts["externos"]
+            self.visao.recalcular()
+            self.dados.corte = [
+                converte_coord(
+                    self.model.dados.matriz_warp_perspective, p
+                )
+                for p in pts["internos"]
+            ]
         self.model.dados = self.dados
-        self.visao.recalcular()
         self._next()
 
     def _undo (self):
@@ -60,16 +69,6 @@ class GUI_perspectiva(QMainWindow):
             if len(self.inputs) <= 8:
                 self.inputs.append((x, y))
                 self.desenhar()
-                if len(self.inputs) == 8:
-                    parser = PointsParser(self.inputs)
-                    pts = parser.run()
-                    self.dados.warp_perspective = pts["externos"]
-                    self.dados.corte = [
-                        converte_coord(
-                            self.model.dados.matriz_warp_perspective, p
-                        )
-                        for p in pts["internos"]
-                    ]
 
     def desenhar(self):
         img = self.referencia.copy()
