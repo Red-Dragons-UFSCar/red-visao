@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>585</width>
-    <height>394</height>
+    <width>800</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>60</y>
-      <width>401</width>
-      <height>211</height>
+      <x>180</x>
+      <y>50</y>
+      <width>451</width>
+      <height>261</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -75,6 +75,9 @@ text-align: center;</string>
            <family>Cantarell</family>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(23, 25, 33);
 border-radius: 0;</string>
@@ -110,6 +113,9 @@ border-radius: 0;</string>
            <family>Cantarell</family>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="styleSheet">
           <string notr="true">color: rgb(255, 255, 255);
 background-color: #9F1823;
@@ -144,7 +150,7 @@ border-radius:0px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>585</width>
+     <width>800</width>
      <height>30</height>
     </rect>
    </property>
