@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
-    <height>602</height>
+    <width>800</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="QT_Imagem">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>20</y>
+      <x>30</x>
+      <y>30</y>
       <width>640</width>
       <height>480</height>
      </rect>
@@ -37,113 +37,103 @@ color: rgb(255, 255, 255);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QPushButton" name="QT_btFinalizar">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>510</y>
-      <width>641</width>
+      <x>690</x>
+      <y>470</y>
+      <width>81</width>
       <height>41</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="spacing">
-      <number>4</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="QT_btReferencia">
-       <property name="minimumSize">
-        <size>
-         <width>34</width>
-         <height>34</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>34</width>
-         <height>34</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius:0px;
+    <property name="minimumSize">
+     <size>
+      <width>68</width>
+      <height>34</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>100</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:0px;
+background-color: #9F1823;
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Finalizar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="QT_btReferencia">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>430</y>
+      <width>34</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>34</width>
+      <height>34</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>34</width>
+      <height>34</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:0px;
 background-color: rgb(23, 25, 33);
 color: rgb(255, 255, 255);
 </string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../icon/26719-7-restart-hd.png</normaloff>../icon/26719-7-restart-hd.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnHelp">
-       <property name="minimumSize">
-        <size>
-         <width>34</width>
-         <height>34</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>34</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius:0px;
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../icon/26719-7-restart-hd.png</normaloff>../icon/26719-7-restart-hd.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnHelp">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>430</y>
+      <width>34</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>34</width>
+      <height>34</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>34</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:0px;
 background-color: rgb(23, 25, 33);
 color: #9F1823;;
 font-size: 20px;
 </string>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="QT_btFinalizar">
-       <property name="minimumSize">
-        <size>
-         <width>68</width>
-         <height>34</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>100</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius:0px;
-background-color: #9F1823;
-color: rgb(255, 255, 255);
-</string>
-       </property>
-       <property name="text">
-        <string>Finalizar</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </property>
+    <property name="text">
+     <string>?</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -151,7 +141,7 @@ color: rgb(255, 255, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>660</width>
+     <width>800</width>
      <height>30</height>
     </rect>
    </property>
