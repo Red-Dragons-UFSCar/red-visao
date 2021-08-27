@@ -42,7 +42,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../../Downloads/red_logo.png</pixmap>
+     <pixmap>../icon/red_logo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -61,7 +61,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../../Downloads/proex.png</pixmap>
+     <pixmap>../icon/proex.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -80,7 +80,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../../Downloads/ufscar.png</pixmap>
+     <pixmap>../icon/ufscar.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
