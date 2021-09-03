@@ -28,16 +28,16 @@ class Centros():
         return meio_x, meio_y, angulo
 
     def _calcula_centros(self, centroids):
-        centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        for i_sec in range(2, 5):
+        centros = self._model.imagem.centros
+        for i_sec in range(2, 5): #para cada marcador secundario
             menor = 10000.0
-            for principal in centroids[1][0]:
+            for principal in centroids[1][0]: #para cada candidato a centroide principal
                 try:
-                    for secundario in centroids[i_sec][0]:
+                    for secundario in centroids[i_sec][0]: #para cada candidato a centroide secundario
                         dist = math.hypot(
                             principal[0] - secundario[0], principal[1] - secundario[1]
                         )
-                        if dist < menor:
+                        if dist < 30 < menor: #30 é a maior distancia aceitavel entre um marcador principal e secundario
                             menor = dist
                             m_x, m_y, ang = self._centro_robo(principal, secundario)
                             centros[i_sec - 2][0] = m_x

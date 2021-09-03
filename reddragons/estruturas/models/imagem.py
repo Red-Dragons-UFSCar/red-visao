@@ -9,5 +9,5 @@ class Imagem(_Estrutura):
         self.imagem_hsv = np.zeros((640, 480, 3))
         self.mascaras = None
         self.centroids = None
-        self.centros = None
+        self.centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.adversarios = None
