@@ -6,6 +6,7 @@ o nosso programa nesse momento
 
 from .padrao import GUI_padrao
 from .diretorio import GUI_diretorio
+from .camera import GUI_camera
 
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
@@ -44,11 +45,7 @@ class GUI_video(QMainWindow):
     def _camera_handler(self):
         """Aqui a gente da um jeito de fazer o usuario escolher uma camera
         """
-
-        escolha = input ("Escolha uma opção de camera (0/1): ")
-        escolha = int(escolha)
-        
-        self._config_visao(escolha)      
+        self.app.push_widget(GUI_camera(self.callback_diretorio))      
 
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa
