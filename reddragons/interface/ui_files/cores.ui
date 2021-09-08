@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(39, 45, 60);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="QT_Imagem">
     <property name="geometry">
@@ -36,7 +39,7 @@
       <x>10</x>
       <y>485</y>
       <width>641</width>
-      <height>201</height>
+      <height>220</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -51,7 +54,7 @@
        </item>
        <item row="5" column="1">
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="2">
+         <item row="0" column="1">
           <widget class="QSlider" name="QT_VMin">
            <property name="maximum">
             <number>255</number>
@@ -61,37 +64,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="QT_labelVMin">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="1">
-          <widget class="QLabel" name="QT_labelVMax">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_9">
-           <property name="minimumSize">
-            <size>
-             <width>35</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Max</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
           <widget class="QSlider" name="QT_VMax">
            <property name="maximum">
             <number>255</number>
@@ -111,6 +84,22 @@
            </property>
            <property name="text">
             <string>Min</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="minimumSize">
+            <size>
+             <width>35</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Max</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -190,30 +179,6 @@
        </item>
        <item row="1" column="1">
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="2">
-          <widget class="QSlider" name="QT_HMin">
-           <property name="maximum">
-            <number>179</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="QT_labelHMin">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="QT_labelHMax">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_4">
            <property name="minimumSize">
@@ -227,16 +192,6 @@
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QSlider" name="QT_HMax">
-           <property name="maximum">
-            <number>179</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
@@ -256,11 +211,31 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QSlider" name="QT_HMin">
+           <property name="maximum">
+            <number>179</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSlider" name="QT_HMax">
+           <property name="maximum">
+            <number>179</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item row="3" column="1">
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="2">
+         <item row="0" column="1">
           <widget class="QSlider" name="QT_SMin">
            <property name="maximum">
             <number>255</number>
@@ -271,9 +246,12 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLabel" name="QT_labelSMax">
-           <property name="text">
-            <string>TextLabel</string>
+          <widget class="QSlider" name="QT_SMax">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
@@ -290,23 +268,6 @@
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="QT_labelSMin">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QSlider" name="QT_SMax">
-           <property name="maximum">
-            <number>255</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
@@ -340,13 +301,6 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="QT_btReferencia">
-         <property name="text">
-          <string>Referência</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="label">
          <property name="minimumSize">
           <size>
@@ -371,6 +325,16 @@
        </item>
        <item>
         <widget class="QComboBox" name="QT_selecao">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(23, 25, 33);
+border-radius: 0;</string>
+         </property>
          <item>
           <property name="text">
            <string>Bola</string>
@@ -417,9 +381,81 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="QT_btReferencia">
+         <property name="minimumSize">
+          <size>
+           <width>34</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>34</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:0px;
+background-color: rgb(23, 25, 33);
+color: rgb(255, 255, 255);
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icon/26719-7-restart-hd.png</normaloff>../icon/26719-7-restart-hd.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="QT_btSalvar">
+         <property name="minimumSize">
+          <size>
+           <width>68</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:0px;
+background-color: rgb(23, 25, 33);
+color: rgb(255, 255, 255);
+</string>
+         </property>
          <property name="text">
           <string>Salvar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="QT_btFinalizar">
+         <property name="minimumSize">
+          <size>
+           <width>68</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:0px;
+background-color: #9F1823;
+color: rgb(255, 255, 255);
+</string>
+         </property>
+         <property name="text">
+          <string>Finalizar</string>
          </property>
         </widget>
        </item>
@@ -465,33 +501,14 @@
       <x>655</x>
       <y>490</y>
       <width>326</width>
-      <height>82</height>
+      <height>98</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_5">
-     <item row="1" column="1">
-      <widget class="QLabel" name="QT_ltipoKernel">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_13">
        <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QSlider" name="QT_valorKernel">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>15</number>
-       </property>
-       <property name="singleStep">
-        <number>2</number>
-       </property>
-       <property name="value">
-        <number>3</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <string>Tipo</string>
        </property>
       </widget>
      </item>
@@ -502,21 +519,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_13">
-       <property name="text">
-        <string>Tipo</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
-      <widget class="QLabel" name="QT_lvalorKernel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
       <widget class="QComboBox" name="QT_tipoKernel">
        <item>
         <property name="text">
@@ -530,21 +533,7 @@
        </item>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>Kernel</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="QT_lqualKernel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
       <widget class="QComboBox" name="QT_qualKernel">
        <item>
         <property name="text">
@@ -563,13 +552,39 @@
        </item>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="QSlider" name="QT_valorKernel">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>15</number>
+       </property>
+       <property name="singleStep">
+        <number>2</number>
+       </property>
+       <property name="value">
+        <number>3</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Kernel</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>655</x>
-      <y>575</y>
+      <x>660</x>
+      <y>590</y>
       <width>326</width>
       <height>51</height>
      </rect>
@@ -629,8 +644,8 @@
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>655</x>
-      <y>630</y>
+      <x>660</x>
+      <y>650</y>
       <width>326</width>
       <height>51</height>
      </rect>
@@ -691,17 +706,6 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>984</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

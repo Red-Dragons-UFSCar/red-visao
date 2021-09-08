@@ -4,17 +4,18 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 import reddragons.utils as vutils
-
+from .main import GUI_main
 from ..utils import ui_files
 
 
 class GUI_cores(QMainWindow):
-    def __init__(self, visao, model):
+    def __init__(self, app):
         super(GUI_cores, self).__init__()
         loadUi(f"{ui_files}/cores.ui", self)
         self.show()
-        self.visao = visao
-        self.model = model
+        self.app = app
+        self.visao = app.visao
+        self.model = app.model
         self.centroids = np.empty([0, 3])
 
         self.dados = self.model.dados
@@ -25,6 +26,7 @@ class GUI_cores(QMainWindow):
         self.get_referencia()
         self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btSalvar.clicked.connect(self.salvar)
+        self.QT_btFinalizar.clicked.connect(self.finalizar)
         self.QT_HMin.sliderMoved.connect(self.mudanca)
         self.QT_HMax.sliderMoved.connect(self.mudanca)
         self.QT_SMin.sliderMoved.connect(self.mudanca)
@@ -46,6 +48,9 @@ class GUI_cores(QMainWindow):
 
         self.mask = None
         self.nova_cor()
+
+    def finalizar (self):
+        self.app.push_widget(GUI_main(self.app))      
 
     def get_referencia(self):
 

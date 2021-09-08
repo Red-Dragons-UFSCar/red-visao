@@ -45,7 +45,7 @@ class GUI_main(QMainWindow):
         self.tela = ifc.GUI_cruzetas(self.app)
 
     def cores(self):
-        self.tela = ifc.GUI_cores(self.visao, self.model)
+        self.app.push_widget(ifc.GUI_cores(self.app))
 
     def centro(self):
         self.tela = ifc.GUI_centro(self.visao, self.model)
