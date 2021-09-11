@@ -23,7 +23,7 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>35</x>
+      <x>40</x>
       <y>90</y>
       <width>716</width>
       <height>266</height>
@@ -34,15 +34,21 @@
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
      <property name="horizontalSpacing">
-      <number>8</number>
+      <number>10</number>
      </property>
      <property name="verticalSpacing">
-      <number>0</number>
+      <number>16</number>
      </property>
      <item row="0" column="4">
       <widget class="QPushButton" name="QT_FPS">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>FPS</string>
@@ -52,7 +58,13 @@
      <item row="1" column="1">
       <widget class="QPushButton" name="QT_btCruzetas">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Cruzetas</string>
@@ -62,7 +74,13 @@
      <item row="0" column="1">
       <widget class="QPushButton" name="QT_btPerspectiva">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Perspectiva</string>
@@ -72,7 +90,13 @@
      <item row="2" column="1">
       <widget class="QPushButton" name="QT_btCores">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Cores</string>
@@ -82,8 +106,13 @@
      <item row="0" column="2">
       <widget class="QPushButton" name="QT_btcontrole">
        <property name="styleSheet">
-        <string notr="true">background-color: white;
-</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Config. Controle</string>
@@ -93,7 +122,13 @@
      <item row="1" column="2">
       <widget class="QPushButton" name="QT_Load">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Carregar Padrão</string>
@@ -103,7 +138,13 @@
      <item row="2" column="2">
       <widget class="QPushButton" name="QT_btVisualizacao">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Visualização</string>
@@ -113,7 +154,13 @@
      <item row="0" column="3">
       <widget class="QPushButton" name="QT_Save">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Salvar Padrão</string>
@@ -123,7 +170,13 @@
      <item row="1" column="3">
       <widget class="QPushButton" name="QT_jogo">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Modo de Jogo</string>
@@ -133,7 +186,13 @@
      <item row="2" column="3">
       <widget class="QPushButton" name="QT_Centro">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Centros e Ângulos</string>
@@ -143,7 +202,13 @@
      <item row="1" column="4">
       <widget class="QPushButton" name="QT_Versao">
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Versão do QT</string>
@@ -159,7 +224,13 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
        </property>
        <property name="text">
         <string>Voltar</string>
