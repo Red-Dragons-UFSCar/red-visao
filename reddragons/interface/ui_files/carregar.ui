@@ -9,62 +9,94 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>357</width>
-    <height>132</height>
+    <width>800</width>
+    <height>450</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>450</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Carregar modelo</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #222433;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>5</y>
-      <width>356</width>
-      <height>76</height>
+      <x>45</x>
+      <y>90</y>
+      <width>716</width>
+      <height>281</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0">
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
-     <item row="0" column="0">
+     <item row="2" column="0">
+      <widget class="QPushButton" name="QT_carregar">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+       </property>
+       <property name="text">
+        <string>Carregar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="QT_select">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+         </property>
          <property name="text">
           <string>Seleção</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="QT_listaSalvos"/>
+        <widget class="QComboBox" name="QT_listaSalvos">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+         </property>
+        </widget>
        </item>
       </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="QT_carregar">
-       <property name="text">
-        <string>Carregar</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>357</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
