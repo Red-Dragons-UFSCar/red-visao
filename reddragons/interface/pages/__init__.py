@@ -10,11 +10,12 @@ from .salvar import GUI_salvar
 from .visualizacao import GUI_visualizacao
 from .mainwindow import GUI_video
 from .top import VisaoTop
-
+from .kmeans import GUI_k_medians
 routes = [
     ("carregar", GUI_carregar),
     ("centro", GUI_centro),
     ("controle", GUI_controle),
+    ("kmeans", GUI_k_medians),
     ("cores", GUI_cores),
     ("cruzetas", GUI_cruzetas),
     ("jogar", GUI_jogar),
@@ -29,6 +30,7 @@ __all__ = [
     "GUI_carregar",
     "GUI_centro",
     "GUI_controle",
+    "GUI_k_medians",
     "GUI_cores",
     "GUI_cruzetas",
     "GUI_jogar",

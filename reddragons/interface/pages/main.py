@@ -28,6 +28,7 @@ class GUI_main(QMainWindow):
         self.QT_btcontrole.clicked.connect(self.controle)
         self.QT_jogo.clicked.connect(self.jogar)
         self.QT_voltar.clicked.connect(self.voltar)
+        self.QT_btkmedians.clicked.connect(self.k_medians)
         self.show()
 
         self.visao.iniciar()
@@ -52,6 +53,9 @@ class GUI_main(QMainWindow):
 
     def controle(self):
         self.tela = ifc.GUI_controle(self.visao, self.model)
+
+    def k_medians(self):
+        self.tela=ifc.GUI_k_medians()
 
     def jogar(self):
         self.tela = ifc.GUI_jogar(self.visao, self.model)

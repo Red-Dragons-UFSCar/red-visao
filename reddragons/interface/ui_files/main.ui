@@ -48,6 +48,28 @@
      <property name="spacing">
       <number>20</number>
      </property>
+     <item row="2" column="4">
+      <widget class="QPushButton" name="QT_voltar">
+       <property name="maximumSize">
+        <size>
+         <width>172</width>
+         <height>34</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+       </property>
+       <property name="text">
+        <string>Voltar</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="4">
       <widget class="QPushButton" name="QT_FPS">
        <property name="styleSheet">
@@ -64,8 +86,8 @@ QPushButton:hover{
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="QT_btCruzetas">
+     <item row="1" column="3">
+      <widget class="QPushButton" name="QT_jogo">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 background-color: rgb(23, 25, 33);
@@ -76,7 +98,7 @@ QPushButton:hover{
 }</string>
        </property>
        <property name="text">
-        <string>Cruzetas</string>
+        <string>Modo de Jogo</string>
        </property>
       </widget>
      </item>
@@ -93,54 +115,6 @@ QPushButton:hover{
        </property>
        <property name="text">
         <string>Perspectiva</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="QT_btCores">
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
-}
-QPushButton:hover{
-	background-color: #1B1D26;
-}</string>
-       </property>
-       <property name="text">
-        <string>Cores</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="QT_btcontrole">
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
-}
-QPushButton:hover{
-	background-color: #1B1D26;
-}</string>
-       </property>
-       <property name="text">
-        <string>Config. Controle</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="QT_Load">
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
-}
-QPushButton:hover{
-	background-color: #1B1D26;
-}</string>
-       </property>
-       <property name="text">
-        <string>Carregar Padrão</string>
        </property>
       </widget>
      </item>
@@ -176,8 +150,8 @@ QPushButton:hover{
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="QT_jogo">
+     <item row="0" column="2">
+      <widget class="QPushButton" name="QT_btcontrole">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 background-color: rgb(23, 25, 33);
@@ -188,12 +162,12 @@ QPushButton:hover{
 }</string>
        </property>
        <property name="text">
-        <string>Modo de Jogo</string>
+        <string>Config. Controle</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="QT_Centro">
+     <item row="2" column="1">
+      <widget class="QPushButton" name="QT_btCores">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 background-color: rgb(23, 25, 33);
@@ -204,7 +178,7 @@ QPushButton:hover{
 }</string>
        </property>
        <property name="text">
-        <string>Centros e Ângulos</string>
+        <string>Cores</string>
        </property>
       </widget>
      </item>
@@ -224,14 +198,8 @@ QPushButton:hover{
        </property>
       </widget>
      </item>
-     <item row="2" column="4">
-      <widget class="QPushButton" name="QT_voltar">
-       <property name="maximumSize">
-        <size>
-         <width>172</width>
-         <height>34</height>
-        </size>
-       </property>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="QT_btCruzetas">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 background-color: rgb(23, 25, 33);
@@ -242,7 +210,55 @@ QPushButton:hover{
 }</string>
        </property>
        <property name="text">
-        <string>Voltar</string>
+        <string>Cruzetas</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="QT_Centro">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+       </property>
+       <property name="text">
+        <string>Centros e Ângulos</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="QT_Load">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+       </property>
+       <property name="text">
+        <string>Carregar Padrão</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="QT_btkmedians">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background-color: rgb(23, 25, 33);
+color: #E62E2E;
+}
+QPushButton:hover{
+	background-color: #1B1D26;
+}</string>
+       </property>
+       <property name="text">
+        <string>Kmeans</string>
        </property>
       </widget>
      </item>
