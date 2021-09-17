@@ -9,9 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>450</height>
+    <width>900</width>
+    <height>725</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>725</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>990</width>
+    <height>725</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Janela Principal</string>
@@ -23,21 +35,18 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>90</y>
-      <width>716</width>
-      <height>266</height>
+      <x>45</x>
+      <y>185</y>
+      <width>811</width>
+      <height>336</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0">
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
-     <property name="horizontalSpacing">
-      <number>10</number>
-     </property>
-     <property name="verticalSpacing">
-      <number>16</number>
+     <property name="spacing">
+      <number>20</number>
      </property>
      <item row="0" column="4">
       <widget class="QPushButton" name="QT_FPS">
