@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>450</height>
+    <width>990</width>
+    <height>725</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
-    <height>450</height>
+    <width>990</width>
+    <height>725</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>800</width>
-    <height>450</height>
+    <width>990</width>
+    <height>725</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -32,10 +32,10 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>70</y>
-      <width>341</width>
-      <height>201</height>
+      <x>70</x>
+      <y>160</y>
+      <width>409</width>
+      <height>241</height>
      </rect>
     </property>
     <property name="text">
@@ -51,10 +51,10 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>290</y>
-      <width>131</width>
-      <height>51</height>
+      <x>100</x>
+      <y>480</y>
+      <width>147</width>
+      <height>62</height>
      </rect>
     </property>
     <property name="text">
@@ -70,10 +70,10 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>270</y>
-      <width>131</width>
-      <height>81</height>
+      <x>300</x>
+      <y>450</y>
+      <width>147</width>
+      <height>97</height>
      </rect>
     </property>
     <property name="text">
@@ -89,10 +89,10 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>40</y>
-      <width>301</width>
-      <height>371</height>
+      <x>550</x>
+      <y>130</y>
+      <width>391</width>
+      <height>471</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -168,17 +168,6 @@ QPushButton:hover{
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
