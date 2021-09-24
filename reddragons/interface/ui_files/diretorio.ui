@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>450</height>
+    <width>990</width>
+    <height>725</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
-    <height>450</height>
+    <width>990</width>
+    <height>725</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>800</width>
-    <height>450</height>
+    <width>990</width>
+    <height>725</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -28,14 +28,14 @@
   <widget class="QWidget" name="Diretorio_2">
    <property name="minimumSize">
     <size>
-     <width>800</width>
-     <height>450</height>
+     <width>990</width>
+     <height>725</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>800</width>
-     <height>450</height>
+     <width>990</width>
+     <height>725</height>
     </size>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -61,14 +61,14 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>800</width>
-        <height>450</height>
+        <width>990</width>
+        <height>725</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>800</width>
-        <height>450</height>
+        <width>990</width>
+        <height>725</height>
        </size>
       </property>
       <property name="font">
@@ -93,8 +93,8 @@
       <widget class="QWidget" name="DetalheVermelho" native="true">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>70</y>
+         <x>110</x>
+         <y>170</y>
          <width>5</width>
          <height>31</height>
         </rect>
@@ -118,8 +118,8 @@
       <widget class="QPushButton" name="btnDiretorioEscolher">
        <property name="geometry">
         <rect>
-         <x>730</x>
-         <y>70</y>
+         <x>800</x>
+         <y>170</y>
          <width>41</width>
          <height>31</height>
         </rect>
@@ -160,22 +160,22 @@ background-color: rgb(23, 25, 33);</string>
       <widget class="QPushButton" name="btnDiretorioOk">
        <property name="geometry">
         <rect>
-         <x>720</x>
-         <y>390</y>
-         <width>51</width>
-         <height>31</height>
+         <x>790</x>
+         <y>610</y>
+         <width>102</width>
+         <height>62</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>51</width>
-         <height>31</height>
+         <width>102</width>
+         <height>62</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>51</width>
-         <height>31</height>
+         <width>102</width>
+         <height>62</height>
         </size>
        </property>
        <property name="font">
@@ -218,9 +218,9 @@ QPushButton:hover{
       <widget class="QLineEdit" name="CaminhoVideo">
        <property name="geometry">
         <rect>
-         <x>45</x>
-         <y>70</y>
-         <width>686</width>
+         <x>115</x>
+         <y>170</y>
+         <width>691</width>
          <height>31</height>
         </rect>
        </property>
@@ -232,7 +232,7 @@ QPushButton:hover{
        </property>
        <property name="maximumSize">
         <size>
-         <width>686</width>
+         <width>691</width>
          <height>31</height>
         </size>
        </property>
@@ -259,10 +259,10 @@ color: rgb(255, 255, 255);
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>40</y>
+         <x>110</x>
+         <y>130</y>
          <width>551</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
        </property>
        <property name="font">
@@ -275,7 +275,7 @@ color: rgb(255, 255, 255);
         <string notr="true">color: rgb(255, 0, 0);</string>
        </property>
        <property name="text">
-        <string>DIRETÓRIO DO VIDEO:</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; color:#e62e2e;&quot;&gt;DIRETÓRIO DO VIDEO:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
