@@ -16,6 +16,7 @@ class GUI_padrao(QMainWindow):
         self.show()
         self.btnSim.clicked.connect(self._carrega)
         self.btnNao.clicked.connect(self._next)
+        self.btnVoltar.clicked.connect(self.app.back)
 
     def _carrega (self):
         filename = QFileDialog.getOpenFileName(self, "Open File", filter = "*.red")
