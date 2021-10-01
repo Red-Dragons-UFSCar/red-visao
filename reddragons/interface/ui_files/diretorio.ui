@@ -278,6 +278,64 @@ color: rgb(255, 255, 255);
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; color:#e62e2e;&quot;&gt;DIRETÓRIO DO VIDEO:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="btnVoltar">
+       <property name="geometry">
+        <rect>
+         <x>680</x>
+         <y>610</y>
+         <width>102</width>
+         <height>62</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>102</width>
+         <height>62</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>102</width>
+         <height>62</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Microsoft YaHei</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+
+QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: rgb(23, 25, 33);
+	border-radius:0px;
+}
+QPushButton:hover{
+	color: rgb(255, 255, 255);
+	background-color: rgb(27, 27, 35);
+	border-radius:0px;
+}
+
+</string>
+       </property>
+       <property name="text">
+        <string>Voltar</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

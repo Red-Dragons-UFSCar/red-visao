@@ -5,14 +5,16 @@ from ..utils import ui_files
 
 
 class GUI_diretorio(QMainWindow):
-    def __init__(self, callback):
+    def __init__(self, app, callback):
         super(GUI_diretorio, self).__init__()
         loadUi(f"{ui_files}/diretorio.ui", self)
         self.show()
+        self.app = app
         self.callback = callback
         self._diretorio = ""
         self.btnDiretorioEscolher.clicked.connect(self._escolher)
         self.btnDiretorioOk.clicked.connect(self._ok)
+        self.btnVoltar.clicked.connect(self.app.back)
 
     def _ok (self):
         self._diretorio = self.CaminhoVideo.text()
