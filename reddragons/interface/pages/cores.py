@@ -4,7 +4,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 import reddragons.utils as vutils
-from .main import GUI_main
+from .visualizacao import GUI_visualizacao
 from ..utils import ui_files
 
 
@@ -26,6 +26,7 @@ class GUI_cores(QMainWindow):
         self.get_referencia()
         self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btSalvar.clicked.connect(self.salvar)
+        self.QT_btVoltar.clicked.connect(self.app.back)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
         self.QT_HMin.sliderMoved.connect(self.mudanca)
         self.QT_HMax.sliderMoved.connect(self.mudanca)
@@ -50,7 +51,7 @@ class GUI_cores(QMainWindow):
         self.nova_cor()
 
     def finalizar (self):
-        self.app.push_widget(GUI_main(self.app))      
+        self.app.push_widget(GUI_visualizacao(self.app))      
 
     def get_referencia(self):
 
