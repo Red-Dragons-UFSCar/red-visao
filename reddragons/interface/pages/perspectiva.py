@@ -23,6 +23,7 @@ class GUI_perspectiva(QMainWindow):
 
         self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
+        self.QT_btVoltar.clicked.connect(self.app.back)
 
     def get_referencia(self):
 
