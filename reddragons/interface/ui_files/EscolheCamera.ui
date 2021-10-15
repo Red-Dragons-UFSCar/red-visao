@@ -9,19 +9,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
+    <width>1065</width>
     <height>725</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>990</width>
+    <width>1065</width>
     <height>725</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>990</width>
+    <width>1065</width>
     <height>725</height>
    </size>
   </property>
@@ -63,7 +63,7 @@ color: rgb(255, 255, 255);</string>
       <widget class="QComboBox" name="CaixaSelecionar">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>175</x>
          <y>140</y>
          <width>721</width>
          <height>22</height>
@@ -87,7 +87,7 @@ color: rgb(255, 255, 255);</string>
       <widget class="QPushButton" name="btnCameraOk">
        <property name="geometry">
         <rect>
-         <x>820</x>
+         <x>895</x>
          <y>590</y>
          <width>51</width>
          <height>31</height>
@@ -145,7 +145,7 @@ QPushButton:hover{
       <widget class="QLabel" name="TextoSelecionar">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>175</x>
          <y>110</y>
          <width>391</width>
          <height>16</height>
@@ -162,6 +162,34 @@ QPushButton:hover{
        </property>
        <property name="text">
         <string>SELECIONE UMA ENTRADA DE VIDEO:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>61</width>
+         <height>411</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>../icon/Status 1.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="margin">
+        <number>10</number>
        </property>
       </widget>
      </widget>
