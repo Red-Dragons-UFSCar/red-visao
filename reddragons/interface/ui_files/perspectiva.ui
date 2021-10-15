@@ -190,7 +190,7 @@ color: rgb(255, 255, 255);
      <string>Voltar</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="StatusPerspetctiva">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -207,6 +207,31 @@ color: rgb(255, 255, 255);
     </property>
     <property name="pixmap">
      <pixmap>../icon/Status 3.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="margin">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StatusCruzetas">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>61</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../icon/Status 4.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
