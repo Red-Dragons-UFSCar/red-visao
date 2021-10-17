@@ -5,21 +5,26 @@ import reddragons.utils as vutils
 from PyQt5.QtWidgets import QMainWindow
 from ..utils import ui_files
 
+
+
 class GUI_k_medians(QMainWindow):
-    def __init__(self):
+    def __init__(self, app):
         super(GUI_k_medians, self).__init__()
         loadUi(f"{ui_files}/kmedians.ui", self)
         self.show()
+        self.app = app
+        self.visao = app.visao
+        self.model = app.model
 
         self.centroids = np.empty([0, 3])
 
         global VISAO
         self.k_ref = [[20, 103, 254], [101, 140, 255], [85, 125, 220], [176, 156, 255], [144, 26, 254], [28, 92, 255]]
         self.k_ref_pos=[[511, 210], [219, 200], [218, 189], [226, 267], [247, 269], [141, 175]]
-        self.dados = VISAO.read_Dados()
+        self.dados = self.model.dados.copy()
 
-        self.QT_AreaMax.setValue(self.dados.AreaMaxima)
-        self.QT_AreaMin.setValue(self.dados.AreaMinimo)
+        self.QT_AreaMax.setValue(self.dados.area_maxima)
+        self.QT_AreaMin.setValue(self.dados.area_minima)
 
         self.getReferencia()
         self.QT_btReferencia.clicked.connect(self.getReferencia)
@@ -49,13 +54,14 @@ class GUI_k_medians(QMainWindow):
         self.novaCor()
 
     def getReferencia(self):
-        global VISAO
-        self.referencia = VISAO.read_Imagem().imagem_crop
-        self.imagem_HSV = VISAO.read_Imagem().imagem_HSV
-        self.dados = VISAO.read_Dados()
+        # global VISAO
+        self.referencia = self.model.imagem.imagem_crop
+        self.imagem_HSV = self.model.imagem.imagem_hsv
+        # self.dados = VISAO.read_Dados()
         self.contornos, _ = vutils.get_contorno_cor(
-            self.imagem_hsv, self.dados.cores[0], self.dados.filtros[0]
-        )
+             self.imagem_HSV, self.dados.cores[0], self.dados.filtros[0]
+         )
+        self.referencia = self.model.imagem.imagem_original
         self.desenhar()
 
     def salvar(self):
@@ -65,14 +71,14 @@ class GUI_k_medians(QMainWindow):
         self.dados.filtros[i] = [int(self.QT_qualKernel.currentIndex()), int(self.QT_tipoKernel.currentIndex()),
                                  self.QT_valorKernel.value()]
 
-        self.dados.AreaMinimo = self.QT_AreaMin.value()
-        self.dados.AreaMaxima = self.QT_AreaMax.value()
-        global VISAO
-        VISAO.set_Dados(self.dados)
+        self.dados.area_minima = self.QT_AreaMin.value()
+        self.dados.area_maxima = self.QT_AreaMax.value()
+        self.model.dados = self.dados.copy()
+
 
     def novaCor(self):
         i = self.QT_selecao.currentIndex()
-        self.contornos, _ = processamento.getContornoCor(self.imagem_HSV, self.dados.cores[i], self.dados.filtros[i])
+        self.contornos, _ = vutils.get_contorno_cor(self.imagem_HSV, self.dados.cores[i], self.dados.filtros[i])
 
         cores = self.dados.cores[i]
         filtros = self.dados.filtros[i]
@@ -104,7 +110,7 @@ class GUI_k_medians(QMainWindow):
         self.dados.filtros[i] = [int(self.QT_qualKernel.currentIndex()), int(self.QT_tipoKernel.currentIndex()),
                                  self.QT_valorKernel.value()]
 
-        self.contornos, _ = processamento.getContornoCor(cv2.cvtColor(np.uint8(self.referencia), cv2.COLOR_RGB2HSV),
+        self.contornos, _ = vutils.get_contorno_cor(cv2.cvtColor(np.uint8(self.referencia), cv2.COLOR_RGB2HSV),
                                                          self.dados.cores[i], self.dados.filtros[i])
 
         self.centroids = np.empty([0, 3])

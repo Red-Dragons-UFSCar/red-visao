@@ -55,7 +55,7 @@ class GUI_main(QMainWindow):
         self.tela = ifc.GUI_controle(self.visao, self.model)
 
     def k_medians(self):
-        self.tela=ifc.GUI_k_medians()
+        self.tela=ifc.GUI_k_medians(self.app)
 
     def jogar(self):
         self.tela = ifc.GUI_jogar(self.visao, self.model)
