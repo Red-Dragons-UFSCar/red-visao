@@ -37,7 +37,7 @@ class GUI_video(QMainWindow):
     def _janela_diretorio(self):
         """abre a janela de escolha do diretorio
         """
-        self.app.push_widget(GUI_diretorio(self.callback_diretorio))
+        self.app.push_widget(GUI_diretorio(self.app, self.callback_diretorio))
 
     def _mudar_janela_arquivo(self): # essa aq era usada antes mas nao foi apagada
         self.stack.setCurrentIndex(1)

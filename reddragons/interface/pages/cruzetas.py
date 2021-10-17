@@ -3,7 +3,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 import numpy as np
-from .main import GUI_main
+from .cores import GUI_cores
 from ..utils import ui_files
 
 def identificaCruzetas (pts):
@@ -25,6 +25,7 @@ class GUI_cruzetas(QMainWindow):
         self.get_referencia()
         self.QT_btReferencia.clicked.connect(self.get_referencia)
         self.QT_btFinalizar.clicked.connect(self.finalizar)
+        self.QT_btVoltar.clicked.connect(self.app.back)
 
     def get_referencia(self):
 
@@ -40,7 +41,7 @@ class GUI_cruzetas(QMainWindow):
         self._next()
 
     def _next (self):
-        self.app.push_widget(GUI_main(self.app))
+        self.app.push_widget(GUI_cores(self.app))
 
     def mouseReleaseEvent(self, QMouseEvent):
         _x = QMouseEvent.x()

@@ -6,7 +6,7 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
-
+from .main import GUI_main
 from ..utils import ui_files
 
 
@@ -31,11 +31,15 @@ class GUI_visualizacao(QMainWindow):
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(1)
         self.btnVoltar.clicked.connect(self.app.back)
+        self.btnMenu.clicked.connect(self.push_menu)
+
 
     def closeEvent(self, event):
         self.timer.stop()
         event.accept()
 
+    def push_menu (self):
+        self.app.push_widget(GUI_main(self.app))
     def update_frame(self):
         estado = self.qt_tipoVisualizacao.currentIndex()
 

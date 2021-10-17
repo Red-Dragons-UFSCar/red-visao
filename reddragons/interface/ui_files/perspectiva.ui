@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
+    <width>1065</width>
     <height>725</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>990</width>
+    <width>1065</width>
     <height>725</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>990</width>
+    <width>1065</width>
     <height>725</height>
    </size>
   </property>
@@ -36,10 +36,10 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="QT_Imagem">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>30</y>
-      <width>768</width>
-      <height>576</height>
+      <x>250</x>
+      <y>50</y>
+      <width>640</width>
+      <height>480</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -52,8 +52,8 @@ color: rgb(255, 255, 255);</string>
    <widget class="QPushButton" name="QT_btFinalizar">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>640</y>
+      <x>795</x>
+      <y>600</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -70,6 +70,12 @@ color: rgb(255, 255, 255);</string>
       <height>16777215</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">border-radius:0px;
 background-color: #9F1823;
@@ -83,10 +89,10 @@ color: rgb(255, 255, 255);
    <widget class="QPushButton" name="QT_btReferencia">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>640</y>
-      <width>34</width>
-      <height>34</height>
+      <x>250</x>
+      <y>600</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -97,8 +103,8 @@ color: rgb(255, 255, 255);
     </property>
     <property name="maximumSize">
      <size>
-      <width>34</width>
-      <height>34</height>
+      <width>91</width>
+      <height>91</height>
      </size>
     </property>
     <property name="styleSheet">
@@ -118,10 +124,10 @@ color: rgb(255, 255, 255);
    <widget class="QPushButton" name="btnHelp">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>640</y>
-      <width>34</width>
-      <height>34</height>
+      <x>325</x>
+      <y>600</y>
+      <width>51</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -132,19 +138,106 @@ color: rgb(255, 255, 255);
     </property>
     <property name="maximumSize">
      <size>
-      <width>34</width>
+      <width>51</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius:0px;
 background-color: rgb(23, 25, 33);
-color: #9F1823;;
+color: #BF2833;;
 font-size: 20px;
 </string>
     </property>
     <property name="text">
      <string>?</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="QT_btVoltar">
+    <property name="geometry">
+     <rect>
+      <x>695</x>
+      <y>600</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>68</width>
+      <height>34</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>100</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:0px;
+background-color: rgb(23, 25, 33);
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Voltar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StatusPerspetctiva">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>61</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../icon/Status 3.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="margin">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StatusCruzetas">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>61</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../icon/Status 4.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="margin">
+     <number>10</number>
     </property>
    </widget>
   </widget>
