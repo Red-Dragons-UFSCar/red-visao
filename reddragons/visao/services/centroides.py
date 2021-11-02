@@ -7,11 +7,25 @@ import cv2
 class Centroides:
     """Classe resposável pro identificar os centroides dos robôs
     """
+
     def __init__(self, model: estruturas.ModelService):
+        """Cria nova instancia de Centroides
+        Args:
+            model (estruturas.ModelService): Dados a serem utilizados
+        """
         self._model = model
     
     @utils.timing
-    def run(self, imagem, dest: Imagem = None):
+    def run(self, imagem, dest: Imagem = None) -> np.ndarray:
+        """executa a detecção de centroides
+
+        Args:
+            imagem (imagem opencv): imagem segmentada
+            dest (Imagem, optional): Instância de estruturas.Imagem onde salvar o resultado. Defaults to None.
+
+        Returns:
+            np.ndarray: vetor com centroides da imagem
+        """
         dados = self._model.dados
         centr_final = []
         
