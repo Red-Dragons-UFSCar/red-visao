@@ -5,13 +5,30 @@ from reddragons import estruturas
 from reddragons.estruturas import Dados, Imagem
 
 class Centros():
-
+    """Classe responsável por identificar os centros e ângulos dos robôs
+    """
     def __init__ (self, model: estruturas.ModelService):
+        """Construtor da classe
+
+        Args:
+            model (estruturas.ModelService): modelo de dados a ser utilizado
+        """
+
         self._model = model
         self._centros = []
 
     @utils.timing
     def run (self, centroids, dest: Imagem = None, corr: bool = True):
+        """executa o algoritmo de identificação de centros e angulos
+
+        Args:
+            centroids (np.ndarray): candidatos a centroides
+            dest (Imagem, optional): instancia de imagem para salar o resultado. Defaults to None.
+            corr (bool, optional): correcao de angulo. Defaults to True.
+
+        Returns:
+            np.ndarray: centros e angulos dos robos no formato (meio_x, meio_y, angulo)
+        """
 
         self._centros = self._calcula_centros (centroids)
         if dest:
@@ -21,6 +38,15 @@ class Centros():
         return self._centros
 
     def _centro_robo(self, princ, sec):
+        """identifica o centro do robo a partir dos centros dos marcadores
+
+        Args:
+            princ ((int,int)): posicao do marcador principal (x,y)
+            sec ((int,int)): posicao do marcador secundario (x,y)
+
+        Returns:
+            (int,int,float): (meio_x, meio_y, angulo)
+        """
         meio_x = (princ[0] + sec[0]) / 2
         meio_y = (princ[1] + sec[1]) / 2
         ang = math.atan2(princ[1] - sec[1], princ[0] - sec[0])
@@ -28,6 +54,14 @@ class Centros():
         return meio_x, meio_y, angulo
 
     def _calcula_centros(self, centroids):
+        """identifica os centros e angulos de todos os robos
+
+        Args:
+            centroids (np.ndarray): centroides encontrados na imagem
+
+        Returns:
+            np.ndarray: centros e angulos dos robos no formato (meio_x, meio_y, angulo)
+        """
         centros = self._model.imagem.centros
         for i_sec in range(2, 5): #para cada marcador secundario
             menor = 10000.0
@@ -48,6 +82,11 @@ class Centros():
         return centros
 
     def _correcao (self, ref):
+        """aplica correcao de angulos
+
+        Args:
+            ref (np.ndarray): referencia para correcao (geralmente medida anterior)
+        """
         if abs(self._centros[0][2] - ref[0][2]) < 0.30:
             self._centros[0][2] = (
                 self._centros[0][2]
