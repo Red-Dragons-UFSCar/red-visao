@@ -43,8 +43,8 @@ class GUI_visualizacao(QMainWindow):
     def update_frame(self):
         estado = self.qt_tipoVisualizacao.currentIndex()
 
-        imagem = self.model.imagem
-        dados = self.model.dados
+        imagem = self.model.imagem.copy()
+        dados = self.model.dados.copy()
 
         if estado == Estado.ORIGINAL.value:
             img = imagem.imagem_original
