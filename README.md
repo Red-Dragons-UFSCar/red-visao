@@ -6,7 +6,7 @@ Repositório contendo o código de 2020 utilizado pela equipe Red Dragons
 
 - Na raiz do projeto, utilizar os comandos abaixo no terminal para instalar todas as bibliotecas necessárias
 ```shell
-pip install -r requirements.py
+pip install -r requirements.txt
 pip install -e ./
 ```
 - Executar o arquivo bin/main.py 
