@@ -1,17 +1,20 @@
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.uic import loadUi
+import cv2  
 from cv2 import VideoCapture
 from ..utils import ui_files
 
 def list_ports():
-    is_working = True
+    non_working_ports = [] # lista  de portas não funcionais
     dev_port = 0
     working_ports = []
     available_ports = []
-    while is_working:
+    while len(non_working_ports) < 6: # sabendo que as portas não são sequenciais, 
+                                        #o programa só para quando acha 5 portas sem câmera
         camera = VideoCapture(dev_port)
+        print(dev_port)
         if not camera.isOpened():
-            is_working = False
+            non_working_ports.append(dev_port) # se não achou camera da append na lista de portas não funcionais
         else:
             is_reading, _ = camera.read()
             if is_reading:
