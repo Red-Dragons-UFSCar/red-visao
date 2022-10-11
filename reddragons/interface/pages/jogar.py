@@ -7,6 +7,7 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
+from yaml import MarkedYAMLError
 from reddragons.estruturas.models.imagem import Imagem
 from reddragons.interface.pages import controle
 from reddragons.utils import Logger
@@ -51,20 +52,22 @@ class GUI_jogar(QMainWindow):
         self.timer.start(1)
 
         self.jogando = False
-        self.mray = True
 
         self.btJogar.clicked.connect(self.ativa_serial)
         self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
         self.rParar.clicked.connect(self.muda_btnParar)
 
-        self.esq_radio.toggled.connect(self.mudanca)
-        self.dir_radio.toggled.connect(self.mudanca)
+        self.esq_radio.toggled.connect(self.mudancalados)
+        self.dir_radio.toggled.connect(self.mudancalados)
     
-    def mudanca(self):
-        self.mray = True if self.dir_radio.isChecked() else False
-        if self.mray is False:
-            self.esq_radio.setChecked()
+    def mudancalados(self):
+        mray = True
+        mray = True if self.dir_radio.isChecked() else False
+        mray = False if self.esq_radio.isChecked() else True
+        if mray is False:
+            self.esq_radio.setChecked(True)
+        return mray
             
     
     def inicializarValores(self):
@@ -200,14 +203,7 @@ class GUI_jogar(QMainWindow):
         
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
 
-        
-        
-
-        if self.mray is True:
-            mrayneg = False
-        else:
-            mrayneg = True
-
+        mray = self.mudancalados()
         
         #direito = []
         #esquerdo = []
@@ -219,9 +215,9 @@ class GUI_jogar(QMainWindow):
         #    direito.append(Entidades_Aliadas)
         #    #esquerdo.append(Entidades_Adversarias)#
         
+        print("Lado:", mray)
 
-
-        lado = dict(yellow= self.mray, blue = mrayneg)
+        lado = dict(direito = mray)
         
         print(lado)
 
