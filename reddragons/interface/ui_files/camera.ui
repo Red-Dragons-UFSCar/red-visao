@@ -49,11 +49,14 @@
       <widget class="QPushButton" name="QT_camera">
        <property name="styleSheet">
         <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
 }
 QPushButton:hover{
-	background-color: #1B1D26;
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
 }</string>
        </property>
        <property name="text">
@@ -65,11 +68,14 @@ QPushButton:hover{
       <widget class="QPushButton" name="QT_webcam">
        <property name="styleSheet">
         <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
 }
 QPushButton:hover{
-	background-color: #1B1D26;
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
 }</string>
        </property>
        <property name="text">
@@ -83,11 +89,14 @@ QPushButton:hover{
         <widget class="QPushButton" name="QT_video">
          <property name="styleSheet">
           <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
 }
 QPushButton:hover{
-	background-color: #1B1D26;
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
 }</string>
          </property>
          <property name="text">
@@ -98,12 +107,15 @@ QPushButton:hover{
        <item>
         <widget class="QComboBox" name="QT_listaVideos">
          <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-color: #E62E2E;
+          <string notr="true">QComboBox{
+	color: rgb(255, 255, 255);
+	background-color: rgb(25, 25, 33);
+	border-radius:0px;
 }
-QPushButton:hover{
-	background-color: #1B1D26;
+QComboBox:hover{
+	color: rgb(255, 255, 255);
+	background-color: rgb(25, 25, 33);
+	border-radius:0px;
 }</string>
          </property>
         </widget>

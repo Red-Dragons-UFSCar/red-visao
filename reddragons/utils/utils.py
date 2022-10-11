@@ -111,6 +111,7 @@ def centro_robo(princ, sec, ang_corr=90):
     return meio_x, meio_y, angulo
 
 
+
 def calcula_centros(centroids, ang_corr=90):
     centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i_sec in range(2, 5):

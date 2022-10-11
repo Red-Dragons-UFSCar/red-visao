@@ -1,14 +1,42 @@
+from dataclasses import field
 import math
+from operator import index
 
 import cv2
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
+from reddragons.estruturas.models.imagem import Imagem
 from reddragons.utils import Logger
+from reddragons.visao import processamento
+import reddragons.utils as vutils
+
+from reddragons.controle import ControleEstrategia
 
 from ..utils import ui_files
 
+
+
+class Entity_Allie:
+    def __init__(self, x=0, y=0, vx=0, vy=0, a=0, va=0, index=0):
+        self.x = x
+        self.y = y
+        self.vx = 0
+        self.vy = 0
+        self.a = a
+        self.va = 0
+        self.index = index
+
+class Entity_Enemie:
+    def __init__(self, x=0, y=0, vx=0, vy=0, a=0, va=0, index=0):
+        self.x = x
+        self.y = y
+        self.vx = 0
+        self.vy = 0
+        self.a = a
+        self.va = 0
+        self.index = index
 
 class GUI_jogar(QMainWindow):
     def __init__(self, visao, model):
@@ -22,11 +50,19 @@ class GUI_jogar(QMainWindow):
         self.timer.start(1)
 
         self.jogando = False
-        self.rJogar.setChecked(True)
+
         self.btJogar.clicked.connect(self.ativa_serial)
-        self.rJogar.toggled.connect(self.mudanca)
-        self.rParar.toggled.connect(self.mudanca)
-        self.rPosInicial.toggled.connect(self.mudanca)
+        self.rJogar.clicked.connect(self.muda_btnJogar)
+        self.rParar.clicked.connect(self.muda_btnParar)
+        
+    def muda_btnJogar(self):
+        game_on = True
+        self.jogando = game_on
+        return self.jogando
+    
+    def muda_btnParar(self):
+        game_on = False
+        self.jogando = game_on
 
     def update_frame(self):
 
@@ -63,7 +99,7 @@ class GUI_jogar(QMainWindow):
 
         if self.jogando:
             # Descomentar quando o controle estiver funcional
-            # dados_controle = enviarInfo.InicializaControle(dados_controle)
+            #dados_controle = enviarInfo.InicializaControle(dados_controle)
             self.model.controle = dados_controle
 
     def ativa_serial(self):
@@ -77,7 +113,7 @@ class GUI_jogar(QMainWindow):
         else:
             try:
                 # Descomentar quando em jogo
-                # dados_controle.ser = serial.Serial(dados_controle.porta,dados_controle.velocidade)
+                #dados_controle.ser = serial.Serial(dados_controle.porta,dados_controle.velocidade)
                 self.jogando = True
                 self.btJogar.setText("Terminar transmissao")
                 self.btJogar.setStyleSheet("background-color:red")
@@ -98,8 +134,51 @@ class GUI_jogar(QMainWindow):
 
         dados_controle = self.visao.sincronizar_controle_dinamico()
 
-        dados_controle.Pjogar = True if self.rJogar.isChecked() else False
-        dados_controle.Pparar = True if self.rParar.isChecked() else False
-        dados_controle.Pinicial = True if self.rPosInicial.isChecked() else False
+        dados_controle.Pjogar = True if self.jogando is True else False
+        dados_controle.Pparar = True if self.jogando is False else False
 
         self.model.controle = dados_controle
+    
+
+    def conversao_controle(self):
+
+        Robo0Aliado = Entity_Allie(index = 0)
+        Robo1Aliado = Entity_Allie(index = 1)
+        Robo2Aliado = Entity_Allie(index = 2)
+
+        
+        Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
+
+        Robo0Adversario = Entity_Enemie(index = 0)
+        Robo1Adversario = Entity_Enemie(index = 1)
+        Robo2Adversario = Entity_Enemie(index = 2)
+
+        Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
+        
+        #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
+        mray = True
+
+        direito = []
+        esquerdo = []
+
+        if mray is True:
+            esquerdo.append(Entidades_Aliadas) 
+            direito.append(Entidades_Adversarias)
+        else:
+            direito.append(Entidades_Aliadas) 
+            esquerdo.append(Entidades_Adversarias)
+
+
+        lado = dict(yellow=direito, blue=esquerdo)
+        
+        #Corrigir daqui para baixo
+        #centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
+
+        seila = []
+
+        campo = dict(ball = seila, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias )
+
+        return campo
+
+
+    ControleEstrategia.update(None, muda_btnJogar, conversao_controle)

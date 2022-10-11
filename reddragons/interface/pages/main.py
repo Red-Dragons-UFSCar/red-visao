@@ -16,6 +16,7 @@ class GUI_main(QMainWindow):
         self.visao = app.visao
         self.model = app.model
 
+
         self.QT_btVisualizacao.clicked.connect(self.visualizacao)
         self.QT_btPerspectiva.clicked.connect(self.perspectiva)
         self.QT_btCruzetas.clicked.connect(self.cruzetas)

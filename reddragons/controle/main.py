@@ -26,7 +26,7 @@ class ControleEstrategia:
 
         print("criou porra!!!!!")
 
-    def update(self, referee, field):
+    def update(self, game_on, field):
 
         data_our_bot = field["our_bots"]  # Salva os dados dos robôs aliados
         data_their_bots = field["their_bots"]  # Salva os dados dos robôs inimigos

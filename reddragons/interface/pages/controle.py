@@ -23,7 +23,7 @@ class GUI_controle(QMainWindow):
         self.lineKp3.textChanged.connect(self.mudanca)
         self.lineKi3.textChanged.connect(self.mudanca)
         self.porta_value.textChanged.connect(self.mudanca)
-        self.esq_radio.toggled.connect(self.mudanca)
+        self.esq_raido.toggled.connect(self.mudanca)
         self.dir_radio.toggled.connect(self.mudanca)
         self.bolaNossa.stateChanged.connect(self.mudanca)
         self.duasFaces.stateChanged.connect(self.mudanca)

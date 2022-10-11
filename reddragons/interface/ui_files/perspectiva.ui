@@ -109,7 +109,7 @@ color: rgb(255, 255, 255);
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius:0px;
-background-color: rgb(23, 25, 33);
+background-color: rgb(255,255,255);
 color: rgb(255, 255, 255);
 </string>
     </property>
@@ -144,7 +144,7 @@ color: rgb(255, 255, 255);
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius:0px;
-background-color: rgb(23, 25, 33);
+background-color: rgb(255, 255, 255);
 color: #BF2833;;
 font-size: 20px;
 </string>
@@ -181,10 +181,16 @@ font-size: 20px;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius:0px;
-background-color: rgb(23, 25, 33);
-color: rgb(255, 255, 255);
-</string>
+     <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
+}
+QPushButton:hover{
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
+}</string>
     </property>
     <property name="text">
      <string>Voltar</string>
