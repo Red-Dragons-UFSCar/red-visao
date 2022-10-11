@@ -10,8 +10,8 @@ class Imagem(_Estrutura):
         self.mascaras = None
         self.centroids = None #imagem centroids[0] = bola
         self.centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        #centros aliados [1][2][3]
-        #centros aliados [i] = [meiox, meioy, ang]
+        #suposicao centros aliados [1][2][3]
+        #/suposica entros aliados [i] = [meiox, meioy, ang]
         self.adversarios = None
-        #centros adversarios [1][2][3]
-        #centros adversarios [i] = [meiox, meioy, ang]
+        #suposicao centros adversarios [1][2][3]
+        #suposicao centros adversarios [i] = [meiox, meioy, ang]

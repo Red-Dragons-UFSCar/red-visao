@@ -52,18 +52,17 @@ class GUI_jogar(QMainWindow):
         self.jogando = False
 
         self.btJogar.clicked.connect(self.ativa_serial)
+        self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
         self.rParar.clicked.connect(self.muda_btnParar)
         
     def muda_btnJogar(self):
         game_on = True
         self.jogando = game_on
-        return self.jogando
     
     def muda_btnParar(self):
         game_on = False
         self.jogando = game_on
-        return self.jogando
 
     def update_frame(self):
 
@@ -142,30 +141,33 @@ class GUI_jogar(QMainWindow):
     
 
     def conversao_controle(self):
-        
-        for i in range(Imagem.centros):
-            meio_x = Imagem.centros[i][0]
 
-        for j in range(Imagem.centros):
-            meio_y = Imagem.centros[j][1]
-        
-        for n in range(Imagem.centros):
-            indice_roboAliado = Imagem.centros[n][2]
+        imagem = self.model.imagem
 
-        Entity_Allie(x = meio_x, y = meio_y, index = indice_roboAliado)
+        pos_bola = []
+        pos_bola.append(imagem.centroids[0])
 
-        for i in range(Imagem.adversarios):
-            meio_x = Imagem.adversarios[i][0]
+        XAliado = []
+        YAliado = []
 
-        for j in range(Imagem.adversarios):
-            meio_y = Imagem.adversarios[j][1]
-        
-        for n in range(Imagem.adversarios):
-            indice_roboAdversario = Imagem.adversarios[n][2]
+        for i in range(0, 2):
+            XAliado.append(imagem.centros[i][0])
+            for j in range(0,2):
+                YAliado.append(imagem.centros[j][0])     
+                for n in range(0,2):
+                    indice_roboAliado = n
+                    Entity_Allie(x = XAliado[i], y = YAliado[j], index = indice_roboAliado)
 
+        #XAdversario = []
+        #YAdversario = []
 
-
-        Entity_Enemie(x = meio_x, y = meio_y, index = indice_roboAdversario)
+        #for i in range(0,2):
+        #    XAdversario.append(imagem.adversarios[i][0])
+        #    for j in range(0,2):
+        #        YAdversario.append(imagem.adversarios[j][1])
+        #        for n in range(0,2):
+        #            indice_roboAdversario = n
+        #            Entity_Enemie(x = XAdversario[i], y = YAdversario[j], index = indice_roboAdversario)
 
 
 
@@ -176,11 +178,11 @@ class GUI_jogar(QMainWindow):
         
         Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
 
-        Robo0Adversario = Entity_Enemie(index = 0)
-        Robo1Adversario = Entity_Enemie(index = 1)
-        Robo2Adversario = Entity_Enemie(index = 2)
+        #Robo0Adversario = Entity_Enemie(index = 0)
+        #Robo1Adversario = Entity_Enemie(index = 1)
+        #Robo2Adversario = Entity_Enemie(index = 2)
 
-        Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
+        #Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
         
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
         mray = True
@@ -189,24 +191,20 @@ class GUI_jogar(QMainWindow):
         esquerdo = []
 
         if mray is True:
-            esquerdo.append(Entidades_Aliadas) 
-            direito.append(Entidades_Adversarias)
+            esquerdo.append(Entidades_Aliadas)
+            #direito.append(Entidades_Adversarias)
         else:
-            direito.append(Entidades_Aliadas) 
-            esquerdo.append(Entidades_Adversarias)
+            direito.append(Entidades_Aliadas)
+            #esquerdo.append(Entidades_Adversarias)
 
 
         lado = dict(yellow=direito, blue=esquerdo)
         
-        #Corrigir daqui para baixo
-        #centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
 
-        pos_bola = []
-        pos_bola.append(Imagem.centroids[0])
+        estado = self.jogando
 
-        campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias )
-
-        return campo
+        campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas)
+        #their_bots = Entidades_Adversarias 
 
 
-    #ControleEstrategia.update(None, muda_btnJogar, conversao_controle)
+        #ControleEstrategia.update(None, estado, campo)
