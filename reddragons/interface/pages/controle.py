@@ -23,7 +23,7 @@ class GUI_controle(QMainWindow):
         self.lineKp3.textChanged.connect(self.mudanca)
         self.lineKi3.textChanged.connect(self.mudanca)
         self.porta_value.textChanged.connect(self.mudanca)
-        self.esq_raido.toggled.connect(self.mudanca)
+        self.esq_radio.toggled.connect(self.mudanca)
         self.dir_radio.toggled.connect(self.mudanca)
         self.bolaNossa.stateChanged.connect(self.mudanca)
         self.duasFaces.stateChanged.connect(self.mudanca)
@@ -32,6 +32,7 @@ class GUI_controle(QMainWindow):
         self.alvoFixo.stateChanged.connect(self.mudanca)
 
         self.visao.sincronizar_controle()
+
 
     def mudanca(self):
 
@@ -77,3 +78,4 @@ class GUI_controle(QMainWindow):
         self.kalman.setChecked(dados_controle.flagAtivaKalman)
         self.simular.setChecked(dados_controle.simular)
         self.alvoFixo.setChecked(dados_controle.irParaAlvoFixo)
+

@@ -8,6 +8,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from reddragons.estruturas.models.imagem import Imagem
+from reddragons.interface.pages import controle
 from reddragons.utils import Logger
 from reddragons.visao import processamento
 import reddragons.utils as vutils
@@ -50,11 +51,24 @@ class GUI_jogar(QMainWindow):
         self.timer.start(1)
 
         self.jogando = False
+        self.mray = True
 
         self.btJogar.clicked.connect(self.ativa_serial)
         self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
         self.rParar.clicked.connect(self.muda_btnParar)
+
+        self.esq_radio.toggled.connect(self.mudanca)
+        self.dir_radio.toggled.connect(self.mudanca)
+    
+    def mudanca(self):
+        self.mray = True if self.dir_radio.isChecked() else False
+        if self.mray is False:
+            self.esq_radio.setChecked()
+            
+    
+    def inicializarValores(self):
+        self.esq_radio.setChecked(self.trocouCampo)
         
     def muda_btnJogar(self):
         game_on = True
@@ -185,26 +199,36 @@ class GUI_jogar(QMainWindow):
         #Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
         
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
-        mray = True
 
-        direito = []
-        esquerdo = []
-
-        if mray is True:
-            esquerdo.append(Entidades_Aliadas)
-            #direito.append(Entidades_Adversarias)
-        else:
-            direito.append(Entidades_Aliadas)
-            #esquerdo.append(Entidades_Adversarias)
-
-
-        lado = dict(yellow=direito, blue=esquerdo)
         
+        
+
+        if self.mray is True:
+            mrayneg = False
+        else:
+            mrayneg = True
+
+        
+        #direito = []
+        #esquerdo = []
+
+        #if mray is True:
+        #    esquerdo.append(Entidades_Aliadas)
+        #    direito.append(Entidades_Adversarias)
+        #else:
+        #    direito.append(Entidades_Aliadas)
+        #    #esquerdo.append(Entidades_Adversarias)#
+        
+
+
+        lado = dict(yellow= self.mray, blue = mrayneg)
+        
+        print(lado)
 
         estado = self.jogando
 
         campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas)
         #their_bots = Entidades_Adversarias 
 
-
+        #Descomentar quando terminar integracao
         #ControleEstrategia.update(None, estado, campo)
