@@ -63,6 +63,7 @@ class GUI_jogar(QMainWindow):
     def muda_btnParar(self):
         game_on = False
         self.jogando = game_on
+        return self.jogando
 
     def update_frame(self):
 
