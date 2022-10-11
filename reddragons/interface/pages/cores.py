@@ -4,6 +4,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 import reddragons.utils as vutils
+import reddragons.interface as ifc
 from .visualizacao import GUI_visualizacao
 from ..utils import ui_files
 
@@ -79,6 +80,7 @@ class GUI_cores(QMainWindow):
         self.dados.area_maxima = self.QT_AreaMax.value()
 
         self.model.dados = self.dados
+        self.tela = ifc.GUI_salvar(self.visao, self.model)
 
     def nova_cor(self):
         i = self.QT_selecao.currentIndex()
