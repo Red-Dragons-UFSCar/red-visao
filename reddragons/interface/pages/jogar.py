@@ -142,6 +142,32 @@ class GUI_jogar(QMainWindow):
     
 
     def conversao_controle(self):
+        
+        for i in range(Imagem.centros):
+            meio_x = Imagem.centros[i][0]
+
+        for j in range(Imagem.centros):
+            meio_y = Imagem.centros[j][1]
+        
+        for n in range(Imagem.centros):
+            indice_roboAliado = Imagem.centros[n][2]
+
+        Entity_Allie(x = meio_x, y = meio_y, index = indice_roboAliado)
+
+        for i in range(Imagem.adversarios):
+            meio_x = Imagem.adversarios[i][0]
+
+        for j in range(Imagem.adversarios):
+            meio_y = Imagem.adversarios[j][1]
+        
+        for n in range(Imagem.adversarios):
+            indice_roboAdversario = Imagem.adversarios[n][2]
+
+
+
+        Entity_Enemie(x = meio_x, y = meio_y, index = indice_roboAdversario)
+
+
 
         Robo0Aliado = Entity_Allie(index = 0)
         Robo1Aliado = Entity_Allie(index = 1)
@@ -175,11 +201,12 @@ class GUI_jogar(QMainWindow):
         #Corrigir daqui para baixo
         #centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
 
-        seila = []
+        pos_bola = []
+        pos_bola.append(Imagem.centroids[0])
 
-        campo = dict(ball = seila, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias )
+        campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias )
 
         return campo
 
 
-    ControleEstrategia.update(None, muda_btnJogar, conversao_controle)
+    #ControleEstrategia.update(None, muda_btnJogar, conversao_controle)
