@@ -1,6 +1,7 @@
 from dataclasses import field
 import math
 from operator import index
+import numpy as np
 
 import cv2
 from PyQt5.QtCore import QTimer
@@ -158,12 +159,15 @@ class GUI_jogar(QMainWindow):
     
 
     def conversao_controle(self):
-
+        
         imagem = self.model.imagem
+        dados = self.model.dados.copy()
+        
 
 
         pos_bola = []
-        pos_bola.append(imagem.centroids[0])
+        pos_bola.append(imagem.centroids[0][0][0][0])
+        pos_bola.append(imagem.centroids[0][0][0][1])
         #print(pos_bola)
         #print(pos_bola[1])
 
@@ -174,35 +178,42 @@ class GUI_jogar(QMainWindow):
         indice_roboAliado = []
         #x, y e angulo do robo
 
-        print(imagem.centros)
-
         for i in range(0, 3):
             XAliado.append(imagem.centros[i][0])
-            for j in range(0,3):
-                YAliado.append(imagem.centros[j][1])
-                for k in range(0,3):
-                    aAliado.append(imagem.centros[k][2])
-                    for n in range(0,3):
-                        indice_roboAliado.append(n)
 
+        for j in range(0,3):
+            YAliado.append(480 - imagem.centros[j][1])
+
+        for k in range(0,3):
+            #calcular ângulo com uso dos centroids
+            CateX = int(YAliado[k] + math.cos(imagem.centros[k][2]) * 50)
+            CateY = int(XAliado[k] + math.sin(imagem.centros[k][2]) * 50)
+            angulo = math.atan(CateY/CateX)*(180/np.pi)
+            aAliado.append(angulo)
+
+        for n in range(0,3):
+            indice_roboAliado.append(n)
+
+        print('centroides:',imagem.centros)
+        print('X aliados:', XAliado, 'Y aliados:', YAliado)
         
 
         for l in range(0,3):
             Entity_Allie(x = XAliado[l], y = YAliado[l], a = aAliado[l], index = indice_roboAliado[l])
         
 
-        print(XAliado)
+        XAdversario = []
+        YAdversario = []
 
-        #XAdversario = []
-        #YAdversario = []
+        for i in range(0,3):
+            XAdversario.append(imagem.centroids[5][0][i][0])
+        for j in range(0,3):
+            YAdversario.append(imagem.centroids[5][0][j][1])
+        for n in range(0,3):
+            indice_roboAdversario = n
 
-        #for i in range(0,2):
-        #    XAdversario.append(imagem.adversarios[i][0])
-        #    for j in range(0,2):
-        #        YAdversario.append(imagem.adversarios[j][1])
-        #        for n in range(0,2):
-        #            indice_roboAdversario = n
-        #            Entity_Enemie(x = XAdversario[i], y = YAdversario[j], index = indice_roboAdversario)
+        for l in range(0,3):
+            Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
 
 
 
@@ -213,11 +224,11 @@ class GUI_jogar(QMainWindow):
         
         Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
 
-        #Robo0Adversario = Entity_Enemie(index = 0)
-        #Robo1Adversario = Entity_Enemie(index = 1)
-        #Robo2Adversario = Entity_Enemie(index = 2)
+        Robo0Adversario = Entity_Enemie(index = 0)
+        Robo1Adversario = Entity_Enemie(index = 1)
+        Robo2Adversario = Entity_Enemie(index = 2)
 
-        #Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
+        Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
         
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
 
@@ -233,15 +244,13 @@ class GUI_jogar(QMainWindow):
         #    direito.append(Entidades_Aliadas)
         #    #esquerdo.append(Entidades_Adversarias)#
         
-        print("Lado:", mray)
 
         lado = dict(direito = mray)
         
-        print(lado)
 
         estado = self.jogando
 
-        campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas)
+        campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias) #Ainda está dando erro
         print(campo)
         #their_bots = Entidades_Adversarias 
 

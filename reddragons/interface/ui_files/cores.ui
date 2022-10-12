@@ -384,16 +384,9 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QComboBox{
-	color: rgb(255, 255, 255);
-	background-color: #9F1823;
-	border-radius:0px;
-}
-QComboBox:hover{
-	color: rgb(255, 255, 255);
-	background-color: #ff0000;
-	border-radius:0px;
-}</string>
+          <string notr="true">color: rgb(255, 255, 255);
+background-color: #9F1823;
+border-radius:0px;</string>
          </property>
          <item>
           <property name="text">
