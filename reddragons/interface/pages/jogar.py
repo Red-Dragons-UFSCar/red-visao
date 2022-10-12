@@ -166,14 +166,18 @@ class GUI_jogar(QMainWindow):
 
         XAliado = []
         YAliado = []
+        aAliado = []
+        #x, y e angulo do robo
 
         for i in range(0, 2):
-            XAliado.append(imagem.centros[i][0])
+            XAliado.append(imagem.centros[0][i])
             for j in range(0,2):
-                YAliado.append(imagem.centros[j][0])     
-                for n in range(0,2):
-                    indice_roboAliado = n
-                    Entity_Allie(x = XAliado[i], y = YAliado[j], index = indice_roboAliado)
+                YAliado.append(imagem.centros[1][j])
+                for k in range(0,2):
+                    aAliado.append(imagem.centros[2][k])
+                    for n in range(0,2):
+                        indice_roboAliado = n
+                        Entity_Allie(x = XAliado[i], y = YAliado[j], a = aAliado[k], index = indice_roboAliado)
 
         #XAdversario = []
         #YAdversario = []
