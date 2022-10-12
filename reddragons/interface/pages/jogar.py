@@ -161,23 +161,37 @@ class GUI_jogar(QMainWindow):
 
         imagem = self.model.imagem
 
+
         pos_bola = []
         pos_bola.append(imagem.centroids[0])
+        #print(pos_bola)
+        #print(pos_bola[1])
+
 
         XAliado = []
         YAliado = []
         aAliado = []
+        indice_roboAliado = []
         #x, y e angulo do robo
 
-        for i in range(0, 2):
-            XAliado.append(imagem.centros[0][i])
-            for j in range(0,2):
-                YAliado.append(imagem.centros[1][j])
-                for k in range(0,2):
-                    aAliado.append(imagem.centros[2][k])
-                    for n in range(0,2):
-                        indice_roboAliado = n
-                        Entity_Allie(x = XAliado[i], y = YAliado[j], a = aAliado[k], index = indice_roboAliado)
+        print(imagem.centros)
+
+        for i in range(0, 3):
+            XAliado.append(imagem.centros[i][0])
+            for j in range(0,3):
+                YAliado.append(imagem.centros[j][1])
+                for k in range(0,3):
+                    aAliado.append(imagem.centros[k][2])
+                    for n in range(0,3):
+                        indice_roboAliado.append(n)
+
+        
+
+        for l in range(0,3):
+            Entity_Allie(x = XAliado[l], y = YAliado[l], a = aAliado[l], index = indice_roboAliado[l])
+        
+
+        print(XAliado)
 
         #XAdversario = []
         #YAdversario = []
@@ -228,6 +242,7 @@ class GUI_jogar(QMainWindow):
         estado = self.jogando
 
         campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas)
+        print(campo)
         #their_bots = Entidades_Adversarias 
 
         #Descomentar quando terminar integracao
