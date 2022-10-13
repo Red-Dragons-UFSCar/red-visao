@@ -14,6 +14,8 @@ class Perspectiva():
         width = self._model.dados.size[0]
         height = self._model.dados.size[1]
 
+        print('Largura (x):', width, 'Altura (y):', height)
+
 
         src = np.float32(self._model.dados.warp_perspective)
         dst = np.float32([[0, 0], [width, 0], [0, height], [width, height]])

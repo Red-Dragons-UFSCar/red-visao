@@ -41,6 +41,17 @@ class Entity_Enemie:
         self.va = 0
         self.index = index
 
+class Entity_ball:
+    def __init__(self, x=0, y=0, vx = 0 , vy = 0, a = None, va = None, index = None):
+        self.x = x
+        self.y = y
+        self.vx = 0
+        self.vy = 0
+        self.a = a
+        self.va = 0
+        self.index = None
+        
+
 class GUI_jogar(QMainWindow):
     def __init__(self, visao, model):
         super(GUI_jogar, self).__init__()
@@ -165,12 +176,14 @@ class GUI_jogar(QMainWindow):
         
 
 
-        pos_bola = []
-        pos_bola.append(imagem.centroids[0][0][0][0])
-        pos_bola.append(imagem.centroids[0][0][0][1])
+
+        pos_bolax = (imagem.centroids[0][0][0][0])*170/640
+        pos_bolay = (imagem.centroids[0][0][0][1])*130/480
         #print(pos_bola)
         #print(pos_bola[1])
-
+        Entidade_bola = Entity_ball
+        Entidade_bola.x = pos_bolax
+        Entidade_bola.y = pos_bolay
 
         XAliado = []
         YAliado = []
@@ -179,10 +192,10 @@ class GUI_jogar(QMainWindow):
         #x, y e angulo do robo
 
         for i in range(0, 3):
-            XAliado.append(imagem.centros[i][0])
+            XAliado.append((imagem.centros[i][0])*170/640)
 
         for j in range(0,3):
-            YAliado.append(480 - imagem.centros[j][1])
+            YAliado.append((480 - imagem.centros[j][1])*130/480)
 
         for k in range(0,3):
             #calcular ângulo com uso dos centroids
@@ -193,42 +206,49 @@ class GUI_jogar(QMainWindow):
 
         for n in range(0,3):
             indice_roboAliado.append(n)
-
-        print('centroides:',imagem.centros)
-        print('X aliados:', XAliado, 'Y aliados:', YAliado)
         
 
+        
+        #    Entity_Allie(x = XAliado[l], y = YAliado[l], a = aAliado[l], index = indice_roboAliado[l])
+
+        Robo0Aliado = Entity_Allie(index = 0)
+        Robo1Aliado = Entity_Allie(index = 1)
+        Robo2Aliado = Entity_Allie(index = 2)
+        
+        
+        Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
+
         for l in range(0,3):
-            Entity_Allie(x = XAliado[l], y = YAliado[l], a = aAliado[l], index = indice_roboAliado[l])
+            Entidades_Aliadas[l].x = XAliado[l]
+            Entidades_Aliadas[l].y = YAliado[l]
+            Entidades_Aliadas[l].a = aAliado[l]
         
 
         XAdversario = []
         YAdversario = []
 
         for i in range(0,3):
-            XAdversario.append(imagem.centroids[5][0][i][0])
+            XAdversario.append((imagem.centroids[5][0][i][0])*170/640)
         for j in range(0,3):
-            YAdversario.append(imagem.centroids[5][0][j][1])
+            YAdversario.append((imagem.centroids[5][0][j][1])*130/480)
         for n in range(0,3):
             indice_roboAdversario = n
 
-        for l in range(0,3):
-            Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
-
-
-
-        Robo0Aliado = Entity_Allie(index = 0)
-        Robo1Aliado = Entity_Allie(index = 1)
-        Robo2Aliado = Entity_Allie(index = 2)
-
         
-        Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
+        #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
 
         Robo0Adversario = Entity_Enemie(index = 0)
         Robo1Adversario = Entity_Enemie(index = 1)
         Robo2Adversario = Entity_Enemie(index = 2)
 
         Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
+
+        
+        for l in range(0,3):
+            Entidades_Adversarias[l].x = XAdversario[l]
+            Entidades_Adversarias[l].y = YAdversario[l]
+
+        
         
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
 
@@ -245,14 +265,13 @@ class GUI_jogar(QMainWindow):
         #    #esquerdo.append(Entidades_Adversarias)#
         
 
-        lado = dict(direito = mray)
+        
         
 
         estado = self.jogando
 
-        campo = dict(ball = pos_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias) #Ainda está dando erro
-        print(campo)
-        #their_bots = Entidades_Adversarias 
+        campo = dict(ball = Entidade_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias, Yellow = mray) #Ainda está dando erro
+        #their_bots = Entidades_Adversarias
 
         #Descomentar quando terminar integracao
         #ControleEstrategia.update(None, estado, campo)
