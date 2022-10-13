@@ -65,7 +65,10 @@ class GUI_jogar(QMainWindow):
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(1)
 
+        self.mray = True
+
         self.jogando = False
+        self.objControle = ControleEstrategia(self.mray)
 
         self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
@@ -174,9 +177,6 @@ class GUI_jogar(QMainWindow):
 
     def conversao_controle(self):
 
-        mray = self.mudancalados()
-
-        print('Tá rodando essa desgraça')
         
         #Colocar em Loop
 
@@ -195,7 +195,9 @@ class GUI_jogar(QMainWindow):
 
         Entidade_bola = Entity_ball
         Entidade_bola.x = pos_bolax
+        Entidade_bola.vx = 0
         Entidade_bola.y = pos_bolay
+        Entidade_bola.vy = 0
 
         XAliado = []
         YAliado = []
@@ -264,13 +266,13 @@ class GUI_jogar(QMainWindow):
         #    direito.append(Entidades_Aliadas)
         #    #esquerdo.append(Entidades_Adversarias)
 
-        estado = self.jogando
+        self.estado = self.jogando
 
-        campo = dict(ball = Entidade_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias, Yellow = mray) #Ainda está dando erro
+        self.campo = dict(ball = Entidade_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias, Yellow = self.mray) #Ainda está dando erro
         #their_bots = Entidades_Adversarias
-
+        
         #Descomentar quando terminar integracao
-        #ControleEstrategia.update(None, estado, campo)
+        self.objControle.update(self.estado, self.campo)
         self.looping = threading.Timer(0.005, self.conversao_controle)
         self.looping.start()
 
