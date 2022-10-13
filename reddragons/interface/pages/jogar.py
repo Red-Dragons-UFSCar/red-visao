@@ -13,7 +13,9 @@ from reddragons.estruturas.models.imagem import Imagem
 from reddragons.interface.pages import controle
 from reddragons.utils import Logger
 from reddragons.visao import processamento
+from reddragons.visao.services import centros
 import reddragons.utils as vutils
+import time, threading
 
 from reddragons.controle import ControleEstrategia
 
@@ -65,10 +67,10 @@ class GUI_jogar(QMainWindow):
 
         self.jogando = False
 
-        self.btJogar.clicked.connect(self.ativa_serial)
         self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
         self.rParar.clicked.connect(self.muda_btnParar)
+        
 
         self.esq_radio.toggled.connect(self.mudancalados)
         self.dir_radio.toggled.connect(self.mudancalados)
@@ -134,6 +136,7 @@ class GUI_jogar(QMainWindow):
     def ativa_serial(self):
 
         dados_controle = self.model.controle
+
         if self.jogando:
             self.jogando = False
             self.btJogar.setText("Iniciar transmissao")
@@ -170,17 +173,26 @@ class GUI_jogar(QMainWindow):
     
 
     def conversao_controle(self):
+
+        mray = self.mudancalados()
+
+        print('Tá rodando essa desgraça')
+        
+        #Colocar em Loop
+
+        #while True:
+        #if not self.jogando:
+        #    continue
         
         imagem = self.model.imagem
-        dados = self.model.dados.copy()
-        
+        #dados = self.model.dados.copy()
 
-
-
+        services = centros.Centros(self.model)
+    
+        #Tratamento de erro da bolinha a fazer
         pos_bolax = (imagem.centroids[0][0][0][0])*170/640
         pos_bolay = (imagem.centroids[0][0][0][1])*130/480
-        #print(pos_bola)
-        #print(pos_bola[1])
+
         Entidade_bola = Entity_ball
         Entidade_bola.x = pos_bolax
         Entidade_bola.y = pos_bolay
@@ -193,20 +205,9 @@ class GUI_jogar(QMainWindow):
 
         for i in range(0, 3):
             XAliado.append((imagem.centros[i][0])*170/640)
-
-        for j in range(0,3):
-            YAliado.append((480 - imagem.centros[j][1])*130/480)
-
-        for k in range(0,3):
-            #calcular ângulo com uso dos centroids
-            CateX = int(YAliado[k] + math.cos(imagem.centros[k][2]) * 50)
-            CateY = int(XAliado[k] + math.sin(imagem.centros[k][2]) * 50)
-            angulo = math.atan(CateY/CateX)*(180/np.pi)
-            aAliado.append(angulo)
-
-        for n in range(0,3):
-            indice_roboAliado.append(n)
-        
+            YAliado.append((480 - imagem.centros[i][1])*130/480)
+            aAliado.append((-1)*services.run(imagem.centroids)[0][i][2]*180/np.pi)
+            indice_roboAliado.append(i)
 
         
         #    Entity_Allie(x = XAliado[l], y = YAliado[l], a = aAliado[l], index = indice_roboAliado[l])
@@ -218,6 +219,7 @@ class GUI_jogar(QMainWindow):
         
         Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
 
+
         for l in range(0,3):
             Entidades_Aliadas[l].x = XAliado[l]
             Entidades_Aliadas[l].y = YAliado[l]
@@ -226,15 +228,15 @@ class GUI_jogar(QMainWindow):
 
         XAdversario = []
         YAdversario = []
+        indice_roboAdversario = []
+
 
         for i in range(0,3):
             XAdversario.append((imagem.centroids[5][0][i][0])*170/640)
-        for j in range(0,3):
-            YAdversario.append((imagem.centroids[5][0][j][1])*130/480)
-        for n in range(0,3):
-            indice_roboAdversario = n
+            YAdversario.append((imagem.centroids[5][0][i][1])*130/480)
+            indice_roboAdversario.append(i)
+            
 
-        
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
 
         Robo0Adversario = Entity_Enemie(index = 0)
@@ -251,8 +253,6 @@ class GUI_jogar(QMainWindow):
         
         
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
-
-        mray = self.mudancalados()
         
         #direito = []
         #esquerdo = []
@@ -262,11 +262,7 @@ class GUI_jogar(QMainWindow):
         #    direito.append(Entidades_Adversarias)
         #else:
         #    direito.append(Entidades_Aliadas)
-        #    #esquerdo.append(Entidades_Adversarias)#
-        
-
-        
-        
+        #    #esquerdo.append(Entidades_Adversarias)
 
         estado = self.jogando
 
@@ -275,3 +271,13 @@ class GUI_jogar(QMainWindow):
 
         #Descomentar quando terminar integracao
         #ControleEstrategia.update(None, estado, campo)
+        self.looping = threading.Timer(0.005, self.conversao_controle)
+        self.looping.start()
+
+    def Cancel(self):
+        self.close()
+
+    def closeEvent(self,event):
+        self.looping.cancel()
+        event.accept()
+

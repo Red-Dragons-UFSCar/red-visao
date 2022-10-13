@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 from reddragons import utils
 from reddragons import estruturas
@@ -50,7 +51,7 @@ class Centros():
         meio_x = (princ[0] + sec[0]) / 2
         meio_y = (princ[1] + sec[1]) / 2
         ang = math.atan2(princ[1] - sec[1], princ[0] - sec[0])
-        angulo = ang + self._model.dados.ang_corr
+        angulo = ang + (self._model.dados.ang_corr)*np.pi/180
         return meio_x, meio_y, angulo
 
     def _calcula_centros(self, centroids):
