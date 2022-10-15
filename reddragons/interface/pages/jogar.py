@@ -80,12 +80,13 @@ class GUI_jogar(QMainWindow):
         self.dir_radio.toggled.connect(self.mudancalados)
 
     def mudancalados(self):
-        mray = True
-        mray = True if self.dir_radio.isChecked() else False
-        mray = False if self.esq_radio.isChecked() else True
-        if mray is False:
-            self.esq_radio.setChecked(True)
-        return mray
+        if self.dir_radio.isChecked():
+            mray = True
+            print('Lado direito')
+        elif self.esq_radio.isChecked():
+            mray = False
+            print('Lado esquerdo')
+        
 
 
     def inicializarValores(self):
@@ -94,10 +95,12 @@ class GUI_jogar(QMainWindow):
     def muda_btnJogar(self):
         game_on = True
         self.jogando = game_on
+        print('Game on')
 
     def muda_btnParar(self):
         game_on = False
         self.jogando = game_on
+        print('Game off')
 
     def update_frame(self):
 
@@ -132,10 +135,7 @@ class GUI_jogar(QMainWindow):
         _q_pixmap = QPixmap.fromImage(_q_image)
         self.QT_jogar.setPixmap(_q_pixmap)
 
-        if self.jogando:
-            # Descomentar quando o controle estiver funcional
-            #dados_controle = enviarInfo.InicializaControle(dados_controle)
-            self.model.controle = dados_controle
+        self.conversao_controle()
 
     def ativa_serial(self):
 
@@ -291,12 +291,3 @@ class GUI_jogar(QMainWindow):
 
         #Descomentar quando terminar integracao
         self.objControle.update(self.estado, self.campo)
-        self.looping = threading.Timer(0.02, self.conversao_controle)
-        self.looping.start()
-
-    def Cancel(self):
-        self.close()
-
-    def closeEvent(self,event):
-        self.looping.cancel()
-        event.accept()
