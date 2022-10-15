@@ -135,7 +135,7 @@ class GUI_jogar(QMainWindow):
         _q_pixmap = QPixmap.fromImage(_q_image)
         self.QT_jogar.setPixmap(_q_pixmap)
 
-        self.conversao_controle()
+        #self.conversao_controle()
 
     def ativa_serial(self):
 
@@ -291,3 +291,13 @@ class GUI_jogar(QMainWindow):
 
         #Descomentar quando terminar integracao
         self.objControle.update(self.estado, self.campo)
+
+        self.looping = threading.Timer(0.02, self.conversao_controle)
+        self.looping.start()
+
+    def Cancel(self):
+        self.close()
+
+    def closeEvent(self,event):
+        self.looping.cancel()
+        event.accept()
