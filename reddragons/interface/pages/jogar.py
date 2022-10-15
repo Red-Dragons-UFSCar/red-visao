@@ -1,4 +1,5 @@
 from dataclasses import field
+from email.mime import image
 import math
 from operator import index
 import numpy as np
@@ -190,8 +191,14 @@ class GUI_jogar(QMainWindow):
         services = centros.Centros(self.model)
     
         #Tratamento de erro da bolinha a fazer
-        pos_bolax = (imagem.centroids[0][0][0][0])*170/640
-        pos_bolay = (imagem.centroids[0][0][0][1])*130/480
+        if imagem.centroids[0] == []:
+            print('Bola perdida, usando último valor')
+        else:
+            try:
+                pos_bolax = (imagem.centroids[0][0][0][0])*170/640
+                pos_bolay = (imagem.centroids[0][0][0][1])*130/480
+            except IndexError:
+                Logger().erro(str(imagem.centroids[0]))
 
         Entidade_bola = Entity_ball
         Entidade_bola.x = pos_bolax
@@ -234,9 +241,13 @@ class GUI_jogar(QMainWindow):
 
 
         for i in range(0,3):
-            XAdversario.append((imagem.centroids[5][0][i][0])*170/640)
-            YAdversario.append((imagem.centroids[5][0][i][1])*130/480)
-            indice_roboAdversario.append(i)
+            try:
+                XAdversario.append((imagem.centroids[5][0][i][0])*170/640)
+                YAdversario.append((imagem.centroids[5][0][i][1])*130/480)
+                indice_roboAdversario.append(i)
+            except IndexError:
+                print('Um adversário foi perdido, usando últimos valores')
+            
             
 
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
@@ -249,8 +260,11 @@ class GUI_jogar(QMainWindow):
 
         
         for l in range(0,3):
-            Entidades_Adversarias[l].x = XAdversario[l]
-            Entidades_Adversarias[l].y = YAdversario[l]
+            try:
+                Entidades_Adversarias[l].x = XAdversario[l]
+                Entidades_Adversarias[l].y = YAdversario[l]
+            except IndexError:
+                print('Entidade adversária não atualizada')
 
         
         

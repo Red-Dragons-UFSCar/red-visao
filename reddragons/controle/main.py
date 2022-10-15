@@ -40,11 +40,10 @@ class ControleEstrategia:
         self.ball.sim_get_pose(data_ball)
         
 
-        if game_on:                                 #TODO: Deixar os comentários em inglês
+        if game_on is False:                                 #TODO: Deixar os comentários em inglês
             # Se o modo de jogo estiver em "Game on"
             # strategy.twoAttackers()
             # strategy.coach()
             #self.strategy.decider()
-            print(self.robot0.xPos)
-        else:
             print('Jogo Parado')
+            
