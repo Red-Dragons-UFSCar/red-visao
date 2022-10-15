@@ -196,7 +196,7 @@ class GUI_jogar(QMainWindow):
         else:
             try:
                 pos_bolax = (imagem.centroids[0][0][0][0])*170/640
-                pos_bolay = (imagem.centroids[0][0][0][1])*130/480
+                pos_bolay = ((480 - imagem.centroids[0][0][0][1])*130/480)
             except IndexError:
                 Logger().erro(str(imagem.centroids[0]))
 
@@ -246,8 +246,8 @@ class GUI_jogar(QMainWindow):
                 YAdversario.append((imagem.centroids[5][0][i][1])*130/480)
                 indice_roboAdversario.append(i)
             except IndexError:
-                print('Um adversário foi perdido, usando últimos valores')
-            
+                #print('Um adversário foi perdido, usando últimos valores')
+                pass            
             
 
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
@@ -264,7 +264,8 @@ class GUI_jogar(QMainWindow):
                 Entidades_Adversarias[l].x = XAdversario[l]
                 Entidades_Adversarias[l].y = YAdversario[l]
             except IndexError:
-                print('Entidade adversária não atualizada')
+                #print('Entidade adversária não atualizada')
+                pass
 
         
         

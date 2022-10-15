@@ -38,7 +38,34 @@ class ControleEstrategia:
         self.robotEnemy1.sim_get_pose(data_their_bots[1])
         self.robotEnemy2.sim_get_pose(data_their_bots[2])
         self.ball.sim_get_pose(data_ball)
-        
+"""
+        print("Bola: ")
+        print("x = " + str(self.ball.xPos))
+        print("y = " + str(self.ball.yPos))
+        print("Robo 0: ")
+        print("x = " + str(self.robot0.xPos))
+        print("y = " + str(self.robot0.yPos))
+        print("a = " + str(self.robot0.theta))
+        print("Robo 1: ")
+        print("x = " + str(self.robot1.xPos))
+        print("y = " + str(self.robot1.yPos))
+        print("a = " + str(self.robot1.theta))
+        print("Robo 2: ")
+        print("x = " + str(self.robot2.xPos))
+        print("y = " + str(self.robot2.yPos))
+        print("a = " + str(self.robot2.theta))
+        print("Robo 0: ")
+        print("x = " + str(self.robotEnemy0.xPos))
+        print("y = " + str(self.robotEnemy0.yPos))
+        print("a = " + str(self.robotEnemy0.theta))
+        print("Robo 1: ")
+        print("x = " + str(self.robotEnemy1.xPos))
+        print("y = " + str(self.robotEnemy1.yPos))
+        print("a = " + str(self.robotEnemy1.theta))
+        print("Robo 2: ")
+        print("x = " + str(self.robotEnemy2.xPos))
+        print("y = " + str(self.robotEnemy2.yPos))
+        print("a = " + str(self.robotEnemy2.theta))        
 
         if game_on:                                 #TODO: Deixar os comentários em inglês
             # Se o modo de jogo estiver em "Game on"
@@ -48,3 +75,4 @@ class ControleEstrategia:
             print('Jogo rodando')
         else:
             print('Jogo parado')
+"""
