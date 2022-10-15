@@ -53,7 +53,7 @@ class Entity_ball:
         self.a = a
         self.va = 0
         self.index = None
-        
+
 
 class GUI_jogar(QMainWindow):
     def __init__(self, visao, model):
@@ -74,11 +74,11 @@ class GUI_jogar(QMainWindow):
         self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
         self.rParar.clicked.connect(self.muda_btnParar)
-        
+
 
         self.esq_radio.toggled.connect(self.mudancalados)
         self.dir_radio.toggled.connect(self.mudancalados)
-    
+
     def mudancalados(self):
         mray = True
         mray = True if self.dir_radio.isChecked() else False
@@ -86,15 +86,15 @@ class GUI_jogar(QMainWindow):
         if mray is False:
             self.esq_radio.setChecked(True)
         return mray
-            
-    
+
+
     def inicializarValores(self):
         self.esq_radio.setChecked(self.trocouCampo)
-        
+
     def muda_btnJogar(self):
         game_on = True
         self.jogando = game_on
-    
+
     def muda_btnParar(self):
         game_on = False
         self.jogando = game_on
@@ -174,22 +174,22 @@ class GUI_jogar(QMainWindow):
         dados_controle.Pparar = True if self.jogando is False else False
 
         self.model.controle = dados_controle
-    
+
 
     def conversao_controle(self):
 
-        
+
         #Colocar em Loop
 
         #while True:
         #if not self.jogando:
         #    continue
-        
+
         imagem = self.model.imagem
         #dados = self.model.dados.copy()
 
         services = centros.Centros(self.model)
-    
+
         #Tratamento de erro da bolinha a fazer
         if imagem.centroids[0] == []:
             print('Bola perdida, usando último valor')
@@ -215,25 +215,28 @@ class GUI_jogar(QMainWindow):
         for i in range(0, 3):
             XAliado.append((imagem.centros[i][0])*170/640)
             YAliado.append((480 - imagem.centros[i][1])*130/480)
-            aAliado.append((-1)*services.run(imagem.centroids)[0][i][2]*180/np.pi)
+            #aAliado.append((-1)*services.run(imagem.centroids)[0][i][2]*180/np.pi)
+            aAliado.append((-1)*services.run(imagem.centroids)[0][i][2])
             indice_roboAliado.append(i)
 
-        
+
         #    Entity_Allie(x = XAliado[l], y = YAliado[l], a = aAliado[l], index = indice_roboAliado[l])
 
         Robo0Aliado = Entity_Allie(index = 0)
         Robo1Aliado = Entity_Allie(index = 1)
         Robo2Aliado = Entity_Allie(index = 2)
-        
-        
+
+
         Entidades_Aliadas = [Robo0Aliado, Robo1Aliado, Robo2Aliado]
 
 
         for l in range(0,3):
             Entidades_Aliadas[l].x = XAliado[l]
             Entidades_Aliadas[l].y = YAliado[l]
+            a_aux = aAliado[l] - np.pi/4
+            aAliado[l] = np.arctan2(np.sin(a_aux), np.cos(a_aux))*180/np.pi
             Entidades_Aliadas[l].a = aAliado[l]
-        
+
 
         XAdversario = []
         YAdversario = []
@@ -247,8 +250,8 @@ class GUI_jogar(QMainWindow):
                 indice_roboAdversario.append(i)
             except IndexError:
                 #print('Um adversário foi perdido, usando últimos valores')
-                pass            
-            
+                pass
+
 
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
 
@@ -258,7 +261,7 @@ class GUI_jogar(QMainWindow):
 
         Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
 
-        
+
         for l in range(0,3):
             try:
                 Entidades_Adversarias[l].x = XAdversario[l]
@@ -267,10 +270,10 @@ class GUI_jogar(QMainWindow):
                 #print('Entidade adversária não atualizada')
                 pass
 
-        
-        
+
+
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
-        
+
         #direito = []
         #esquerdo = []
 
@@ -285,10 +288,10 @@ class GUI_jogar(QMainWindow):
 
         self.campo = dict(ball = Entidade_bola, our_bots = Entidades_Aliadas, their_bots = Entidades_Adversarias, Yellow = self.mray) #Ainda está dando erro
         #their_bots = Entidades_Adversarias
-        
+
         #Descomentar quando terminar integracao
         self.objControle.update(self.estado, self.campo)
-        self.looping = threading.Timer(0.005, self.conversao_controle)
+        self.looping = threading.Timer(0.02, self.conversao_controle)
         self.looping.start()
 
     def Cancel(self):
@@ -297,4 +300,3 @@ class GUI_jogar(QMainWindow):
     def closeEvent(self,event):
         self.looping.cancel()
         event.accept()
-
