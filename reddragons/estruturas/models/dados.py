@@ -35,4 +35,4 @@ class Dados(_Estrutura):
         self.area_minima = 20
         self.area_maxima = 200
 
-        self.ang_corr = 90
+        self.ang_corr = 45
