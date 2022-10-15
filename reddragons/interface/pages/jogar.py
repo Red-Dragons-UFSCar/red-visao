@@ -243,7 +243,7 @@ class GUI_jogar(QMainWindow):
         for i in range(0,3):
             try:
                 XAdversario.append((imagem.centroids[5][0][i][0])*170/640)
-                YAdversario.append((imagem.centroids[5][0][i][1])*130/480)
+                YAdversario.append((480 - imagem.centroids[5][0][i][1])*130/480)
                 indice_roboAdversario.append(i)
             except IndexError:
                 #print('Um adversário foi perdido, usando últimos valores')
