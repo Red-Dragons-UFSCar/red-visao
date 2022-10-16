@@ -259,8 +259,6 @@ class GUI_jogar(QMainWindow):
                 XAdversario[i] = self.valores_atrasados[i][0]
                 YAdversario[i] = self.valores_atrasados[i][1]
                 errinho =+ 1
-                print('Robô perdido:', i)
-                pass
 
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
         
