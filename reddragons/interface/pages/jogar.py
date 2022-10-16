@@ -68,6 +68,8 @@ class GUI_jogar(QMainWindow):
 
         self.mray = True
 
+        self.valores_atrasados = [[0,0],[0,0],[0,0]]
+
         self.jogando = False
         self.objControle = ControleEstrategia(self.mray)
 
@@ -238,22 +240,44 @@ class GUI_jogar(QMainWindow):
             Entidades_Aliadas[l].a = aAliado[l]
 
 
-        XAdversario = []
-        YAdversario = []
-        indice_roboAdversario = []
+        XAdversario = [1,1,1]
+        YAdversario = [1,1,1]
+        indice_roboAdversario = [10,10,10]
 
+        errinho = 0
 
         for i in range(0,3):
             try:
-                XAdversario.append((imagem.centroids[5][0][i][0])*170/640)
-                YAdversario.append((480 - imagem.centroids[5][0][i][1])*130/480)
-                indice_roboAdversario.append(i)
+                XAdversario[i] = ((imagem.centroids[5][0][i][0])*170/640)
+                YAdversario[i] = ((480 - imagem.centroids[5][0][i][1])*130/480)
+                indice_roboAdversario[i] = i
+                if self.valores_atrasados[i][0] != XAdversario[i]:
+                    self.valores_atrasados[i][0] = XAdversario[i]
+                    self.valores_atrasados[i][1] = YAdversario[i]
             except IndexError:
                 #print('Um adversário foi perdido, usando últimos valores')
+                XAdversario[i] = self.valores_atrasados[i][0]
+                YAdversario[i] = self.valores_atrasados[i][1]
+                errinho =+ 1
+                print('Robô perdido:', i)
                 pass
 
-
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
+        
+            """
+            try:
+                for k in range(0,3):
+                    diff_Total[k] = XAdversario[j] - self.valores_atrasados[k][0] + YAdversario[j] - self.valores_atrasados[k][0]
+                    if maior < abs(diff_Total[k]):
+                        maior = abs(diff_Total[k])
+                        roboperdido = k
+                    XAdversario.append(self.valores_atrasados[roboperdido][0])
+                    YAdversario.append(self.valores_atrasados[roboperdido][1])
+            except IndexError:
+                pass
+            except ValueError:
+                pass
+            """
 
         Robo0Adversario = Entity_Enemie(index = 0)
         Robo1Adversario = Entity_Enemie(index = 1)
@@ -269,8 +293,10 @@ class GUI_jogar(QMainWindow):
             except IndexError:
                 #print('Entidade adversária não atualizada')
                 pass
-
-
+            
+        if errinho > 0:
+            print('valores atrasados',self.valores_atrasados)
+            print('Xadv',XAdversario)
 
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
 
