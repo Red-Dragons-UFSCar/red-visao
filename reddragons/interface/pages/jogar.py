@@ -124,7 +124,7 @@ class GUI_jogar(QMainWindow):
             cv2.line(
                 img,
                 (int(p[0]), int(p[1])),
-                (int(p[0] + math.cos(p[2]) * 25), int(p[1] + math.sin(p[2]) * 25)),
+                (int(p[0] + math.cos(p[2] + 180) * 25), int(p[1] + math.sin(p[2]) * 25)),
                 c,
                 3,
             )  # Angulo Robo
