@@ -79,6 +79,7 @@ class GUI_jogar(QMainWindow):
         self.roboEncontrado = None
         self.roboPerdido = None
 
+        self.btPararTransmissao.clicked.connect(self.pararTransmissao)
         self.btJogar.clicked.connect(self.conversao_controle)
         self.rJogar.clicked.connect(self.muda_btnJogar)
         self.rParar.clicked.connect(self.muda_btnParar)
@@ -394,3 +395,7 @@ class GUI_jogar(QMainWindow):
     def closeEvent(self,event):
         self.looping.cancel()
         event.accept()
+
+    def pararTransmissao(self, event):
+        print("Transmissao encerrada")
+        self.looping.cancel()
