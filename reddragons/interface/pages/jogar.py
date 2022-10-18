@@ -242,7 +242,7 @@ class GUI_jogar(QMainWindow):
         for l in range(0,3):
             Entidades_Aliadas[l].x = XAliado[l]
             Entidades_Aliadas[l].y = YAliado[l]
-            a_aux = aAliado[l] - np.pi/4
+            a_aux = aAliado[l] + np.pi
             aAliado[l] = np.arctan2(np.sin(a_aux), np.cos(a_aux))*180/np.pi
             Entidades_Aliadas[l].a = aAliado[l]
 
