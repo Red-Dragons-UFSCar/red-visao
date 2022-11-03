@@ -289,7 +289,8 @@ class GUI_jogar(QMainWindow):
                 print('robo perdido', self.roboPerdido)
                 XAdversario.append(self.valores_atrasados[self.roboPerdido][0]) 
                 YAdversario.append(self.valores_atrasados[self.roboPerdido][1])
-                
+
+                '''
                 for i in range(0,3):
                    diff_normal[i] = abs(diff_Total[i][0] + diff_Total[i][1] + diff_Total[i][2])
                    if diff_normal[i] > menor:
@@ -298,7 +299,7 @@ class GUI_jogar(QMainWindow):
                        
                        XAdversario[2] = self.valores_atrasados[roboPerdido][0]
                        YAdversario[2] = self.valores_atrasados[roboPerdido][1]
-                
+                '''
 
             except IndexError:
                 pass
@@ -332,7 +333,7 @@ class GUI_jogar(QMainWindow):
 
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
         
-
+        '''
             try:
                 for k in range(0,3):
                     diff_Total[k] = XAdversario[j] - self.valores_atrasados[k][0] + YAdversario[j] - self.valores_atrasados[k][0]
@@ -345,7 +346,7 @@ class GUI_jogar(QMainWindow):
                 pass
             except ValueError:
                 pass
-       
+       '''
 
         Robo0Adversario = Entity_Enemie(index = 0)
         Robo1Adversario = Entity_Enemie(index = 1)
