@@ -68,13 +68,29 @@ def hold_position(robot, xg, yg, des_theta, friend1=None, friend2=None):
     robot.sim_set_vel(v, w)
 
 
+def followBall( robot, ball):
+    Kp = 3
+
+    ang_bola = arctan2(ball.yPos-robot.yPos, ball.xPos-robot.xPos)
+    print("ang bola: " + str(ang_bola*180/pi))
+    ang_erro = ang_bola-robot.theta*pi/180
+    ang_erro = arctan2(sin(ang_erro),cos(ang_erro))
+    print("a = " + str(robot.theta))
+    robot.target.theta = ang_bola
+    v, w = univec_controller(robot, robot.target, avoid_obst=False, stop_when_arrive=False)
+    robot.sim_set_vel(v, w)
+
+
 # % Attacker Actions
 def shoot(robot, ball, left_side=True, friend1=None, friend2=None, enemy1=None, enemy2=None, enemy3=None):
+    print(left_side)
     if left_side:
         arrival_theta = arctan2(65 - ball.yPos, 160 - ball.xPos)  # ? Angle between the ball and point (150,65)
+        arrival_theta = 0
     else:
         arrival_theta = arctan2(65 - ball.yPos, 10 - ball.xPos)  # ? Angle between the ball and point (0,65)
-    # robot.target.update(ball.xPos,ball.yPos,0)
+        arrival_theta = 180
+    #robot.target.update(ball.xPos,ball.yPos,0)
     robot.target.update(ball.xPos, ball.yPos, arrival_theta)
 
     if friend1 is None and friend2 is None:  # ? No friends to avoid
@@ -84,7 +100,71 @@ def shoot(robot, ball, left_side=True, friend1=None, friend2=None, enemy1=None, 
         robot.obst.update2(robot, ball, friend1, friend2, enemy1, enemy2, enemy3)
         v, w = univec_controller(robot, robot.target, True, robot.obst, n=4, d=4)
 
+    print(abs(robot.target.theta-robot.theta))
+    if abs(robot.target.theta-robot.theta) < 15 and robot.dist(ball) < 15:
+        v = robot.vMax*1.5
+        w = 0
+
+    #print(robot.yPos)
+    #print(robot.theta-90)
+
+    aux = robot.theta
+    if robot.theta < 0:
+        aux = robot.theta + 360
+        #robot.theta = robot.theta
+
+    if robot.yPos > 118 and abs(robot.theta - 90) < 50:
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.xPos > robot.xPos:
+                w = -1
+            else:
+                w = 1
+            if robot.yPos < 120:
+                robot.contStopped = 0
+    elif robot.yPos < 15 and abs(robot.theta + 90) < 50:
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.xPos > robot.xPos:
+                w = 1
+            else:
+                w = -1
+            if robot.yPos > 10:
+                robot.contStopped = 0
+    elif robot.xPos > 140 and abs(robot.theta) < 50 and not (35 > robot.yPos > 95):
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.yPos > robot.yPos:
+                w = 1
+            else:
+                w = -1
+            if robot.xPos < 140:
+                robot.contStopped = 0
+
+    elif robot.xPos < 30 and (abs(aux-180) < 50):
+        robot.contStopped = robot.contStopped + 1
+        print("aaa")
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.yPos > robot.yPos:
+                w = -1
+            else:
+                w = 1
+            if robot.xPos > 20:
+                robot.contStopped = 0
+
     robot.sim_set_vel(v, w)
+    #robot.sim_set_vel(0, 0)
 
 
 def shoot2(robot, ball, left_side=True, friend1=None, friend2=None, enemy1=None, enemy2=None, enemy3=None):
@@ -106,7 +186,7 @@ def shoot2(robot, ball, left_side=True, friend1=None, friend2=None, enemy1=None,
         else:
             y = 85 - (ball.yPos - 85) / (130 - 85) * 20
             arrival_theta = arctan2(y - 85, 10 - ball.xPos)
-    robot.target.update(ball.xPos, ball.yPos, arrival_theta)
+    robot.target.update(ball.xPos, ball.yPos, arrival_theta*180/pi)
     if friend1 is None and friend2 is None:  # ? No friends to avoid
         v, w = univec_controller(robot, robot.target, avoid_obst=False, n=16, d=2)
     else:  # ? Both friends to avoid
@@ -172,22 +252,25 @@ def push_ball(robot, ball, friend1=None, friend2=None):
 
 
 # TODO #2 Need more speed to reach the ball faster than our enemy
-def screen_out_ball(robot, ball, static_point, left_side=True, upper_lim=200, lower_lim=0, friend1=None, friend2=None):
+def screen_out_ball(robot, ball, static_point, left_side=True, upper_lim=200, lower_lim=0, friend1=None, friend2=None, doubleFace = False):
     # Check if ball is inside the limits
     if ball.yPos >= upper_lim:
         y_point = upper_lim
 
     elif ball.yPos <= lower_lim:
         y_point = lower_lim
-
     else:
         y_point = ball.yPos
+    print("y_point")
+    print(robot.face)
     # Check the field side
     if left_side:
         if robot.yPos <= ball.yPos:
             arrival_theta = pi / 2
+            #robot.face = 1
         else:
             arrival_theta = -pi / 2
+            #robot.face = -1
         robot.target.update(static_point, y_point, arrival_theta)
     else:
         if robot.yPos <= ball.yPos:
@@ -196,28 +279,213 @@ def screen_out_ball(robot, ball, static_point, left_side=True, upper_lim=200, lo
             arrival_theta = -pi / 2
         robot.target.update(170 - static_point, y_point, arrival_theta)
 
-    if robot.contStopped > 60:
-        if robot.teamYellow:
-            if abs(robot.theta) < 10:
-                v = -30
-                w = 5
-            else:
-                v = 30
-                w = -5
-        else:
-            if abs(robot.theta) < 10:
-                v = -30
-                w = 0
-            else:
-                v = 30
-                w = 0
-    else:
-        if friend1 is None and friend2 is None:  # ? No friends to avoid
-            v, w = univec_controller(robot, robot.target, avoid_obst=False, stop_when_arrive=True)
-        else:  # ? Both friends to avoid
-            robot.obst.update(robot, friend1, friend2)
-            v, w = univec_controller(robot, robot.target, True, robot.obst, stop_when_arrive=True)
+    robot.contStopped = 0
+    # if robot.contStopped > 60:
+    #     if robot.teamYellow:
+    #         if abs(robot.theta) < 10:
+    #             v = -30
+    #             w = 5
+    #         else:
+    #             v = 30
+    #             w = -5
+    #     else:
+    #         if abs(robot.theta) < 10:
+    #             v = -30
+    #             w = 0
+    #         else:
+    #             v = 30
+    #             w = 0
+    # else:
+    if friend1 is None and friend2 is None:  # ? No friends to avoid
+        v, w = univec_controller(robot, robot.target, avoid_obst=False, stop_when_arrive=True, double_face=doubleFace)
+    else:  # ? Both friends to avoid
+        robot.obst.update(robot, friend1, friend2)
+        v, w = univec_controller(robot, robot.target, True, robot.obst, stop_when_arrive=True)
 
+    aux = robot.theta
+    if robot.theta < 0:
+        aux = robot.theta + 360
+        #robot.theta = robot.theta
+
+    if robot.yPos > 118 and abs(robot.theta - 90) < 50:
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.xPos > robot.xPos:
+                w = -1
+            else:
+                w = 1
+            if robot.yPos < 120:
+                robot.contStopped = 0
+    elif robot.yPos < 15 and abs(robot.theta + 90) < 50:
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.xPos > robot.xPos:
+                w = 1
+            else:
+                w = -1
+            if robot.yPos > 10:
+                robot.contStopped = 0
+    elif robot.xPos > 140 and abs(robot.theta) < 50 and not (35 > robot.yPos > 95):
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.yPos > robot.yPos:
+                w = 1
+            else:
+                w = -1
+            if robot.xPos < 140:
+                robot.contStopped = 0
+
+    elif robot.xPos < 30 and (abs(aux-180) < 50):
+        robot.contStopped = robot.contStopped + 1
+        print("aaa")
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.yPos > robot.yPos:
+                w = -1
+            else:
+                w = 1
+            if robot.xPos > 20:
+                robot.contStopped = 0
+
+    if robot.arrive():
+        v = 0
+        w = 0
+
+    robot.sim_set_vel(v, w)
+
+# TODO #2 Need more speed to reach the ball faster than our enemy
+def screen_out_ball1(robot, ball, static_point, left_side=True, upper_lim=200, lower_lim=0, friend1=None, friend2=None, doubleFace = False):
+    # Check if ball is inside the limits
+    if ball.yPos >= upper_lim:
+        y_point = upper_lim
+
+    elif ball.yPos <= lower_lim:
+        y_point = lower_lim
+    else:
+        y_point = ball.yPos
+    print("y_point")
+    print(robot.face)
+    # Check the field side
+    if left_side:
+        if robot.yPos <= ball.yPos:
+            arrival_theta = 90
+            robot.face = 1
+        else:
+            arrival_theta = -90
+            robot.face = -1
+        robot.target.update(static_point, y_point, arrival_theta)
+    else:
+        if robot.yPos <= ball.yPos:
+            arrival_theta = 90
+        else:
+            arrival_theta = -90
+        robot.target.update(170 - static_point, y_point, arrival_theta)
+
+    robot.contStopped = 0
+    # if robot.contStopped > 60:
+    #     if robot.teamYellow:
+    #         if abs(robot.theta) < 10:
+    #             v = -30
+    #             w = 5
+    #         else:
+    #             v = 30
+    #             w = -5
+    #     else:
+    #         if abs(robot.theta) < 10:
+    #             v = -30
+    #             w = 0
+    #         else:
+    #             v = 30
+    #             w = 0
+    # else:
+    if friend1 is None and friend2 is None:  # ? No friends to avoid
+        v, w = univec_controller(robot, robot.target, avoid_obst=False, stop_when_arrive=True, double_face=doubleFace)
+    else:  # ? Both friends to avoid
+        robot.obst.update(robot, friend1, friend2)
+        v, w = univec_controller(robot, robot.target, True, robot.obst, stop_when_arrive=True)
+
+    aux = robot.theta
+    if robot.theta < 0:
+        aux = robot.theta + 360
+        #robot.theta = robot.theta
+
+    if robot.yPos > 118 and abs(robot.theta - 90) < 50:
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.xPos > robot.xPos:
+                w = -1
+            else:
+                w = 1
+            if robot.yPos < 120:
+                robot.contStopped = 0
+    elif robot.yPos < 15 and abs(robot.theta + 90) < 50:
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.xPos > robot.xPos:
+                w = 1
+            else:
+                w = -1
+            if robot.yPos > 10:
+                robot.contStopped = 0
+    elif robot.xPos > 140 and abs(robot.theta) < 50 and not (35 > robot.yPos > 95):
+        robot.contStopped = robot.contStopped + 1
+        print(robot.contStopped)
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.yPos > robot.yPos:
+                w = 1
+            else:
+                w = -1
+            if robot.xPos < 140:
+                robot.contStopped = 0
+
+    elif robot.xPos < 30 and (abs(aux-180) < 50):
+        robot.contStopped = robot.contStopped + 1
+        print("aaa")
+
+        if robot.contStopped > 30:
+            v = -10
+            if ball.yPos > robot.yPos:
+                w = -1
+            else:
+                w = 1
+            if robot.xPos > 20:
+                robot.contStopped = 0
+
+    if robot.arrive():
+        v = 0
+        w = 0
+
+    robot.sim_set_vel(v, w)
+
+
+def roboSimples(robot, ball):
+    if robot.yPos < ball.yPos:
+        v = 20
+        w = 0
+    else:
+        v = -20
+        w = 0
+    robot.target.update(robot.xPos, ball.yPos, 0)
+    if robot.arrive():
+        v = 0
     robot.sim_set_vel(v, w)
 
 

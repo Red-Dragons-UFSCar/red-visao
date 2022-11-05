@@ -66,7 +66,7 @@ class GUI_jogar(QMainWindow):
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(1)
 
-        self.mray = True
+        self.mray = None
 
         self.valores_atrasados = [[0,0],[0,0],[0,0]]
 
@@ -96,7 +96,7 @@ class GUI_jogar(QMainWindow):
         elif self.esq_radio.isChecked():
             self.mray = False
             print('Lado esquerdo')
-        
+
 
 
     def inicializarValores(self):
@@ -191,7 +191,7 @@ class GUI_jogar(QMainWindow):
 
 
     def conversao_controle(self):
-        
+
         #Colocar em Loop
 
         #while True:
@@ -270,9 +270,9 @@ class GUI_jogar(QMainWindow):
                 errinho += 1
                 pass
 
-        
+
         diff_normal = [10,10,10]
-        
+
         if errinho == 1:
             try:
                 for j in range(0,3):
@@ -287,7 +287,7 @@ class GUI_jogar(QMainWindow):
                         self.maior = self.diff_Total[l]
                         self.roboPerdido = l
                 print('robo perdido', self.roboPerdido)
-                XAdversario.append(self.valores_atrasados[self.roboPerdido][0]) 
+                XAdversario.append(self.valores_atrasados[self.roboPerdido][0])
                 YAdversario.append(self.valores_atrasados[self.roboPerdido][1])
 
                 '''
@@ -296,14 +296,14 @@ class GUI_jogar(QMainWindow):
                    if diff_normal[i] > menor:
                        roboPerdido = i
                        maior = diff_normal[i]
-                       
+
                        XAdversario[2] = self.valores_atrasados[roboPerdido][0]
                        YAdversario[2] = self.valores_atrasados[roboPerdido][1]
                 '''
 
             except IndexError:
                 pass
-            
+
         self.mnor = 100000
         a = 1
         if errinho == 2:
@@ -315,7 +315,7 @@ class GUI_jogar(QMainWindow):
                                 diff_normal[k] = abs(XAdversario[i] - self.valores_atrasados[j][0] + YAdversario[i] - self.valores_atrasados[j][1])
                                 self.roboEncontrado = j
                                 self.mnor = diff_normal[k]
-                
+
 
                 for i in range(0,3):
                     if self.roboEncontrado != i:
@@ -324,15 +324,15 @@ class GUI_jogar(QMainWindow):
                         a += 1
             except:
                 pass
-                    
-            
+
+
         if errinho == 3:
             for i in range(0,3):
                 XAdversario.append(self.valores_atrasados[i][0])
                 YAdversario.append(self.valores_atrasados[i][1])
 
         #Entity_Enemie(x = XAdversario[l], y = YAdversario[l], index = indice_roboAdversario)
-        
+
         '''
             try:
                 for k in range(0,3):
@@ -364,12 +364,12 @@ class GUI_jogar(QMainWindow):
             except IndexError:
                 #print('Entidade adversária não atualizada', imagem.centroids[5][0])
                 pass
-            
+
 
         if errinho > 0:
             print('valores atrasados',self.valores_atrasados)
             print('Xadv',XAdversario, 'num de robos perdidos', errinho)
-        
+
         #mray: (Verdadeiro: Amarelo - Direito, Falso: Azul - Esquerdo) COLOCAR
 
         #direito = []

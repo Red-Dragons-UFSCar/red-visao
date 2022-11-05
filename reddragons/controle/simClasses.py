@@ -143,8 +143,8 @@ class Ball:
 
     # % This method gets position of the ball in FIRASim
     def sim_get_pose(self, data_ball):
-        self.xPos = data_ball.x + data_ball.vx * 100 * 12 / 60
-        self.yPos = data_ball.y + data_ball.vy * 100 * 12 / 60
+        self.xPos = data_ball.x #+ data_ball.vx * 100 * 12 / 60
+        self.yPos = data_ball.y #+ data_ball.vy * 100 * 12 / 60
 
         # check if prev is out of field, in this case reflect ball moviment to reproduce the collision
         if self.xPos > 160:
@@ -188,8 +188,8 @@ class Robot:
         self.vTheta = 0
         self.vL = 0  # ? Left wheel velocity (cm/s) => updated on simClasses.py -> simSetVel()
         self.vR = 0  # ? Right wheel velocity (cm/s) =>  updated on simClasses.py -> simSetVel()
-        self.vMax = 35  # ! Robot max velocity (cm/s)
-        self.rMax = 3 * self.vMax  # ! Robot max rotation velocity (rad*cm/s)
+        self.vMax = 20   # ! Robot max velocity (cm/s)
+        self.rMax = 6 * self.vMax  # ! Robot max rotation velocity (rad*cm/s)
         self.L = 7.5  # ? Base length of the robot (cm)
         self.LSimulador = 6.11  # ? Base length of the robot on coppelia (cm)
         self.R = 3.4  # ? Wheel radius (cm)
@@ -198,6 +198,16 @@ class Robot:
         # ? Stores the last 3 positions (x,y) and orientation => updated on execution.py
         self.pastPose = zeros(12).reshape(4,
                                           3)
+        self.dir_R = 0b00001100
+        self.dir_L = 0b00000011
+        self.lastError = None
+        self.somaErro = 0
+        self.lastTheta = None
+
+        if self.index == 1:
+            self.kw = 1.4#1.5
+        else:
+            self.kw = 1.15#1.5
 
     # % This method calculates the distance between the robot and an object
     def dist(self, obj):
@@ -205,7 +215,7 @@ class Robot:
 
     # % This method returns True if the distance between the target and the robot is less than 5cm - False otherwise
     def arrive(self):
-        if self.dist(self.target) <= 5:
+        if self.dist(self.target) <= 7:
             return True
         else:
             return False
@@ -227,7 +237,52 @@ class Robot:
         else:
             self.vL = -v - 0.5 * self.L * w
             self.vR = -v + 0.5 * self.L * w
-        self.actuator.send(self.index, self.vL, self.vR)
+        #self.actuator.send(self.index, self.vL, self.vR)
+        self.setVel()
+
+    def setVel(self):
+
+        if self.index == 1:
+            self.dir_R = 0b00001000
+            self.dir_L = 0b00000010
+            if self.vR > 0:
+                self.dir_R = 0b00001000
+            else:
+                self.dir_R = 0b00000100
+            if self.vL > 0:
+                self.dir_L = 0b00000010
+            else:
+                self.dir_L = 0b00000001
+        if self.index == 0:
+            self.dir_R = 0b10000000
+            self.dir_L = 0b00100000
+            if self.vR > 0:
+                self.dir_R = 0b10000000#0b01000000
+            else:
+                self.dir_R = 0b01000000
+            if self.vL > 0:
+                self.dir_L = 0b00100000
+            else:
+                self.dir_L = 0b00010000
+
+            if self.vR == 0:
+                self.dir_R = 0b00000000
+            if self.vL == 0:
+                self.dir_L = 0b00000000
+            
+        if self.index == 2:
+            self.dir_R = 0b10000000
+            self.dir_L = 0b00100000
+            if self.vR > 0:
+                self.dir_R = 0b10000000#0b01000000
+            else:
+                self.dir_R = 0b01000000
+            if self.vL > 0:
+                self.dir_L = 0b00100000
+            else:
+                self.dir_L = 0b00010000
+        self.vR = int(abs(self.vR))
+        self.vL = int(abs(self.vL))
 
     def sim_set_vel2(self, v1, v2):
         self.actuator.send(self.index, v1, v2)

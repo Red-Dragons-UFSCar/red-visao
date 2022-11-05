@@ -94,7 +94,7 @@ class Processamento:
             i_frame+=1
 
             if self.verbose:
-                Logger().tempo(i_frame, *tempo.values())    
+                Logger().tempo(i_frame, *tempo.values())
 
     def recalcular(self):
         dados = self._model.dados
@@ -145,9 +145,9 @@ class Processamento:
         for i in range(3):
             if err[i] != 0:
                 dados_controle.robot[i] = self._model.controle.robot[i]
-                Logger().erro(
-                    "Robô #" + str(i) + " não detectado. Usando última posição"
-                )
+                #Logger().erro(
+                    #"Robô #" + str(i) + " não detectado. Usando última posição"
+                #)
         # Logger().variavel('dados_controle.robot', dados_controle.robot)
 
         dados_controle.adversarios = imagem.adversarios[0]

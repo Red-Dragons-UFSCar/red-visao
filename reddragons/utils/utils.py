@@ -139,6 +139,6 @@ def checar_erro_centroide(centros):
     for c in centros:
         if c[0] == 0 or c[1] == 0:
             erros[i] += 1
-            Logger().erro("Um centro não detectado")
+            #Logger().erro("Um centro não detectado")
         i += 1
     return erros

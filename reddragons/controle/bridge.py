@@ -14,6 +14,7 @@ __author__ = "Artur Coelho - github.com/arturtcoelho"
 
 # The main import for this bridge,
 import ctypes
+import os
 # imports most used types from ctypes import c_double, \
 from ctypes import (c_double,
                     c_char_p,
@@ -28,8 +29,9 @@ from math import fmod, pi
 
 # The lib object will contain the C++ local clients
 # witch save their respective data
+print(os.listdir())
 try:
-    lib = ctypes.cdll.LoadLibrary('./libfira.so')
+    lib = ctypes.cdll.LoadLibrary('libfira.so')
     print('1')
 except Exception as e:
     try:
