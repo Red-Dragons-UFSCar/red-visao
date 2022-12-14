@@ -5,6 +5,11 @@ from cv2 import VideoCapture
 from ..utils import ui_files
 
 def list_ports():
+    """ Encontra as câmeras disponiveis para utilizar
+
+    Returns:
+        tuple: tupla com lista de portas de cameras disponiveis e funcionandos
+    """
     non_working_ports = [] # lista  de portas não funcionais
     dev_port = 0
     working_ports = []
@@ -26,6 +31,11 @@ def list_ports():
 
 class GUI_camera(QMainWindow):
     def __init__(self, callback):
+        """Inicia  a interface de seleção de câmera 
+
+        Args:
+            callback (function):
+        """
         super(GUI_camera, self).__init__()
         loadUi(f"{ui_files}/EscolheCamera.ui", self)
         self.show()
@@ -36,6 +46,8 @@ class GUI_camera(QMainWindow):
         self.btnCameraOk.clicked.connect(self._ok)
 
     def _ok (self):
+        """ Seleciona a câmera apartir da interface qt
+        """
         try:
             self._camera = int(self.CaixaSelecionar.currentText()[-1])
         except:

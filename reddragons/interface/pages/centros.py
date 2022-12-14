@@ -12,6 +12,7 @@ from ..utils import ui_files
 
 class GUI_centro(QMainWindow):
     def __init__(self, visao, model):
+
         super(GUI_centro, self).__init__()
         loadUi(f"{ui_files}/centros.ui", self)
         self.show()
@@ -29,23 +30,36 @@ class GUI_centro(QMainWindow):
         self.QT_btSalvar.clicked.connect(self.finalizar)
 
     def closeEvent(self, event):
+        """fecha o evento/página
+
+        Args:
+            event (qtEvent): evento/página a ser fechado
+        """
         self.timer.stop()
         event.accept()
 
     def getReferencia(self):
+        """ carrega a referência de onde se encontra o centro
+        """
         self.referencia = self.model.imagem.imagem_crop
         self.centroids = self.model.imagem.centroids
         self.desenhar()
 
     def mudanca(self):
+        """muda o desenho da angulação do robô
+        """
         self.dados.ang_corr = self.QT_angCorr.value() / 180.0 * math.pi
         self.value_ang.setText("{0:.2f}º".format(self.dados.ang_corr * 180 / math.pi))
         self.getReferencia()
 
     def finalizar(self):
+        """ finaliza as mudanças
+        """
         self.model.dados = self.dados
 
     def desenhar(self):
+        """desenha os centros dos robôs
+        """
         centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
 
         img = self.referencia.copy()
