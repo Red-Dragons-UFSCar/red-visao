@@ -283,6 +283,7 @@ class GUI_jogar(QMainWindow):
                             #Até aqui tá rodando perfeitamente
                 print('diff', self.diff_Total)
                 for l in range(0,3):
+                    #atualizar isso para funções minimo e index
                     if self.diff_Total[l] > self.maior:
                         self.maior = self.diff_Total[l]
                         self.roboPerdido = l
@@ -314,7 +315,9 @@ class GUI_jogar(QMainWindow):
                             if diff_normal[k] < self.mnor:
                                 diff_normal[k] = abs(XAdversario[i] - self.valores_atrasados[j][0] + YAdversario[i] - self.valores_atrasados[j][1])
                                 self.roboEncontrado = j
+                                #Acho que não precisa estar aqui
                                 self.mnor = diff_normal[k]
+
 
 
                 for i in range(0,3):
