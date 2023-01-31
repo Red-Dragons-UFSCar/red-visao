@@ -35,12 +35,21 @@ class GUI_visualizacao(QMainWindow):
 
 
     def closeEvent(self, event):
+        """ Fecha a visualização do evento atual
+
+        Args:
+            event (): evento atual
+        """
         self.timer.stop()
         event.accept()
 
     def push_menu (self):
+
         self.app.push_widget(GUI_main(self.app))
     def update_frame(self):
+        """ Atualiza a imagem ao verificar a igualdade do self.qt_tipoVisualizacao.currentIndex
+            com os valores das constantes setadas na classe Estado
+        """
         estado = self.qt_tipoVisualizacao.currentIndex()
 
         imagem = self.model.imagem.copy()

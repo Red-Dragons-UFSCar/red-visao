@@ -26,6 +26,13 @@ class Processamento:
         self._centros = services.Centros(self._model)
 
     def alterar_src(self, src):
+        """ Verifica a necessidade de recomeçar a captura de imagem.
+            Se necessário captura uma próxima imagem, senão, gera uma
+            recursão.
+
+        Args:
+            src (any): fonte a qual provê a captura da imagem
+        """
         recomeca = self.started
         if recomeca:
             self.stop()
@@ -39,9 +46,17 @@ class Processamento:
             self.iniciar()
 
     def mudar_verbose(self):
+        """ Inverte o sinal booleano da variável verbose
+        """
         self.verbose = not self.verbose
 
     def iniciar(self):
+        """ Inicia o processamento da fonte de video caso exista e já
+            não tenha sido iniciado.
+
+        Raises:
+            Exception: exceção caso não exista fonte de video disponível
+        """
         if self.cam is None:
             raise Exception ("Tentativa de iniciar processamento sem fonte de video")
         if self.started:
@@ -52,6 +67,12 @@ class Processamento:
         return self
 
     def processar(self):
+        """Processamento reponsável por transformar a imagem em dados
+
+        Returns:
+            temp(dict): dicionario com os tempos utilizados pelo processamento
+            err(bool): booleano com a constatação se houve ou não um erro
+        """
         err = False
         tempo = {}
         tempo['inicial'] = time.time()
@@ -86,6 +107,9 @@ class Processamento:
         return err, tempo
 
     def main(self):
+        """ Main que inicia a captura, a leitura e
+            o processamento da imagem enquanto necessário.
+        """
         i_frame = 0
         while self.started:
             self.conseguiu, self.img = self.cam.read()
@@ -97,6 +121,8 @@ class Processamento:
                 Logger().tempo(i_frame, *tempo.values())    
 
     def recalcular(self):
+        """ Recalcula a perspectiva dos dados
+        """
         dados = self._model.dados
         dados.matriz_warp_perspective = self._perspectiva.calcula()
 
@@ -104,11 +130,18 @@ class Processamento:
             self.dados = dados
 
     def stop(self):
+        """ Realiza a parada na captura da imagem
+        """
         self.started = False
         self.thread.join()
         self.cam.stop()
 
     def sincronizar_controle(self):
+        """ Calcula e retorna os dados necessários pelo controle
+
+        Returns:
+            dados_controle: dados necessários e requisitados pelo controle
+        """
         dados_controle = self._model.controle
         dados = self.dados
 
@@ -122,6 +155,16 @@ class Processamento:
         return dados_controle
 
     def sincronizar_controle_dinamico(self, dados_controle=None):
+        """ Calcula e retorna os dados necessários pelo controle de forma dinâmica,
+            ou seja, leva em conta situações inesperadas. Como quando a bola ou o
+            robô não foi detectado corretamente, utilizando assim, a ultima posição.
+
+        Args:
+            dados_controle (): dados necessários e requisitados pelo controle. Defaults to None.
+
+        Returns:
+            dados_controle: ''', porém com as alterações necessárias realizadas. 
+        """
         if dados_controle is None:
             dados_controle = copy.deepcopy(self._model.controle)
         imagem = self._model.imagem
@@ -158,4 +201,11 @@ class Processamento:
         return dados_controle
 
     def __exit__(self, exec_type, exc_value, traceback):
+        """Encerra a execução da camera
+
+        Args:
+            exec_type (_type_): classe da exceção
+            exc_value (_type_): instância da exceção
+            traceback (_type_): objeto de rastreamento que rastreia a última função chamada na pilha
+        """
         self.cam.stop()
