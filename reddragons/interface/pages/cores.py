@@ -55,6 +55,9 @@ class GUI_cores(QMainWindow):
         self.app.push_widget(GUI_visualizacao(self.app))      
 
     def get_referencia(self):
+        """
+        Pega a referência determinada em outra parte do app
+        """
 
         self.referencia = self.model.imagem.imagem_crop
         self.imagem_hsv = self.model.imagem.imagem_hsv
@@ -65,6 +68,11 @@ class GUI_cores(QMainWindow):
         self.desenhar()
 
     def salvar(self):
+        """
+        Salvamento dos valores decididos na tela de cores para a entidade selecionada
+        """
+
+
         i = self.QT_selecao.currentIndex()
         self.dados.cores[i] = [
             [self.QT_HMin.value(), self.QT_SMin.value(), self.QT_VMin.value()],
@@ -83,6 +91,9 @@ class GUI_cores(QMainWindow):
         self.tela = ifc.GUI_salvar(self.visao, self.model)
 
     def nova_cor(self):
+        """"
+        Amostra dos valores decididos para a entidade selecionada
+        """
         i = self.QT_selecao.currentIndex()
         self.contornos, _ = vutils.get_contorno_cor(
             self.imagem_hsv, self.dados.cores[i], self.dados.filtros[i]
@@ -111,6 +122,9 @@ class GUI_cores(QMainWindow):
         self.fator_cor = self.QT_fatorCor.value()
 
     def mudanca(self):
+        """
+        Mudança da seleção de entidade e dos valores já tomados
+        """
         i = self.QT_selecao.currentIndex()
 
         self.dados.cores[i] = [
@@ -144,6 +158,10 @@ class GUI_cores(QMainWindow):
         self.desenhar()
 
     def mouseReleaseEvent(self, QMouseEvent):
+
+        """
+        Usa como base a cor para o ponto em que o mouse selecionou algum ponto do frame
+        """
         _x = QMouseEvent.x()
         _y = QMouseEvent.y()
         x = _x - self.QT_Imagem.pos().x()
@@ -221,6 +239,10 @@ class GUI_cores(QMainWindow):
             self.mudanca()
 
     def desenhar(self):
+
+        """
+        Desenho dos contornos para a seleção de cores
+        """
         img = self.referencia.copy()
         img2 = self.referencia.copy()
 

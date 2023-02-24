@@ -44,6 +44,9 @@ class GUI_cruzetas(QMainWindow):
         self.app.push_widget(GUI_cores(self.app))
 
     def mouseReleaseEvent(self, QMouseEvent):
+        """
+        Ponto de seleção do mouse para a cruzeta
+        """
         _x = QMouseEvent.x()
         _y = QMouseEvent.y()
         x = _x - self.QT_Imagem.pos().x()

@@ -8,6 +8,9 @@ from ..utils import ui_files
 
 
 class GUI_main(QMainWindow):
+    """
+    Seleção de qual tela estará funcionando
+    """
     def __init__(self, app):
 
         super(GUI_main, self).__init__()

@@ -26,6 +26,9 @@ from ..utils import ui_files
 
 class Entity_Allie:
     def __init__(self, x=0, y=0, vx=0, vy=0, a=0, va=0, index=0):
+        """
+        Salva posição do robô aliado
+        """
         self.x = x
         self.y = y
         self.vx = 0
@@ -34,8 +37,11 @@ class Entity_Allie:
         self.va = 0
         self.index = index
 
-class Entity_Enemie:
+class Entity_Enemy:
     def __init__(self, x=0, y=0, vx=0, vy=0, a=0, va=0, index=0):
+        """"
+        Salva posição do robô adversário
+        """
         self.x = x
         self.y = y
         self.vx = 0
@@ -46,6 +52,9 @@ class Entity_Enemie:
 
 class Entity_ball:
     def __init__(self, x=0, y=0, vx = 0 , vy = 0, a = None, va = None, index = None):
+        """"
+        Salva posição da bola
+        """
         self.x = x
         self.y = y
         self.vx = 0
@@ -90,6 +99,9 @@ class GUI_jogar(QMainWindow):
         self.dir_radio.toggled.connect(self.mudancalados)
 
     def mudancalados(self):
+        """
+        Definição de lado
+        """
         if self.dir_radio.isChecked():
             self.mray = True
             print('Lado direito')
@@ -100,9 +112,15 @@ class GUI_jogar(QMainWindow):
 
 
     def inicializarValores(self):
+        """
+        Inicializa como esquerda
+        """
         self.esq_radio.setChecked(self.trocouCampo)
 
     def muda_btnJogar(self):
+        """
+        Definição do estado de jogo
+        """
         game_on = True
         self.jogando = game_on
         print('Game on')
@@ -111,11 +129,17 @@ class GUI_jogar(QMainWindow):
         print('Transmissão iniciada')
 
     def muda_btnParar(self):
+        """
+        Parar jogo
+        """
         game_on = False
         self.jogando = game_on
         print('Game off')
 
     def update_frame(self):
+        """
+        Atualização dos frames na intrface e coloca as informações atuais no frame
+        """
 
         imagem = self.model.imagem
         dados_controle = self.visao.sincronizar_controle_dinamico()
@@ -152,6 +176,9 @@ class GUI_jogar(QMainWindow):
         #self.conversao_controle()
 
     def ativa_serial(self):
+        """
+        Inicializa antiga transmissão de dados, não mais usada
+        """
 
         dados_controle = self.model.controle
 
@@ -177,11 +204,16 @@ class GUI_jogar(QMainWindow):
         self.model.controle = dados_controle
 
     def closeEvent(self, event):
+        """
+        Fecha e para 
+        """
         self.timer.stop()
         event.accept()
 
     def mudanca(self):
-
+        """
+        Antiga inicialização do jogo
+        """
         dados_controle = self.visao.sincronizar_controle_dinamico()
 
         dados_controle.Pjogar = True if self.jogando is True else False
@@ -191,6 +223,10 @@ class GUI_jogar(QMainWindow):
 
 
     def conversao_controle(self):
+
+        """
+        Converte os dados para o controle, também faz tratamento de erro para robôs adversários perdidos
+        """
 
         #Colocar em Loop
 
@@ -351,9 +387,9 @@ class GUI_jogar(QMainWindow):
                 pass
        '''
 
-        Robo0Adversario = Entity_Enemie(index = 0)
-        Robo1Adversario = Entity_Enemie(index = 1)
-        Robo2Adversario = Entity_Enemie(index = 2)
+        Robo0Adversario = Entity_Enemy(index = 0)
+        Robo1Adversario = Entity_Enemy(index = 1)
+        Robo2Adversario = Entity_Enemy(index = 2)
 
         Entidades_Adversarias = [Robo0Adversario, Robo1Adversario, Robo2Adversario]
 
