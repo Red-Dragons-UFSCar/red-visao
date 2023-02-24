@@ -9,8 +9,6 @@ from .simClasses import *
 from .strategy import *
 from .action import shoot
 #from .bridge import (Actuator, Replacer, Vision, Referee)
-import pyVSSSReferee
-from pyVSSSReferee.RefereeComm import RefereeComm
 
 class ControleEstrategia:
     def __init__(self, side=True, strategy='default'):
