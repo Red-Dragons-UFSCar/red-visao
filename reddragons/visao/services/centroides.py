@@ -1,3 +1,4 @@
+from traceback import print_tb
 import numpy as np
 from reddragons import utils
 from reddragons import estruturas

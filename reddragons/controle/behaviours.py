@@ -7,8 +7,8 @@ class Univector:
 
     def __init__(self):
         # ? Constants learned from EP
-        self.d_e = 6  # Constante relacionada ao tamanho das espirais
-        self.k_r = 7  # Constante de suavização do campo
+        self.d_e = 8#6  # Constante relacionada ao tamanho das espirais
+        self.k_r = 10#7  # Constante de suavização do campo
         self.delta = 5  # Variancia da gaussiana de obstaculo
         self.k_o = 0.5  # Constante de proporcionalidade velocidade do obstaculo
         self.d_min = 5  # * => modified: EP = 3.48          # Distancia mínima em que o campo se torna puro repulsivo
@@ -76,8 +76,8 @@ class Univector:
         n_ccw = [[n_ccw[0][0]], [n_ccw[1][0]]]
 
         if -self.d_e <= y < self.d_e:
-            x_phi = 0.5 * (abs(yl) * n_ccw[0][0] + abs(yr) ** 2 * n_cw[0][0]) / self.d_e
-            y_phi = 0.5 * (abs(yl) * n_ccw[1][0] + abs(yr) ** 2 * n_cw[1][0]) / self.d_e
+            x_phi = 0.5 * (abs(yl) * n_ccw[0][0] + abs(yr) ** 1 * n_cw[0][0]) / self.d_e
+            y_phi = 0.5 * (abs(yl) * n_ccw[1][0] + abs(yr) ** 1 * n_cw[1][0]) / self.d_e
             phi = arctan2(y_phi, x_phi)
             phi = phi[0]
         elif y < -self.d_e:

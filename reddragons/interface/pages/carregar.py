@@ -9,11 +9,14 @@ from ..utils import ui_files
 
 class GUI_carregar(QMainWindow):
     def __init__(self, visao, model):
+
         super(GUI_carregar, self).__init__()
         self.model = model
         self.carregar()
 
     def carregar(self):
+        """Carrega o arquivo selecionado na interface qt por meio do pickle
+        """
         filename = QFileDialog.getOpenFileName(self, "Open File", filter = "*.red")
         try:
             with open(filename[0], "rb") as f:

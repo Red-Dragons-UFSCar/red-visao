@@ -13,6 +13,9 @@ from PyQt5.uic import loadUi
 from ..utils import ui_files
 from reddragons.utils import test_device
 
+
+
+
 class GUI_video(QMainWindow):
     def __init__(self, app):
         super(GUI_video, self).__init__()

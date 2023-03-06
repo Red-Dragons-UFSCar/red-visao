@@ -26,6 +26,11 @@ def list_ports():
 
 class GUI_camera(QMainWindow):
     def __init__(self, callback):
+        """Inicia  a interface de seleção de câmera 
+
+        Args:
+            callback (function):
+        """
         super(GUI_camera, self).__init__()
         loadUi(f"{ui_files}/EscolheCamera.ui", self)
         self.show()
@@ -36,6 +41,8 @@ class GUI_camera(QMainWindow):
         self.btnCameraOk.clicked.connect(self._ok)
 
     def _ok (self):
+        """ Seleciona a câmera apartir da interface qt
+        """
         try:
             self._camera = int(self.CaixaSelecionar.currentText()[-1])
         except:

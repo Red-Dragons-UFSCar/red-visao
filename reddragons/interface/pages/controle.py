@@ -6,6 +6,7 @@ from ..utils import ui_files
 
 class GUI_controle(QMainWindow):
     def __init__(self, visao, model):
+    
         super(GUI_controle, self).__init__()
         loadUi(f"{ui_files}/controle.ui", self)
         self.show()
@@ -33,8 +34,10 @@ class GUI_controle(QMainWindow):
 
         self.visao.sincronizar_controle()
 
-    def mudanca(self):
 
+    def mudanca(self):
+        """muda os valores baseado no que foi escrito
+        """
         dados_controle = self.visao.sincronizar_controle()
 
         dados_controle.Kp1 = self.lineKp1.text()
@@ -57,7 +60,9 @@ class GUI_controle(QMainWindow):
         self.model.controle = dados_controle
 
     def inicializarValores(self):
-
+        """
+            Escreve os valores inicializados na tela
+        """
         dados_controle = self.visao.sincronizar_controle()
 
         self.lineKd1.setText(str(dados_controle.Kd1))
@@ -77,3 +82,4 @@ class GUI_controle(QMainWindow):
         self.kalman.setChecked(dados_controle.flagAtivaKalman)
         self.simular.setChecked(dados_controle.simular)
         self.alvoFixo.setChecked(dados_controle.irParaAlvoFixo)
+

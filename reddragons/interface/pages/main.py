@@ -8,6 +8,9 @@ from ..utils import ui_files
 
 
 class GUI_main(QMainWindow):
+    """
+    Seleção de qual tela estará funcionando
+    """
     def __init__(self, app):
 
         super(GUI_main, self).__init__()
@@ -15,6 +18,7 @@ class GUI_main(QMainWindow):
         self.app = app
         self.visao = app.visao
         self.model = app.model
+
 
         self.QT_btVisualizacao.clicked.connect(self.visualizacao)
         self.QT_btPerspectiva.clicked.connect(self.perspectiva)

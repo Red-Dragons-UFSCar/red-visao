@@ -48,6 +48,18 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
+}
+QPushButton:hover{
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
+}</string>
+       </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#e62e2e;&quot;&gt;Visualização&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
@@ -79,10 +91,8 @@
        </property>
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 255, 255);
-background-color:  rgb(23, 25, 33);
-border-radius:0px;
-
-</string>
+background-color: #9F1823;
+border-radius:0px;</string>
        </property>
        <item>
         <property name="text">
@@ -153,14 +163,7 @@ border-radius:0px;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-border-radius: 0;
-color: white;
-}
-QPushButton:hover{
-	background-color: #1B1D26;
-
+        <string notr="true">
 QPushButton{
 	color: rgb(255, 255, 255);
 	background-color: #9F1823;
@@ -170,9 +173,6 @@ QPushButton:hover{
 	color: rgb(255, 255, 255);
 	background-color: #ff0000;
 	border-radius:0px;
-}
-
-
 }</string>
        </property>
        <property name="text">
@@ -189,14 +189,7 @@ QPushButton:hover{
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-background-color: rgb(23, 25, 33);
-border-radius: 0;
-color: white;
-}
-QPushButton:hover{
-	background-color: #1B1D26;
-
+        <string notr="true">
 QPushButton{
 	color: rgb(255, 255, 255);
 	background-color: #9F1823;
@@ -208,8 +201,7 @@ QPushButton:hover{
 	border-radius:0px;
 }
 
-
-}</string>
+</string>
        </property>
        <property name="text">
         <string>Voltar</string>

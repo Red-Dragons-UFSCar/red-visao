@@ -5,6 +5,8 @@ from reddragons.utils import Logger
 from reddragons.visao import Processamento
 from reddragons.estruturas import ModelService
 
+from reddragons.controle import ControleEstrategia
+
 def init_app ():
     model = ModelService()
     visao = Processamento(model)

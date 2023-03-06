@@ -111,6 +111,7 @@ def centro_robo(princ, sec, ang_corr=90):
     return meio_x, meio_y, angulo
 
 
+
 def calcula_centros(centroids, ang_corr=90):
     centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i_sec in range(2, 5):
@@ -138,6 +139,6 @@ def checar_erro_centroide(centros):
     for c in centros:
         if c[0] == 0 or c[1] == 0:
             erros[i] += 1
-            Logger().erro("Um centro não detectado")
+            #Logger().erro("Um centro não detectado")
         i += 1
     return erros

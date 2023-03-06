@@ -190,9 +190,7 @@ background-color: rgb(23, 25, 33);</string>
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
-        <string notr="true">
-
-QPushButton{
+        <string notr="true">QPushButton{
 	color: rgb(255, 255, 255);
 	background-color: #9F1823;
 	border-radius:0px;
@@ -202,7 +200,6 @@ QPushButton:hover{
 	background-color: #ff0000;
 	border-radius:0px;
 }
-
 </string>
        </property>
        <property name="text">
@@ -311,16 +308,14 @@ color: rgb(255, 255, 255);
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
-        <string notr="true">
-
-QPushButton{
+        <string notr="true">QPushButton{
 	color: rgb(255, 255, 255);
-	background-color: rgb(23, 25, 33);
+	background-color: #9F1823;
 	border-radius:0px;
 }
 QPushButton:hover{
 	color: rgb(255, 255, 255);
-	background-color: rgb(27, 27, 35);
+	background-color: #ff0000;
 	border-radius:0px;
 }
 
