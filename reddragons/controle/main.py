@@ -30,7 +30,7 @@ class ControleEstrategia:
         self.serialPort = '/dev/ttyACM0'
         self.serialBaudRate = 115200
 
-        self.startSerial()
+        #self.startSerial()
 
         #self.referee = Referee(side, "224.5.23.2", 10003)
         #self.r = RefereeComm(config_file = "config.json")
