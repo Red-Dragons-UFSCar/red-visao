@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="layoutDirection">
+   <enum>Qt::RightToLeft</enum>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: #222433;</string>
   </property>
@@ -33,13 +36,20 @@
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>160</y>
-      <width>409</width>
-      <height>241</height>
+      <y>70</y>
+      <width>391</width>
+      <height>381</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::PlainText</enum>
     </property>
     <property name="pixmap">
      <pixmap>../icon/red_logo.png</pixmap>
@@ -47,15 +57,21 @@
     <property name="scaledContents">
      <bool>true</bool>
     </property>
+    <property name="indent">
+     <number>0</number>
+    </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>470</y>
-      <width>147</width>
-      <height>62</height>
+      <x>130</x>
+      <y>500</y>
+      <width>191</width>
+      <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(177, 177, 177);</string>
     </property>
     <property name="text">
      <string/>
@@ -71,10 +87,13 @@
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>450</y>
-      <width>147</width>
-      <height>97</height>
+      <y>490</y>
+      <width>161</width>
+      <height>81</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(177, 177, 177);</string>
     </property>
     <property name="text">
      <string/>
