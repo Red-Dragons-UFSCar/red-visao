@@ -7,8 +7,6 @@ from reddragons.estruturas import ModelService
 
 from reddragons.controle import ControleEstrategia
 
-"Commit do treinamento"
-
 def init_app ():
     model = ModelService()
     visao = Processamento(model)
