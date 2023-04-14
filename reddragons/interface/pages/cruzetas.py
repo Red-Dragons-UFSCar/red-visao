@@ -7,10 +7,10 @@ from .cores import GUI_cores
 from ..utils import ui_files
 
 def identificaCruzetas (pts):
-     pts_sorted = sorted(pts, key=lambda x: x[1])
-     inferior_esq = pts_sorted[2]
-     superior_esq, superior_dir = sorted(pts_sorted[:2], key=lambda x: x[0])
-     return [superior_esq, superior_dir, inferior_esq]
+    pts_sorted = sorted(pts, key=lambda x: x[1])
+    inferior_esq = pts_sorted[2]
+    superior_esq, superior_dir = sorted(pts_sorted[:2], key=lambda x: x[0])
+    return [superior_esq, superior_dir, inferior_esq]
 
 class GUI_cruzetas(QMainWindow):
     def __init__(self, app):
@@ -33,6 +33,9 @@ class GUI_cruzetas(QMainWindow):
         self.desenhar()
 
     def finalizar(self):
+        """
+        Finaliza o processo e salva
+        """
         if len(self.selecoes) < 3:
             self.selecoes.append([0,0])
             self.finalizar()
@@ -41,6 +44,10 @@ class GUI_cruzetas(QMainWindow):
         self._next()
 
     def _next (self):
+
+        """
+        Finaliza a parte das cruzetas e inicializa a próxima etapa
+        """
         self.app.push_widget(GUI_cores(self.app))
 
     def mouseReleaseEvent(self, QMouseEvent):
@@ -64,6 +71,9 @@ class GUI_cruzetas(QMainWindow):
             self.desenhar()
 
     def desenhar(self):
+        """
+        Desenha a cruzeta no ponto selecionado
+        """
         img = self.referencia.copy()
 
         for ponto in self.selecoes:

@@ -11,9 +11,15 @@ class Perspectiva():
         self._model = model
 
 
-    # A função calcula pega os pontos definidos para a transformação de perspectiva e realiza as operações matematicas
-    # Os pontos foram definidos em reddragons/interface/pages/perspectivas.py
+    
     def calcula(self):
+        """
+        A função calcula pega os pontos definidos para a transformação de perspectiva e realiza as operações matematicas os pontos foram definidos em reddragons/interface/pages/perspectivas.py
+        
+        Args:
+            self
+        
+        """
         width = self._model.dados.size[0]
         height = self._model.dados.size[1]
 
@@ -24,8 +30,14 @@ class Perspectiva():
 
     @utils.timing#calcula o tempo gasto com a operação
 
-    # Essa função aplica a transformação a imagem
     def run(self, imagem, dest: estruturas.Imagem = None):
+        """
+        Essa função aplica a transformação a imagem
+        
+        Args:
+
+            self, imagem
+        """
         img_processada = cv2.warpPerspective (
             imagem,
             self._model.dados.matriz_warp_perspective,

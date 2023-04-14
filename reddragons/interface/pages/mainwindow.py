@@ -48,7 +48,7 @@ class GUI_video(QMainWindow):
     def _camera_handler(self):
         """Aqui a gente da um jeito de fazer o usuario escolher uma camera
         """
-        self.app.push_widget(GUI_camera(self.callback_diretorio))      
+        self.app.push_widget(GUI_camera(self.app, self.callback_diretorio))      
 
     def _next_handler(self):
         """abre a proxima janela (main) e fecha essa

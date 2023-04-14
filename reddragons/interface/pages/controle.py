@@ -36,7 +36,8 @@ class GUI_controle(QMainWindow):
 
 
     def mudanca(self):
-        """muda os valores baseado no que foi escrito
+        """
+        muda os valores baseado no que foi escrito
         """
         dados_controle = self.visao.sincronizar_controle()
 

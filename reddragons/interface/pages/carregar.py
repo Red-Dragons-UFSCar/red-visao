@@ -15,7 +15,8 @@ class GUI_carregar(QMainWindow):
         self.carregar()
 
     def carregar(self):
-        """Carrega o arquivo selecionado na interface qt por meio do pickle
+        """
+        Carrega o arquivo selecionado na interface qt por meio do pickle
         """
         filename = QFileDialog.getOpenFileName(self, "Open File", filter = "*.red")
         try:

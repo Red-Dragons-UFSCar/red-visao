@@ -25,7 +25,7 @@ def list_ports():
     return available_ports,working_ports
 
 class GUI_camera(QMainWindow):
-    def __init__(self, callback):
+    def __init__(self,  app, callback):
         """Inicia  a interface de seleção de câmera 
 
         Args:
@@ -37,11 +37,14 @@ class GUI_camera(QMainWindow):
         _, wrk_ports = list_ports()
         self.CaixaSelecionar.addItems([f'Dispositivo {i}' for i in wrk_ports])
         self.callback = callback
+        self.app = app
         self._camera = ""
         self.btnCameraOk.clicked.connect(self._ok)
+        self.btnVoltar.clicked.connect(self.app.back)
 
     def _ok (self):
-        """ Seleciona a câmera apartir da interface qt
+        """ 
+        Seleciona a câmera apartir da interface qt
         """
         try:
             self._camera = int(self.CaixaSelecionar.currentText()[-1])

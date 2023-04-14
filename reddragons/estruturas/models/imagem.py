@@ -8,10 +8,14 @@ class Imagem(_Estrutura):
         self.imagem_crop = np.zeros((640, 480, 3))
         self.imagem_hsv = np.zeros((640, 480, 3))
         self.mascaras = None
-        self.centroids = None #imagem centroids[0] = bola
+        self.centroids = None
+        #centroisds [0] bola
+        #centroids [1] = bola
+        #centroids [2] centros dos aliados
+        print('Centroids', self.centroids)
         self.centros = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         #suposicao centros aliados [1][2][3]
-        #/suposica entros aliados [i] = [meiox, meioy, ang]
+        #suposica entros aliados [i] = [meiox, meioy, ang]
         self.adversarios = None
         #suposicao centros adversarios [1][2][3]
         #suposicao centros adversarios [i] = [meiox, meioy, ang]

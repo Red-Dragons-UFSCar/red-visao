@@ -4,10 +4,17 @@ from reddragons import utils
 from reddragons import estruturas
 from copy import deepcopy
 
-# Converte uma imagem de RGB para HSV
+
 class ConverteHSV:
     @utils.timing # Essa linha printa o tempo utilizado no proscessamento
     def run (self, imagem, dest: estruturas.Imagem = None):
+        """
+        Converte uma imagem de RGB para HSV
+        
+        Args:
+            self, imagem, dest
+        
+        """
         img_proc = cv2.cvtColor(
             np.uint8(imagem), cv2.COLOR_RGB2HSV
         )
