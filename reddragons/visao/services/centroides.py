@@ -6,11 +6,14 @@ from reddragons.estruturas import Dados, Imagem
 import cv2
 
 class Centroides:
-    """Classe resposável pro identificar os centroides dos robôs
+    """
+    Classe resposável pro identificar os centroides dos robôs
     """
 
     def __init__(self, model: estruturas.ModelService):
-        """Cria nova instancia de Centroides
+        """
+        Cria nova instancia de Centroides
+        
         Args:
             model (estruturas.ModelService): Dados a serem utilizados
         """

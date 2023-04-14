@@ -41,7 +41,8 @@ class GUI_camera(QMainWindow):
         self.btnCameraOk.clicked.connect(self._ok)
 
     def _ok (self):
-        """ Seleciona a câmera apartir da interface qt
+        """
+        Seleciona a câmera apartir da interface qt
         """
         try:
             self._camera = int(self.CaixaSelecionar.currentText()[-1])
