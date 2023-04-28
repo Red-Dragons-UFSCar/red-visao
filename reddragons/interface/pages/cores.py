@@ -7,6 +7,7 @@ import reddragons.utils as vutils
 import reddragons.interface as ifc
 from .visualizacao import GUI_visualizacao
 from ..utils import ui_files
+from .kmeans import GUI_k_medians
 
 
 class GUI_cores(QMainWindow):

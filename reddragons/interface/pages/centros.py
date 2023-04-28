@@ -39,26 +39,30 @@ class GUI_centro(QMainWindow):
         event.accept()
 
     def getReferencia(self):
-        """ carrega a referência de onde se encontra o centro
+        """
+        carrega a referência de onde se encontra o centro
         """
         self.referencia = self.model.imagem.imagem_crop
         self.centroids = self.model.imagem.centroids
         self.desenhar()
 
     def mudanca(self):
-        """muda o desenho da angulação do robô
+        """
+        muda o desenho da angulação do robô
         """
         self.dados.ang_corr = self.QT_angCorr.value() / 180.0 * math.pi
         self.value_ang.setText("{0:.2f}º".format(self.dados.ang_corr * 180 / math.pi))
         self.getReferencia()
 
     def finalizar(self):
-        """ finaliza as mudanças
+        """
+        finaliza as mudanças
         """
         self.model.dados = self.dados
 
     def desenhar(self):
-        """desenha os centros dos robôs
+        """
+        desenha os centros dos robôs
         """
         centros = vutils.calcula_centros(self.centroids, self.dados.ang_corr)
 

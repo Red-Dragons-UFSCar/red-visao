@@ -5,6 +5,7 @@ from PyQt5.uic import loadUi
 import numpy as np
 from .cores import GUI_cores
 from ..utils import ui_files
+from .kmeans import GUI_k_medians
 
 def identificaCruzetas (pts):
      pts_sorted = sorted(pts, key=lambda x: x[1])
@@ -41,7 +42,7 @@ class GUI_cruzetas(QMainWindow):
         self._next()
 
     def _next (self):
-        self.app.push_widget(GUI_cores(self.app))
+        self.app.push_widget(GUI_k_medians(self.app))
 
     def mouseReleaseEvent(self, QMouseEvent):
         """
