@@ -22,3 +22,4 @@ if __name__ == '__main__':
     window.show()
     print (Logger()._fps_mean)
     sys.exit(app.exec_())
+    #Teste
