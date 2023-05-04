@@ -8,6 +8,10 @@ from reddragons.utils.logger import Logger
 
 class Imagem:
     def __init__(self, src):
+        """ Construtor da classe
+        Args:
+             src (any): fonte a qual provê a captura da imagem
+        """
         self.started = False
         self.thread = None
         self.conseguiu, self.frame = False, None
@@ -15,6 +19,12 @@ class Imagem:
         self.read_lock = threading.Lock()
 
     def alterar_src(self, src):
+        """ Verifica a necessidade de alterar o dispositivo de entrada
+        Args:
+             src (any): fonte a qual provê a captura da imagem
+        Raises:
+            Exception: exceção caso o dispositivo de entradaseja inválido 
+        """
         self.stop()
         if not utils.test_device(src):
             raise Exception (f'Entrada {src} é inválida')
@@ -29,6 +39,8 @@ class Imagem:
         self.iniciar()
 
     def iniciar(self):
+        """ Inicia a captura de imagem caso não tenha sido iniciada
+        """
         if self.started:
             Logger().dado("Captura já iniciada")
             return None
@@ -38,6 +50,8 @@ class Imagem:
         return self
 
     def update(self):
+        """ Atualiza o frame
+        """
         while self.started:
             time.sleep(0.03)
             conseguiu, frame = self.cap.read()
@@ -58,10 +72,18 @@ class Imagem:
         return conseguiu, frame
 
     def stop(self):
+        """ Realiza a parada na captura da imagem
+        """
         if not self.started:
             return
         self.started = False
         self.thread.join()
 
     def __exit__(self, exec_type, exc_value, traceback):
+        """Encerra a execução da camera
+        Args:
+            exec_type (_type_): classe da exceção
+            exc_value (_type_): instância da exceção
+            traceback (_type_): objeto de rastreamento que rastreia a última função chamada na pilha
+        """
         self.cap.release()
