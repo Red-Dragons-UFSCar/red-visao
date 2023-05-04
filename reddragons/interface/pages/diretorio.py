@@ -22,7 +22,7 @@ class GUI_diretorio(QMainWindow):
         self.close()
 
     def _escolher(self):
-        """abre o QFileDialog para a escolha do arquivo
+        """abre o QFileDialog para a escolha do 
         """
         file_dialog = QFileDialog()
         file_dialog.setFileMode(QFileDialog.ExistingFile)
