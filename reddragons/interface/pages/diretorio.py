@@ -17,8 +17,7 @@ class GUI_diretorio(QMainWindow):
         self.btnVoltar.clicked.connect(self.app.back)
 
     def _ok (self):
-        """Confirma o caminho do diretorio do video
-        """
+        
         self._diretorio = self.CaminhoVideo.text()
         self.callback(self._diretorio)
         self.close()
