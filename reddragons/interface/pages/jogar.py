@@ -3,6 +3,7 @@ from email.mime import image
 import math
 from operator import index
 import numpy as np
+from vss_communication import Vision
 
 import cv2
 from PyQt5.QtCore import QTimer
@@ -80,7 +81,7 @@ class GUI_jogar(QMainWindow):
         self.valores_atrasados = [[0,0],[0,0],[0,0]]
 
         self.jogando = False
-        self.objControle = ControleEstrategia(self.mray)
+        #self.objControle = ControleEstrategia(self.mray)
 
         self.maior = 0
         self.diff_Total = [10000,10000,10000]
@@ -97,6 +98,8 @@ class GUI_jogar(QMainWindow):
 
         self.esq_radio.toggled.connect(self.mudancalados)
         self.dir_radio.toggled.connect(self.mudancalados)
+
+        self.protobuff = Vision()
 
     def mudancalados(self):
         """
@@ -283,7 +286,7 @@ class GUI_jogar(QMainWindow):
             Entidades_Aliadas[l].x = XAliado[l]
             Entidades_Aliadas[l].y = YAliado[l]
             a_aux = aAliado[l] + np.pi
-            aAliado[l] = np.arctan2(np.sin(a_aux), np.cos(a_aux))*180/np.pi
+            aAliado[l] = np.arctan2(np.sin(a_aux), np.cos(a_aux))
             Entidades_Aliadas[l].a = aAliado[l]
 
 
@@ -427,7 +430,8 @@ class GUI_jogar(QMainWindow):
         #their_bots = Entidades_Adversarias
 
         #Descomentar quando terminar integracao
-        self.objControle.update(self.estado, self.campo)
+        #self.objControle.update(self.estado, self.campo)
+        self.convertEntidadeProtobuff()
 
         self.looping = threading.Timer(0.02, self.conversao_controle)
         self.looping.start()
@@ -442,3 +446,32 @@ class GUI_jogar(QMainWindow):
     def pararTransmissao(self, event):
         print("Transmissao encerrada")
         self.looping.cancel()
+    
+    def convertEntidadeProtobuff(self):
+        our_bots = []
+        their_bots = []
+        for i in range(3):
+            our_bots.append(dict([ ("robot_id", i), 
+                                   ("x", self.campo["our_bots"][i].x), 
+                                   ("y", self.campo["our_bots"][i].y), 
+                                   ("orientation", self.campo["our_bots"][i].a), 
+                                   ("vx", self.campo["our_bots"][i].vx), 
+                                   ("vy", self.campo["our_bots"][i].vy), 
+                                   ("vorientation", self.campo["our_bots"][i].va) ]))
+            their_bots.append(dict([ ("robot_id", i), 
+                                     ("x", self.campo["their_bots"][i].x), 
+                                     ("y", self.campo["their_bots"][i].y), 
+                                     ("orientation", self.campo["their_bots"][i].a), 
+                                     ("vx", self.campo["their_bots"][i].vx), 
+                                     ("vy", self.campo["their_bots"][i].vy), 
+                                     ("vorientation", self.campo["their_bots"][i].va) ]))
+        ball = dict([ ("x", self.campo["ball"].x), 
+                      ("y", self.campo["ball"].y), 
+                      ("z", 0), 
+                      ("vx", self.campo["ball"].vx), 
+                      ("vy", self.campo["ball"].vy), 
+                      ("vz", 0) ])
+        
+        self.campo_protobuff = dict([ ("ball", ball), ("robots_blue", our_bots), ("robots_yellow", their_bots) ])
+        self.protobuff.send_mensage(self.campo_protobuff)
+        print(self.campo_protobuff)
