@@ -196,15 +196,6 @@ QPushButton:hover{
          </color>
         </brush>
        </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
       </active>
       <inactive>
        <colorrole role="WindowText">
@@ -258,15 +249,6 @@ QPushButton:hover{
           <red>4</red>
           <green>99</green>
           <blue>7</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
          </color>
         </brush>
        </colorrole>
@@ -326,15 +308,6 @@ QPushButton:hover{
          </color>
         </brush>
        </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
       </disabled>
      </palette>
     </property>
@@ -389,7 +362,7 @@ QPushButton:hover{
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>400</x>
       <y>10</y>
       <width>201</width>
       <height>31</height>
@@ -421,7 +394,7 @@ QPushButton:hover{
    <widget class="QRadioButton" name="dir_radio">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>550</x>
       <y>70</y>
       <width>141</width>
       <height>32</height>
@@ -451,7 +424,7 @@ color: #E62E2E;</string>
    <widget class="QRadioButton" name="esq_radio">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>400</x>
       <y>70</y>
       <width>141</width>
       <height>32</height>
@@ -538,15 +511,6 @@ color: #E62E2E;</string>
          </color>
         </brush>
        </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
       </active>
       <inactive>
        <colorrole role="WindowText">
@@ -600,15 +564,6 @@ color: #E62E2E;</string>
           <red>159</red>
           <green>24</green>
           <blue>35</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
          </color>
         </brush>
        </colorrole>
@@ -668,15 +623,6 @@ color: #E62E2E;</string>
          </color>
         </brush>
        </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
       </disabled>
      </palette>
     </property>
@@ -694,6 +640,47 @@ QPushButton:hover{
     </property>
     <property name="text">
      <string>Parar transmissão</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="rGerarGraf">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>60</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
+}
+QPushButton:hover{
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Gerar Gráf</string>
     </property>
    </widget>
   </widget>
