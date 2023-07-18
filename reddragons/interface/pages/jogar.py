@@ -243,7 +243,7 @@ class GUI_jogar(QMainWindow):
         services = centros.Centros(self.model)
 
         #Tratamento de erro da bolinha a fazer
-        if imagem.centroids[0] == []:
+        if len(imagem.centroids[0]) == 0:
             print('Bola perdida, usando último valor')
         else:
             try:

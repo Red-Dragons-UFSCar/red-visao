@@ -1,7 +1,7 @@
 colorama==0.4.3
 future==0.18.2
 iso8601==0.1.12
-numpy==1.18.4
+numpy==1.18.5
 opencv-python==4.2.0.34
 pandas==1.0.4
 PyQt5==5.15.0

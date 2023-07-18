@@ -169,7 +169,7 @@ class Processamento:
             dados_controle = copy.deepcopy(self._model.controle)
         imagem = self._model.imagem
 
-        if imagem.centroids[0] == []:
+        if len(imagem.centroids[0]) == 0:
             Logger().erro("Bola não detectada. Usando última posição")
         else:
             try:
