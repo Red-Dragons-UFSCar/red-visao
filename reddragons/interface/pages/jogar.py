@@ -86,11 +86,13 @@ class GUI_jogar(QMainWindow):
         self.XAliado = []
 
         self.valores_atrasados_bola = [0,0]
+        self.Entidade_bola = [0,0]
         self.Entidades_Aliadas = [[0,0,0],[0,0,0],[0,0,0]]
         self.valores_atrasados_adv = [[0,0],[0,0],[0,0]]
 
         
         self.valores_PB = []
+        self.valores_PB_bola = [0,0]
         self.valores_atuais = []
 
         self.valores_PB_X = []
@@ -98,10 +100,12 @@ class GUI_jogar(QMainWindow):
 
         self.jogando = False
 
+        self.Entidade_bola = Entity_ball
         
         self.Robo0Aliado = Entity_Allie(index = 0)
         self.Robo1Aliado = Entity_Allie(index = 1)
         self.Robo2Aliado = Entity_Allie(index = 2)
+
 
 
         self.Entidades_Aliadas = [self.Robo0Aliado, self.Robo1Aliado, self.Robo2Aliado]
@@ -290,11 +294,21 @@ class GUI_jogar(QMainWindow):
             except IndexError:
                 Logger().erro(str(imagem.centroids[0]))
 
-        Entidade_bola = Entity_ball
-        Entidade_bola.x = alpha*self.valores_atrasados_bola[0] + (1-alpha)*pos_bolax
-        Entidade_bola.vx = 0
-        Entidade_bola.y = alpha*self.valores_atrasados_bola[1] + (1-alpha)*pos_bolay
-        Entidade_bola.vy = 0
+        
+        alpha_bola = 0.7
+
+        if self.valores_PB_bola[0] == 0:
+            self.valores_PB_bola[0] = pos_bolax
+
+        if self.valores_PB_bola[1] == 1:
+            self.valores_PB_bola[1] = pos_bolay
+
+        self.Entidade_bola.x = alpha_bola*self.valores_PB_bola[0] + (1-alpha_bola)*pos_bolax
+        self.valores_PB_bola[0] = alpha_bola*self.valores_PB_bola[0] + (1-alpha_bola)*pos_bolax
+        self.Entidade_bola.vx = 0
+        self.Entidade_bola.y = alpha_bola*self.valores_PB_bola[1] + (1-alpha_bola)*pos_bolay
+        self.valores_PB_bola[1] = alpha_bola*self.valores_PB_bola[1] + (1-alpha_bola)*pos_bolay
+        self.Entidade_bola.vy = 0
 
         XAliado = []
         YAliado = []
@@ -314,12 +328,14 @@ class GUI_jogar(QMainWindow):
 
 
 
+        alpha_angulo = 0.8
+
         for l in range(0,3):
             self.Entidades_Aliadas[l].x = alpha*self.Entidades_Aliadas[l].x + (1-alpha)*XAliado[l]
             self.Entidades_Aliadas[l].y = alpha*self.Entidades_Aliadas[l].y + (1-alpha)*YAliado[l]
             a_aux = aAliado[l] + np.pi
             aAliado[l] = np.arctan2(np.sin(a_aux), np.cos(a_aux))*180/np.pi
-            self.Entidades_Aliadas[l].a = alpha*self.Entidades_Aliadas[l].a + (1-alpha)*aAliado[l]
+            self.Entidades_Aliadas[l].a = alpha_angulo*self.Entidades_Aliadas[l].a + (1-alpha_angulo)*aAliado[l]
 
         """
         self.valores_atuais.append(XAliado[0])
@@ -474,12 +490,12 @@ class GUI_jogar(QMainWindow):
         #    #esquerdo.append(Entidades_Adversarias)
 
         
-        self.valores_PB_X.append(self.Entidades_Aliadas[0].x)
-        self.valores_sPB.append(XAliado[0])
+        #self.valores_PB_X.append(self.valores_PB_bola[0])
+        #self.valores_sPB.append(pos_bolax)
 
         self.estado = self.jogando
 
-        self.campo = dict(ball = Entidade_bola, our_bots = self.Entidades_Aliadas, their_bots = Entidades_Adversarias, Yellow = self.mray) #Ainda está dando erro
+        self.campo = dict(ball = self.Entidade_bola, our_bots = self.Entidades_Aliadas, their_bots = Entidades_Adversarias, Yellow = self.mray) #Ainda está dando erro
         #their_bots = Entidades_Adversarias
         self.XAliado.append(XAliado)
         #Descomentar quando terminar integracao
