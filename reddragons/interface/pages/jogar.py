@@ -337,7 +337,7 @@ class GUI_jogar(QMainWindow):
             aAliado[l] = np.arctan2(np.sin(a_aux), np.cos(a_aux))*180/np.pi
             if aAliado[l] == 0:
                 self.Entidades_Aliadas[l].a = aAliado[l]
-            elif self.Entidades_Aliadas[l].a/abs(aAliado[l])>0:
+            elif self.Entidades_Aliadas[l].a/aAliado[l] > 0:
                 self.Entidades_Aliadas[l].a = alpha_angulo*self.Entidades_Aliadas[l].a + (1-alpha_angulo)*aAliado[l]
             else:
                 self.Entidades_Aliadas[l].a = aAliado[l]
@@ -495,8 +495,8 @@ class GUI_jogar(QMainWindow):
         #    #esquerdo.append(Entidades_Adversarias)
 
         
-        #self.valores_PB_X.append(self.valores_PB_bola[0])
-        #self.valores_sPB.append(pos_bolax)
+        #self.valores_PB_X.append(self.Entidades_Aliadas[0].a)
+        #self.valores_sPB.append(aAliado[0])
 
         self.estado = self.jogando
 
