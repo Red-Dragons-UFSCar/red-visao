@@ -316,7 +316,7 @@ class GUI_jogar(QMainWindow):
                 self.Entidades_Aliadas[l].a = aAliado[l]
             elif self.Entidades_Aliadas[l].a/aAliado[l] > 0:
                 self.Entidades_Aliadas[l].a = alpha_angulo*self.Entidades_Aliadas[l].a + (1-alpha_angulo)*aAliado[l]
-            elif self.Entidades_Aliadas[l].a/aAliado[l] < 0 and (-10 < self.Entidades_Aliadas[l].a < 10 or -10 < aAliado[l] < 10):
+            elif (self.Entidades_Aliadas[l].a/aAliado[l]) < 0 and (-10 < self.Entidades_Aliadas[l].a < 10 or -10 < aAliado[l] < 10):
                 self.Entidades_Aliadas[l].a = alpha_angulo*self.Entidades_Aliadas[l].a + (1-alpha_angulo)*aAliado[l]
             else:
                 self.Entidades_Aliadas[l].a = aAliado[l]
