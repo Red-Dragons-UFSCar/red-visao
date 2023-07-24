@@ -11,6 +11,7 @@ from .visualizacao import GUI_visualizacao
 from .mainwindow import GUI_video
 from .top import VisaoTop
 from .kmeans import GUI_k_medians
+from .juiz import GUI_juiz
 routes = [
     ("carregar", GUI_carregar),
     ("centro", GUI_centro),
@@ -23,7 +24,8 @@ routes = [
     ("perspectiva", GUI_perspectiva),
     ("salvar", GUI_salvar),
     ("visualizacao", GUI_visualizacao),
-    ("video", GUI_video)
+    ("video", GUI_video),
+    ("juiz", GUI_juiz)
 ]
 
 __all__ = [
@@ -39,5 +41,6 @@ __all__ = [
     "GUI_salvar",
     "GUI_visualizacao",
     "GUI_video",
+    "GUI_juiz",
     "VisaoTop"
 ]
