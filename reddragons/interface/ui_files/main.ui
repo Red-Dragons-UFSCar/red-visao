@@ -301,6 +301,25 @@ QPushButton:hover{
        </property>
       </widget>
      </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="QT_btJuiz">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: #9F1823;
+	border-radius:0px;
+}
+QPushButton:hover{
+	color: rgb(255, 255, 255);
+	background-color: #ff0000;
+	border-radius:0px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Juiz</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>

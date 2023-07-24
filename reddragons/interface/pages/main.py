@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 from reddragons.utils import Logger
 
+
 from ..utils import ui_files
 
 
@@ -32,6 +33,7 @@ class GUI_main(QMainWindow):
         self.QT_btcontrole.clicked.connect(self.controle)
         self.QT_jogo.clicked.connect(self.jogar)
         self.QT_voltar.clicked.connect(self.voltar)
+        self.QT_btJuiz.clicked.connect(self.juiz)
         self.QT_btkmedians.clicked.connect(self.k_medians)
         self.show()
 
@@ -39,6 +41,9 @@ class GUI_main(QMainWindow):
 
     def voltar (self):
         self.app.back()
+
+    def juiz(self):
+        self.tela = ifc.GUI_juiz(self.visao, self.model)
 
     def visualizacao(self):
         self.app.push_widget(ifc.GUI_visualizacao(self.app))
