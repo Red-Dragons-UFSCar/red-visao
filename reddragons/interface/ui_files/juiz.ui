@@ -7,21 +7,29 @@
     <x>0</x>
     <y>0</y>
     <width>381</width>
-    <height>595</height>
+    <height>734</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #222433;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QCheckBox" name="QT_btStart">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>50</y>
+      <x>100</x>
+      <y>100</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Start</string>
@@ -30,11 +38,16 @@
    <widget class="QCheckBox" name="QT_btQ1">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>360</y>
+      <x>190</x>
+      <y>410</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Q1</string>
@@ -43,11 +56,16 @@
    <widget class="QCheckBox" name="QT_btQ2">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>360</y>
+      <x>100</x>
+      <y>410</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Q2</string>
@@ -56,8 +74,8 @@
    <widget class="QPushButton" name="QT_btKickOff">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>180</y>
+      <x>60</x>
+      <y>230</y>
       <width>131</width>
       <height>16</height>
      </rect>
@@ -81,11 +99,16 @@ QPushButton:hover{
    <widget class="QCheckBox" name="QT_btBlue">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>280</y>
+      <x>160</x>
+      <y>330</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Blue</string>
@@ -94,8 +117,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="QT_btFreeBall">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>150</y>
+      <x>60</x>
+      <y>200</y>
       <width>131</width>
       <height>16</height>
      </rect>
@@ -119,8 +142,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="QT_btGoalKick">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>150</y>
+      <x>210</x>
+      <y>200</y>
       <width>131</width>
       <height>16</height>
      </rect>
@@ -144,8 +167,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="QT_btPenaltyKick">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>180</y>
+      <x>210</x>
+      <y>230</y>
       <width>131</width>
       <height>16</height>
      </rect>
@@ -169,11 +192,16 @@ QPushButton:hover{
    <widget class="QCheckBox" name="QT_btQ4">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>390</y>
+      <x>190</x>
+      <y>440</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Q4</string>
@@ -182,11 +210,17 @@ QPushButton:hover{
    <widget class="QCheckBox" name="QT_btYellow">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>250</y>
+      <x>160</x>
+      <y>300</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+
+</string>
     </property>
     <property name="text">
      <string>Yellow</string>
@@ -195,11 +229,16 @@ QPushButton:hover{
    <widget class="QCheckBox" name="QT_btStop">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>50</y>
+      <x>250</x>
+      <y>100</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Stop</string>
@@ -208,11 +247,16 @@ QPushButton:hover{
    <widget class="QCheckBox" name="QT_btHalt">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>90</y>
+      <x>170</x>
+      <y>140</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Halt</string>
@@ -221,11 +265,16 @@ QPushButton:hover{
    <widget class="QCheckBox" name="QT_btQ3">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>390</y>
+      <x>100</x>
+      <y>440</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
     </property>
     <property name="text">
      <string>Q3</string>
@@ -234,8 +283,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btPararTransmissao">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>460</y>
+      <x>190</x>
+      <y>510</y>
       <width>141</width>
       <height>50</height>
      </rect>
@@ -431,8 +480,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btJogar">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>460</y>
+      <x>40</x>
+      <y>510</y>
       <width>141</width>
       <height>50</height>
      </rect>
@@ -623,6 +672,69 @@ QPushButton:hover{
     </property>
     <property name="text">
      <string>Iniciar transmissão</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="qt_Label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>20</y>
+      <width>271</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255)</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="qt_UltimaFalta">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>610</y>
+      <width>361</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;
+</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="qt_FaltaAtual">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>660</y>
+      <width>361</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);
+background-color: #9F1823;</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
