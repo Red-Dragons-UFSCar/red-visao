@@ -1,10 +1,11 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import QTimer
 from PyQt5.uic import loadUi
+import threading
 
 from ..utils import ui_files
 
-from vss_communication import Referee
+#from vss_communication import Referee
 
 
 class GUI_juiz(QMainWindow):
@@ -16,6 +17,9 @@ class GUI_juiz(QMainWindow):
         self.model = model
         self.timer = QTimer(self)
         self.timer.start(1)
+
+        self.btPararTransmissao.clicked.connect(self.terminarTransmissao)
+        self.btJogar.clicked.connect(self.iniciarTransmissao)
 
         self.QT_btFreeBall.clicked.connect(lambda: self.mudanca_foul(3))
         self.QT_btPenaltyKick.clicked.connect(lambda: self.mudanca_foul(1))
@@ -37,8 +41,7 @@ class GUI_juiz(QMainWindow):
         self.quadrante = 1
         self.foul = 1
 
-        self.referee = Referee()
-
+        #self.referee = Referee()
         
     def mudanca_quadrante(self,enum):
         self.quadrante = enum
@@ -142,9 +145,20 @@ class GUI_juiz(QMainWindow):
     def cria_dic(self):
         dicionario_faltas = dict([("foul", self.foul), ("teamcolor", self.Color), ("foulQuadrant", self.quadrante), ("timestamp", 0), ("gameHalf", 1)])
         #self.protobuff.send_mensage(self.dicionario_faltas)
-        self.referee.send_mensage(dicionario_faltas)
-        #print(dicionario_faltas)
+        #self.referee.send_mensage(dicionario_faltas)
+        print(dicionario_faltas)
+
+    def iniciarTransmissao(self):
+        self.looping = threading.Timer(0.02, self.iniciarTransmissao)
+        self.cria_dic()
+        self.looping.start()
+
+    def terminarTransmissao(self):
+        self.looping.cancel()
     
     def closeEvent(self,event):
-        self.referee.close_socket()
-        event.accept()
+        try:
+            self.looping.cancel()
+            event.accept()
+        except:
+            event.accept()

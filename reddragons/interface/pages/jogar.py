@@ -3,7 +3,7 @@ from email.mime import image
 import math
 from operator import index
 import numpy as np
-from vss_communication import Vision
+#from vss_communication import Vision
 
 import cv2
 from PyQt5.QtCore import QTimer
@@ -99,7 +99,7 @@ class GUI_jogar(QMainWindow):
         self.esq_radio.toggled.connect(self.mudancalados)
         self.dir_radio.toggled.connect(self.mudancalados)
 
-        self.protobuff = Vision(port=20020)
+        #self.protobuff = Vision(port=20020)
 
     def mudancalados(self):
         """
@@ -440,8 +440,12 @@ class GUI_jogar(QMainWindow):
         self.close()
 
     def closeEvent(self,event):
-        self.looping.cancel()
-        event.accept()
+        try:
+            self.looping.cancel()
+            event.accept()
+        except:
+            event.accept()
+
 
     def pararTransmissao(self, event):
         print("Transmissao encerrada")
@@ -473,5 +477,5 @@ class GUI_jogar(QMainWindow):
                       ("vz", 0) ])
         
         self.campo_protobuff = dict([ ("ball", ball), ("robots_blue", our_bots), ("robots_yellow", their_bots) ])
-        self.protobuff.send_mensage(self.campo_protobuff)
+        #self.protobuff.send_mensage(self.campo_protobuff)
         print(self.campo_protobuff)
