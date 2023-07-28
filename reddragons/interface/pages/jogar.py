@@ -266,7 +266,7 @@ class GUI_jogar(QMainWindow):
 
         services = centros.Centros(self.model)
 
-        if imagem.centroids[0] == []:
+        if len(imagem.centroids[0]) == 0:
             print('Bola perdida, usando último valor')
         else:
             try:
@@ -424,8 +424,11 @@ class GUI_jogar(QMainWindow):
         self.close()
 
     def closeEvent(self,event):
-        self.looping.cancel()
-        event.accept()
+        try:
+            self.looping.cancel()
+            event.accept()
+        except:
+            event.accept()
 
     def pararTransmissao(self, event):
         print("Transmissao encerrada")

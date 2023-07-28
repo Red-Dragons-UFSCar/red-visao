@@ -72,7 +72,7 @@ class Centros():
                         dist = math.hypot(
                             principal[0] - secundario[0], principal[1] - secundario[1]
                         )
-                        if dist < 30 < menor: #30 é a maior distancia aceitavel entre um marcador principal e secundario
+                        if 9 < dist < 25 < menor: #30 é a maior distancia aceitavel entre um marcador principal e secundario
                             menor = dist
                             m_x, m_y, ang = self._centro_robo(principal, secundario)
                             centros[i_sec - 2][0] = m_x
